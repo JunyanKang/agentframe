@@ -1,0 +1,25 @@
+{
+  "name": "agentframe",
+  "version": "0.1.0",
+  "description": "Reusable AI-assisted software engineering framework for coding agents.",
+  "private": false,
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "validate": "node scripts/validate-framework.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JunyanKang/agentframe.git"
+  },
+  "keywords": [
+    "codex",
+    "ai-agents",
+    "software-engineering",
+    "governance",
+    "workflow"
+  ]
+}

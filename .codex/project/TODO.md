@@ -1,0 +1,11 @@
+# Todo
+
+## Structured Task List
+| Priority | Status | Owner | Task | Dependency | Acceptance Criteria |
+| --- | --- | --- | --- | --- | --- |
+| High | In progress | Agent | Publish initial public repository | Validation passes | GitHub repository exists and contains initial commit |
+| Medium | Open | Human | Confirm long-term release cadence | Initial release | Release cadence documented |
+| Low | Open | Human | Decide whether adopter examples are needed | Real adopter feedback | Examples are based on real usage, not invented scenarios |
+
+## Rules
+Do not add tasks without acceptance criteria. Do not bundle unrelated work.
