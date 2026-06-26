@@ -1,6 +1,6 @@
 # AgentFrame
 
-AgentFrame is a reusable software engineering skill set for Codex. It gives Codex installable skills for architecture, planning, specification, implementation, review, testing, refactoring, documentation, project memory, design governance, plugin architecture, API governance, configuration, compatibility, data model governance, and reproducibility.
+AgentFrame is a reusable software engineering skill set for Codex. It gives Codex installable skills for architecture, planning, specification, implementation, review, testing, refactoring, documentation, project memory, design governance, plugin architecture, API governance, configuration, compatibility, data model governance, reproducibility, source-of-truth governance, CI automation, release management, security, dependencies, observability, migrations, and frontend experience quality.
 
 It also includes an optional `.codex/` project governance framework for long-lived repositories. Use the skills first; deploy the framework only when a project needs durable local rules and project memory.
 
@@ -26,7 +26,15 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   skills/agentframe-configuration-manager \
   skills/agentframe-compatibility-manager \
   skills/agentframe-data-model-guardian \
-  skills/agentframe-reproducibility-guardian
+  skills/agentframe-reproducibility-guardian \
+  skills/agentframe-governance-guardian \
+  skills/agentframe-ci-guardian \
+  skills/agentframe-release-manager \
+  skills/agentframe-security-guardian \
+  skills/agentframe-dependency-guardian \
+  skills/agentframe-observability-guardian \
+  skills/agentframe-migration-guardian \
+  skills/agentframe-frontend-experience-guardian
 ```
 
 Restart Codex after installing.
@@ -49,6 +57,14 @@ Direct GitHub skill links:
 - [`agentframe-compatibility-manager`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-compatibility-manager): govern compatibility across versions and environments.
 - [`agentframe-data-model-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-data-model-guardian): govern data structures, schemas, validation, and persistence semantics.
 - [`agentframe-reproducibility-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-reproducibility-guardian): make workflows repeatable, auditable, and debuggable.
+- [`agentframe-governance-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-governance-guardian): protect source-of-truth policy, AGENTS layers, routing, validators, and framework consistency.
+- [`agentframe-ci-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-ci-guardian): design and review CI, workflow automation, trusted handoffs, and validation gates.
+- [`agentframe-release-manager`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-release-manager): plan, validate, publish, and document releases with artifacts and rollback paths.
+- [`agentframe-security-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-security-guardian): review auth, secrets, permissions, sandboxing, input validation, and trust boundaries.
+- [`agentframe-dependency-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-dependency-guardian): govern dependencies, package managers, lockfiles, upgrades, licenses, and supply-chain risk.
+- [`agentframe-observability-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-observability-guardian): design logs, telemetry, diagnostics, error reporting, and supportability evidence.
+- [`agentframe-migration-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-migration-guardian): plan and verify migrations, backfills, upgrades, downgrade behavior, and rollback paths.
+- [`agentframe-frontend-experience-guardian`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-frontend-experience-guardian): review frontend UX states, accessibility, responsive behavior, visual QA, and error recovery.
 
 ## Optional Project Framework
 Copy `.codex/` into a repository when the project needs durable local governance:
@@ -97,7 +113,7 @@ npm run validate
 ```
 
 ## Version
-Current release: 0.4.0.
+Current release: 0.5.0.
 
 ## License
 MIT.

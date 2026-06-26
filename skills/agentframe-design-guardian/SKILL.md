@@ -57,6 +57,36 @@ This skill must not:
 4. Compare violations to approved decision records.
 5. Report blocking issues, acceptable changes, and required ADRs.
 
+## Functional Playbook
+Guard architecture integrity with explicit drift detection.
+- Pre-flight: read root and directory-level guidance, existing architecture docs, dependency rules, and touched files.
+- Build a boundary table: owner, allowed imports, forbidden imports, data ownership, runtime ownership, test ownership.
+- Check for drift: duplicate control planes, circular dependencies, cross-layer imports, hidden data roots, one-off validators, and misplaced tests.
+- Classify issues by release risk and maintenance risk.
+- Recommend the smallest correction that restores the established topology.
+
+## Artifact Schema
+Use this architecture audit shape:
+- `Boundary`: rule or owner being protected.
+- `Observation`: files and code paths inspected.
+- `Drift`: actual violation or risk.
+- `Severity`: blocker, high, medium, low.
+- `Correction`: move, split, contract update, test, or documentation change.
+- `Validation`: import check, guard script, focused test, or manual review.
+
+## Quality Gates
+- Any new root-level command, lifecycle alias, data directory, or process identity must pass source-of-truth review.
+- Any cross-package import must follow existing package boundaries.
+- Any new workflow or automation must identify whether it is business logic or reusable capability.
+- Any exception must be documented with owner, scope, and expiration condition.
+- Stop if a change would normalize a known escape pattern.
+
+## Anti-Patterns
+- Do not copy module-local rules into root governance.
+- Do not create parallel control planes for convenience.
+- Do not accept "temporary" boundary violations without a removal plan.
+- Do not enforce architecture by convention only when a validator can catch it.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

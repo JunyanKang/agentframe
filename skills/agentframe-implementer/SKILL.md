@@ -60,6 +60,35 @@ This skill must not:
 6. Run targeted validation and relevant existing checks.
 7. Report results and stop on failing tests unless explicitly told to continue.
 
+## Functional Playbook
+Implement as a controlled patch sequence with evidence at each boundary.
+- Pre-flight: inspect instructions, current git status, target files, nearby tests, and existing helper APIs.
+- Root-cause before editing: identify why current behavior fails or what extension point already exists.
+- Patch in narrow passes: contracts/types first, behavior second, tests third, docs/release notes last unless docs are the product.
+- Keep edits cohesive; separate mechanical moves from behavior changes whenever feasible.
+- After each meaningful pass, run the narrowest relevant check before broad validation.
+
+## Artifact Schema
+Implementation notes should be reportable in this shape:
+- `Changed`: files and behavior changed.
+- `Existing Pattern Used`: helper, module, route, command, or test convention followed.
+- `Validation`: command, result, and evidence location.
+- `Residual Risk`: what remains untested or requires human review.
+- `Skipped`: relevant files or checks intentionally not changed and why.
+
+## Quality Gates
+- Do not edit generated, vendored, or build output unless that is the requested artifact.
+- Do not add a dependency until native project patterns and installed dependencies are insufficient.
+- Do not change public contracts without updating tests, docs, and compatibility notes.
+- Do not proceed past a failing validation command without understanding whether the failure is pre-existing or introduced.
+- Preserve unrelated user changes in dirty worktrees.
+
+## Anti-Patterns
+- Do not patch symptoms without identifying the failing path.
+- Do not combine large formatting churn with behavioral changes.
+- Do not create one-off helpers when an existing module owns the concern.
+- Do not claim completion from code edits alone; evidence is part of implementation.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

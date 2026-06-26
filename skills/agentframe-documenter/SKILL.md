@@ -59,6 +59,36 @@ This skill must not:
 5. Validate examples when practical.
 6. Mark unknowns explicitly and report gaps.
 
+## Functional Playbook
+Document the operational truth, not a marketing description.
+- Pre-flight: read the implemented behavior, commands, config, examples, and tests before writing docs.
+- Identify audience: installer, maintainer, contributor, API consumer, operator, or end user.
+- Update the nearest authoritative doc first; cross-link instead of restating volatile rules in multiple places.
+- Include runnable examples only when they match current commands and file paths.
+- Treat release notes, migration notes, and troubleshooting as first-class docs when behavior changes.
+
+## Artifact Schema
+Use this documentation output shape:
+- `Audience`: who can act on the doc.
+- `Prerequisites`: tools, versions, credentials, repo state.
+- `Procedure`: exact commands or UI steps.
+- `Expected Result`: files, output, status, or visible state.
+- `Troubleshooting`: known failures and recovery.
+- `Maintenance Note`: source of truth and when to update this doc.
+
+## Quality Gates
+- Do not duplicate a rule that already has an authoritative source; link to it.
+- Every command should be current, scoped, and validated or marked unverified.
+- Every public behavior change should update README, adoption docs, changelog, or API docs as appropriate.
+- New docs must avoid placeholders and invented examples when repository examples exist.
+- If docs mention version, install, release, or external service state, verify it or mark date/context.
+
+## Anti-Patterns
+- Do not document aspirational behavior as shipped behavior.
+- Do not scatter the same install command across multiple docs without source-of-truth guidance.
+- Do not use generic prose where a command, path, or artifact would be clearer.
+- Do not bury breaking changes outside migration notes.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

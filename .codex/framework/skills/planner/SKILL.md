@@ -54,6 +54,36 @@ This skill must not:
 5. Attach acceptance criteria, validation, expected files, and review gates to each task.
 6. Identify decisions or specifications required before implementation.
 
+## Functional Playbook
+Turn intent into executable work with explicit sequencing and risk controls.
+- Pre-flight: identify the accepted design/spec, current git state, touched surfaces, and validation commands.
+- Slice by independently reviewable behavior, not by file type or agent convenience.
+- Order tasks by dependency: discovery, contract update, implementation, tests, docs, release notes, verification.
+- Mark gates where implementation must stop for human input, design approval, schema migration, or compatibility review.
+- Keep each task small enough to complete, validate, and explain without mixing unrelated concerns.
+
+## Artifact Schema
+Use this task card shape for plans that another agent will execute:
+- `Goal`: one observable outcome.
+- `Inputs`: files, decisions, commands, data, or credentials needed.
+- `Steps`: ordered actions with boundaries and expected changed files.
+- `Validation`: exact commands or manual checks and expected evidence.
+- `Risk`: blast radius, rollback path, and stop condition.
+- `Handoff`: next skill or human reviewer and the artifact they need.
+
+## Quality Gates
+- Every task must have a validation path or an explicit reason validation is impossible.
+- Public API, data, config, plugin, or compatibility changes must get a dedicated task, not a sub-bullet hidden under implementation.
+- Do not schedule docs or tests as optional when behavior changes.
+- Plans that cross package boundaries must include dependency and integration checks.
+- Plans that touch release or install surfaces must include clean-state and upgrade-state validation.
+
+## Anti-Patterns
+- Do not create a checklist that repeats the user request without sequencing.
+- Do not split work by arbitrary file count.
+- Do not leave "test later" as a vague final step.
+- Do not include speculative nice-to-have refactors unless they reduce risk for the requested work.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

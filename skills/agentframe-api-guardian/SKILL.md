@@ -56,6 +56,36 @@ This skill must not:
 4. Define migration, deprecation, version, contract test, and documentation requirements.
 5. Block silent breakage or unclear public/private boundaries.
 
+## Functional Playbook
+Protect public and internal API contracts as versioned surfaces.
+- Pre-flight: inventory routes, CLI commands, exported functions, events, DTOs, schemas, status codes, error envelopes, and consumers.
+- Classify each change: additive, compatible behavior change, breaking change, deprecation, or removal.
+- Check request validation, response shape, error semantics, auth/permission behavior, pagination, idempotency, and retry behavior.
+- Require contract tests or consumer tests for changed surfaces.
+- Pair breaking changes with migration notes, compatibility shims, or explicit release approval.
+
+## Artifact Schema
+Use this API review artifact:
+- `Surface`: route, command, event, export, file format, or protocol.
+- `Consumers`: internal modules, external users, plugins, docs, tests.
+- `Change Type`: additive, compatible, breaking, deprecated, removed.
+- `Contract`: input, output, errors, auth, side effects, idempotency.
+- `Compatibility Plan`: version, deprecation timeline, shim, migration.
+- `Validation`: contract tests, generated types, examples, docs.
+
+## Quality Gates
+- Error shape changes are API changes.
+- Default value changes are API changes when users can observe them.
+- New optional fields must not make old clients fail.
+- Removed or renamed fields require migration guidance and tests.
+- Stop if no owner can confirm external compatibility impact.
+
+## Anti-Patterns
+- Do not restate response types by hand when shared contracts exist.
+- Do not invent a new error envelope beside an existing one.
+- Do not document API behavior that tests do not cover.
+- Do not treat internal routes as safe to break if plugins or UI consume them.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

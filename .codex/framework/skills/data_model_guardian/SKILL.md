@@ -53,6 +53,37 @@ This skill must not:
 4. Define validation, migration, test, and documentation requirements.
 5. Block implicit migrations or inconsistent field semantics.
 
+## Functional Playbook
+Protect data models from ambiguous ownership, invalid states, and unsafe migration.
+- Pre-flight: inventory schemas, DB tables, JSON files, DTOs, generated types, validators, fixtures, and serialization boundaries.
+- Identify owner for creation, mutation, validation, persistence, and deletion.
+- Model allowed states and impossible states explicitly.
+- Check migration path for existing data, unknown fields, missing fields, nulls, and malformed records.
+- Require tests for serialization, validation, migration, and consumer compatibility.
+
+## Artifact Schema
+Use this data contract artifact:
+- `Entity`: name, purpose, owner.
+- `Fields`: type, required/optional, default, constraints, semantic meaning.
+- `Lifecycle`: create, read, update, delete, archive, migrate.
+- `Invariants`: constraints that must always hold.
+- `Serialization`: storage format, wire format, versioning, unknown-field handling.
+- `Migration`: from version, to version, data transformation, rollback.
+- `Fixtures`: valid, boundary, malformed, legacy, future-version.
+
+## Quality Gates
+- Every persisted shape change must include migration or explicit no-migration reasoning.
+- Every parser must handle malformed and older data deliberately.
+- Every new field must define default, nullability, and ownership.
+- Derived data must name its source and recomputation rule.
+- Stop if two modules can mutate the same invariant without coordination.
+
+## Anti-Patterns
+- Do not treat TypeScript types as runtime validation.
+- Do not let UI convenience fields become canonical storage fields by accident.
+- Do not overwrite unknown future fields unless the format contract permits it.
+- Do not delete data on failed migration without a recovery path.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

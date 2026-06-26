@@ -56,6 +56,35 @@ This skill must not:
 5. Run tests that prove behavior preservation.
 6. Document risk, rollback, and any untested preservation claim.
 
+## Functional Playbook
+Refactor under a behavior-preservation contract.
+- Pre-flight: identify current behavior, tests, public contracts, generated files, and user-visible outputs before moving code.
+- Establish characterization tests or baseline commands before changing structure when behavior is not already covered.
+- Separate mechanical movement from semantic change; if they must mix, document why.
+- Move ownership toward existing domain boundaries and remove compatibility shims in the same change when the diff stays small.
+- Validate import graph, public exports, and runtime entrypoints after structural changes.
+
+## Artifact Schema
+Use this refactor plan shape:
+- `Invariant`: behavior, API, data format, output, or performance that must not change.
+- `Move Map`: from, to, reason, caller impact.
+- `Compatibility Shim`: added/kept/removed and removal condition.
+- `Validation`: before command, after command, diff or snapshot evidence.
+- `Fallback`: rollback path if behavior diverges.
+
+## Quality Gates
+- No refactor is complete without proving behavior stayed stable or naming the intentional behavior change.
+- Public imports/exports must be checked for downstream consumers.
+- Mechanical renames must not alter semantics, defaults, or error text accidentally.
+- Dead code removal must be backed by search evidence and tests.
+- Stop if the refactor requires design decisions outside the approved scope.
+
+## Anti-Patterns
+- Do not hide feature work inside a refactor.
+- Do not create temporary duplicate ownership without an exit plan.
+- Do not move files just to make the tree look symmetrical.
+- Do not break git history unnecessarily with unrelated formatting churn.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

@@ -56,6 +56,37 @@ This skill must not:
 4. Define tests, migration steps, deprecation timeline, and release notes.
 5. Block unbounded upgrades or undocumented support drops.
 
+## Functional Playbook
+Manage compatibility as a support matrix plus migration path.
+- Pre-flight: inventory supported runtimes, OSes, package versions, schemas, APIs, file formats, plugins, and release channels.
+- Classify compatibility risk: runtime, dependency, platform, data, API, config, plugin, install/upgrade, or documentation.
+- Decide whether the change is backwards compatible, requires a shim, requires migration, or needs a major/versioned release.
+- Test clean install, upgrade from previous release, downgrade/rollback when relevant, and unsupported environment messaging.
+- Record deprecation timelines with removal conditions.
+
+## Artifact Schema
+Use this compatibility matrix:
+- `Surface`: runtime, OS, dependency, API, data, config, plugin, installer.
+- `Current Support`: versions and platforms.
+- `Change`: what support is added, changed, deprecated, or removed.
+- `Impact`: users/projects affected and detection method.
+- `Migration`: steps, shim, codemod, data migration, or manual action.
+- `Validation`: environments, commands, fixtures, and expected result.
+- `Release Note`: required wording for breaking or deprecating changes.
+
+## Quality Gates
+- Version bumps must match the actual compatibility impact.
+- Runtime or package floor changes require install docs and CI/validation updates.
+- Data/schema changes require migration and rollback consideration.
+- Deprecated behavior must remain discoverable until removal.
+- Stop if compatibility cannot be tested or clearly bounded.
+
+## Anti-Patterns
+- Do not call a breaking change "cleanup".
+- Do not remove legacy parsing without fixture evidence.
+- Do not rely on current developer machine state as compatibility proof.
+- Do not let release channels share confusing identity or install paths.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

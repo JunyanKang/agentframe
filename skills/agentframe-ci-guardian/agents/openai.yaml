@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame CI Guardian"
+  short_description: "Design and review CI, GitHub Actions, validation gates, trusted automation, and handoff artifacts"
+  default_prompt: "Use $agentframe-ci-guardian. First inspect repository instructions, source-of-truth files, and affected validation surfaces. Produce the required governance or engineering artifact with explicit gates and evidence. Do not change unrelated files or bypass human-review requirements. Hand off or Stop when this surface is blocked or complete."
+
+policy:
+  allow_implicit_invocation: true

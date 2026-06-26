@@ -16,6 +16,37 @@
 ### Migration Notes
 - None.
 
+## 0.5.0 - 2026-06-27
+### Added
+- Full reference audit documentation in `docs/REFERENCE_SKILL_AUDIT.md`, covering 598 reference `SKILL.md` files, 30 command workflows, 17 `AGENTS.md` files, and 246 validation-related files from the compared repositories.
+- New first-class installable and framework-local AgentFrame skills:
+  - `agentframe-governance-guardian`
+  - `agentframe-ci-guardian`
+  - `agentframe-release-manager`
+  - `agentframe-security-guardian`
+  - `agentframe-dependency-guardian`
+  - `agentframe-observability-guardian`
+  - `agentframe-migration-guardian`
+  - `agentframe-frontend-experience-guardian`
+
+### Changed
+- Existing AgentFrame skills now include role-specific functional playbooks, artifact schemas, quality gates, and anti-pattern sections.
+- Skill routing now treats governance, CI, release, security, dependency, observability, migration, and frontend experience as independent engineering surfaces.
+- README and adoption docs now list all 24 installable skills.
+- Validation now checks 24 synchronized installable/framework-local skill pairs.
+
+### Fixed
+- AgentFrame is no longer implicitly constrained to the original 16 skills when the engineering surface requires additional independent ownership.
+
+### Validation
+- Run `npm run validate` after pulling this release.
+- Run Codex skill validation for installed skill folders when updating a local Codex skills installation.
+
+### Migration Notes
+- Existing adopters can keep using the original 16 skills; the 8 new skills are additive.
+- Reinstall or update skills from GitHub to receive the expanded 24-skill suite.
+- Projects with customized `.codex/framework/SKILL_ROUTING.md` should merge the new routing rows and workflow orders manually.
+
 ## 0.4.0 - 2026-06-26
 ### Added
 - Root `AGENTS.md` routing file for future agents.

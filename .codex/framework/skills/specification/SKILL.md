@@ -53,6 +53,37 @@ This skill must not:
 5. Define test requirements, documentation requirements, acceptance criteria, and rollback.
 6. Stop if required behavior cannot be specified safely.
 
+## Functional Playbook
+Write implementation requirements as a contract between design, code, tests, and review.
+- Pre-flight: inspect current behavior, related tests, docs, commands, schemas, and user-facing language.
+- Define in-scope and out-of-scope behavior before describing changes.
+- Convert ambiguous requests into observable acceptance criteria and negative cases.
+- Enumerate states: empty, loading, success, error, retry, permission denied, partial data, and migration/legacy data when relevant.
+- Tie every requirement to a validation method: automated test, static check, fixture, manual check, or documented limitation.
+
+## Artifact Schema
+Use this specification artifact when the change needs requirements:
+- `Problem`: current behavior and desired user/developer outcome.
+- `Scope`: included surfaces, excluded surfaces, and non-goals.
+- `Behavior`: happy path, alternate paths, error paths, state transitions, concurrency or retry rules.
+- `Contracts`: APIs, config, data schemas, CLI flags, files, events, or plugin hooks.
+- `Acceptance Criteria`: numbered, testable statements with evidence required.
+- `Migration/Rollback`: compatibility obligations and recovery path.
+- `Open Questions`: only questions that block safe implementation.
+
+## Quality Gates
+- Each acceptance criterion must be falsifiable.
+- Each new or changed contract must name its owner and consumer.
+- Error handling must preserve user data or explain why preservation is impossible.
+- Legacy, empty, and malformed inputs must be covered when persistence or parsing changes.
+- Stop if the spec would force implementation before core behavior is agreed.
+
+## Anti-Patterns
+- Do not write prose that cannot be tested.
+- Do not omit non-goals; unclear exclusions become scope creep.
+- Do not bury breaking changes in acceptance criteria without migration notes.
+- Do not use UI, API, or data terminology inconsistently across the same spec.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

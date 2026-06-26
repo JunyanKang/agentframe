@@ -56,6 +56,36 @@ This skill must not:
 4. Specify documentation and independent plugin test requirements.
 5. Reject hard-coded branches or private-internal dependencies.
 
+## Functional Playbook
+Design plugins as portable contracts with isolated capabilities.
+- Pre-flight: inspect existing plugin manifests, skill body conventions, runtime loader, validation scripts, and example plugins.
+- Separate portable skill content from host-specific metadata.
+- Define capability boundaries: tools, scripts, assets, references, MCP servers, connectors, permissions, and environment variables.
+- Specify lifecycle: discovery, install, validation, invocation, update, deprecation, and removal.
+- Keep long reference material in references and make SKILL.md the routing surface.
+
+## Artifact Schema
+Use this plugin design contract:
+- `Manifest`: id, name, version, description, capabilities, entrypoints, permissions.
+- `Skill Surface`: trigger-rich description, workflow, output contract, resource map, validation commands.
+- `Isolation`: what the plugin may read/write/run and what it must not import.
+- `Assets/References`: relative paths, size constraints, and when to load them.
+- `Validation`: schema check, relative reference check, runnable smoke, install/uninstall test.
+- `Compatibility`: host versions, migration notes, deprecation policy.
+
+## Quality Gates
+- Plugin examples must be portable and not depend on app-private source code.
+- Relative references must resolve inside the plugin or skill folder unless the host contract explicitly allows otherwise.
+- Host-specific display metadata belongs in manifest fields, not portable skill prose.
+- Runtime code paths need permissions and failure handling, not just instructions.
+- Stop if install, validation, and update paths cannot be explained independently.
+
+## Anti-Patterns
+- Do not vendor large upstream projects when a stub plus attribution is the intended catalog pattern.
+- Do not mix product runtime logic into plugin content.
+- Do not expose scripts without prerequisites and failure handling.
+- Do not let plugin names, manifest ids, and folder names drift without a compatibility reason.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

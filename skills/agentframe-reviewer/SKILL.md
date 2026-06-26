@@ -59,6 +59,35 @@ This skill must not:
 5. Report findings with impact and concrete fix direction.
 6. If no findings, say so and name remaining test gaps or residual risk.
 
+## Functional Playbook
+Review like a release gate: findings first, evidence-backed, ordered by severity.
+- Pre-flight: inspect the diff, relevant baseline files, tests, docs, and runtime contracts before judging.
+- Pass 1: correctness, data loss, security, compatibility, and release blockers.
+- Pass 2: test gaps, edge cases, error handling, migration, observability, and rollback.
+- Pass 3: maintainability, ownership boundaries, naming, docs, and developer ergonomics.
+- For each issue, cite the file/line and explain the concrete failure mode, not a preference.
+
+## Artifact Schema
+Findings must use this shape:
+- `Severity`: P0 release blocker, P1 high risk, P2 medium, P3 polish.
+- `Location`: exact file and tight line range when possible.
+- `Problem`: what breaks, for whom, and under what condition.
+- `Evidence`: code path, missing test, violated contract, or reproducible command.
+- `Fix Direction`: concise remedy without rewriting the whole patch unless asked.
+
+## Quality Gates
+- At least one pass must look for omitted states: empty, loading, error, retry, denied, partial, stale, and legacy.
+- Public API/data/config changes require compatibility and migration review.
+- Tests are insufficient if they only cover the happy path for changed behavior.
+- A clean review must still state residual risk and checks not run.
+- Stop if the diff cannot be understood because required context is missing.
+
+## Anti-Patterns
+- Do not lead with a summary before findings when issues exist.
+- Do not report stylistic preferences as bugs.
+- Do not ask for broad rewrites when a targeted fix addresses the risk.
+- Do not approve because tests pass if the changed contract is untested.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

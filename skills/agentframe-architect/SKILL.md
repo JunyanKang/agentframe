@@ -60,6 +60,36 @@ This skill must not:
 5. Document risks, tradeoffs, open questions, and required decision records.
 6. Stop before implementation and hand off to planning or specification.
 
+## Functional Playbook
+Run the architecture work as a gated design review, not as advice.
+- Pre-flight: list affected packages, entrypoints, persistence stores, APIs, jobs, queues, and external integrations before proposing a shape.
+- Boundary pass: assign each responsibility to exactly one owner and name what must remain outside that owner.
+- Flow pass: describe request/event/data flow from trigger to durable effect, including retries, cancellation, and error propagation when relevant.
+- Option pass: compare at least two viable designs when the change is cross-cutting; include the option rejected and the reason.
+- Decision pass: state whether an ADR, migration plan, compatibility review, or human approval is required before implementation.
+
+## Artifact Schema
+Produce architecture output in this shape when the user needs a design artifact:
+- `Context`: repository facts inspected, existing constraints, and unknowns.
+- `Boundary Map`: module/package/service, owns, does not own, allowed dependencies, forbidden dependencies.
+- `Flow Contract`: trigger, inputs, validations, side effects, outputs, failure paths, observability.
+- `Interface Sketch`: public functions, commands, routes, config keys, data contracts, or plugin hooks without implementation code.
+- `Tradeoff Table`: option, benefits, costs, risks, compatibility impact, selected/rejected.
+- `Decision Record`: status, decision, consequences, follow-up owner, review date when applicable.
+
+## Quality Gates
+- No new boundary may be introduced without a named owner and dependency direction.
+- Every new public surface must have compatibility, test, and documentation obligations named.
+- Every cross-layer call must be justified by an existing pattern or an explicit exception.
+- Every persistence or data-flow change must identify migration, rollback, and reproducibility impact.
+- Stop if the design depends on facts not found in the repository and the assumption would affect public behavior.
+
+## Anti-Patterns
+- Do not propose an abstraction only because multiple files might one day need it.
+- Do not hide architectural risk inside implementation tasks.
+- Do not merge security, persistence, UI, runtime, and release concerns into one owner unless the repository already does so.
+- Do not treat a diagram as sufficient without dependency rules and failure paths.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

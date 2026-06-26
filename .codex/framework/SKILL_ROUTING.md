@@ -15,7 +15,7 @@ Applies to installable skills under `skills/agentframe-*` and framework-local re
 ## Required Workflow
 1. Inspect the user request, repository instructions, and affected files.
 2. Identify the primary work type using the matrix below.
-3. Add guardian skills only for affected API, configuration, data, compatibility, plugin, design, or reproducibility surfaces.
+3. Add guardian skills only for affected API, configuration, data, compatibility, plugin, design, reproducibility, governance, CI, release, security, dependency, observability, migration, or frontend experience surfaces.
 4. Follow the common workflow order for multi-step work.
 5. Report invoked skills, skipped skills, stop conditions, and human-review items.
 
@@ -60,6 +60,14 @@ Applies to installable skills under `skills/agentframe-*` and framework-local re
 | compatibility_manager | Runtime, OS, dependency, file format, serialization, API, config, plugin, or migration compatibility changed | No compatibility surface changed | Compatibility and migration assessment |
 | data_model_guardian | Data structures, schemas, validation, serialization, persistence, ownership, mutation, metadata, or migrations changed | No data representation changed | Data model impact and migration plan |
 | reproducibility_guardian | Workflow outputs need repeatability, provenance, seed, env, parameter, command, or validation capture | No output or audit risk exists | Reproducibility requirements |
+| governance_guardian | `AGENTS.md`, `.codex/`, routing, source-of-truth policy, validators, or framework consistency changes | Ordinary feature work with no governance surface | Governance source-of-truth and drift report |
+| ci_guardian | CI workflows, GitHub Actions, guard scripts, bot comments, trusted/untrusted automation, required checks, or workflow artifacts change | Local-only tests with no CI topology impact | CI topology and trust-boundary contract |
+| release_manager | Versions, changelog, tags, release notes, packages, installers, artifacts, GitHub releases, or update channels change | Implementation has no publication or release impact | Release readiness and publication plan |
+| security_guardian | Auth, secrets, permissions, sandboxing, shell execution, webhooks, sensitive data, or trust boundaries change | No security-sensitive surface changed | Security risk and control assessment |
+| dependency_guardian | Dependencies, package managers, lockfiles, runtime floors, vendored code, licenses, or vulnerability fixes change | Existing dependencies are only used, not changed | Dependency decision and validation plan |
+| observability_guardian | Logs, telemetry, metrics, traces, diagnostics, error reporting, health checks, support bundles, or run metadata change | No operational diagnostic surface changed | Observability contract and diagnostic plan |
+| migration_guardian | Data/config/API/repository/runtime migrations, backfills, cache invalidation, deprecations, upgrade, downgrade, or rollback paths change | Clean-install-only behavior with no old-state impact | Migration and rollback plan |
+| frontend_experience_guardian | UI screens, frontend flows, forms, dashboards, charts, visual artifacts, accessibility, responsive behavior, or user-facing error recovery change | Backend-only changes with no user-facing surface | Frontend state, accessibility, and visual QA plan |
 
 ## Common Workflow Orders
 - New feature or behavior change: architect when design is affected -> planner -> specification -> relevant guardian skills -> implementer -> tester -> reviewer -> documenter -> project_memory.
@@ -70,18 +78,33 @@ Applies to installable skills under `skills/agentframe-*` and framework-local re
 - Data model change: data_model_guardian -> compatibility_manager if persisted data changes -> specification -> implementer -> tester -> documenter -> reviewer.
 - Plugin change: plugin_architect -> api_guardian for public plugin contracts -> compatibility_manager -> specification -> implementer -> tester -> reviewer -> documenter.
 - Reproducible workflow change: reproducibility_guardian -> configuration_manager when parameters change -> specification -> implementer -> tester -> documenter -> reviewer.
+- Governance/framework change: governance_guardian -> specification when policy behavior changes -> implementer -> tester -> reviewer -> documenter -> project_memory.
+- CI or automation change: ci_guardian -> security_guardian when secrets or trusted contexts are involved -> tester -> reviewer -> documenter.
+- Release or packaging change: release_manager -> compatibility_manager and migration_guardian when upgrade behavior changes -> tester -> reviewer -> documenter -> project_memory.
+- Security-sensitive change: security_guardian -> specification -> implementer -> tester -> reviewer -> documenter.
+- Dependency change: dependency_guardian -> compatibility_manager when runtime or platform support changes -> implementer -> tester -> reviewer -> documenter.
+- Frontend/user-facing change: frontend_experience_guardian -> specification when behavior is non-trivial -> implementer -> tester -> reviewer -> documenter.
+- Migration change: migration_guardian -> data_model_guardian, configuration_manager, api_guardian, or compatibility_manager for affected surfaces -> specification -> implementer -> tester -> reviewer -> documenter.
+- Observability change: observability_guardian -> security_guardian when logs or telemetry may expose sensitive data -> implementer -> tester -> reviewer -> documenter.
 
 ## Co-Invocation Rules
 - Use guardian skills only for affected surfaces; do not invoke every guardian by default.
 - Use tester with implementer for any non-trivial logic, parser, branch, compatibility, or migration change.
 - Use documenter when user-facing behavior, developer workflow, config, API, migration, release, or validation commands changed.
 - Use project_memory after decisions, risks, roadmap, architecture, public API, compatibility, or next actions changed.
+- Use governance_guardian whenever skills, framework-local copies, routing, validators, or source-of-truth files change.
+- Use ci_guardian before modifying trusted workflow permissions, PR automation, or required status checks.
+- Use release_manager before publishing tags, releases, installers, packages, or public artifacts.
+- Use security_guardian whenever secrets, sandboxing, permissions, auth, or trusted/untrusted execution boundaries change.
+- Use dependency_guardian before adding, upgrading, removing, or vendoring dependencies.
+- Use frontend_experience_guardian for UI work that needs state coverage, accessibility, responsive, or visual QA evidence.
 
 ## Stop Conditions
 - Required files or instructions cannot be read.
 - Existing content would need deletion, rename, or overwrite without approval.
 - A public API, compatibility, data, or config change lacks migration policy.
 - Architecture drift is found without an approved decision record.
+- A governance, CI, release, security, dependency, observability, migration, or frontend-quality gate is required but has no owner.
 - Tests fail and the user did not ask to continue past failure.
 
 ## Human Review Gates
@@ -90,6 +113,12 @@ Applies to installable skills under `skills/agentframe-*` and framework-local re
 - Compatibility drops or dependency support changes.
 - Data or configuration migrations.
 - Plugin contract changes.
+- Governance source-of-truth conflicts.
+- CI trusted workflow or secret-use changes.
+- Security-sensitive permission broadening.
+- Dependency/runtime support changes.
+- Release publication and artifact overwrite decisions.
+- Frontend changes that cannot be visually or accessibly validated.
 - Intentional drift between installable and framework-local skill copies.
 
 ## Generic Examples
@@ -97,6 +126,10 @@ Applies to installable skills under `skills/agentframe-*` and framework-local re
 - A public function return shape changes: use api_guardian, compatibility_manager, specification, tester, documenter, reviewer.
 - A module split changes dependency direction: use architect, design_guardian, planner, specification, reviewer.
 - A generated output must be reproducible: use reproducibility_guardian, tester, documenter, reviewer.
+- A GitHub Actions workflow writes PR comments from artifacts: use ci_guardian, security_guardian, tester, reviewer, documenter.
+- A release tag and GitHub Release need publication: use release_manager, compatibility_manager, tester, documenter, reviewer.
+- A new frontend form is added: use frontend_experience_guardian, specification, implementer, tester, reviewer, documenter.
+- A dependency upgrade raises the Node floor: use dependency_guardian, compatibility_manager, tester, documenter, release_manager when published.
 
 ## Failure Modes
 - Skill chosen because it is familiar rather than because it owns the surface.

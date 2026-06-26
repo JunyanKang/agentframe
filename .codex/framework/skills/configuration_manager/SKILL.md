@@ -51,6 +51,38 @@ This skill must not:
 4. Define invalid-configuration behavior and compatibility impact.
 5. Update documentation, examples, tests, and migration notes.
 
+## Functional Playbook
+Manage configuration as a typed, documented, precedence-aware contract.
+- Pre-flight: inventory env vars, config files, CLI flags, defaults, secrets, runtime overrides, and docs.
+- Define precedence from lowest to highest and identify which layer owns resolution.
+- Validate types, ranges, enums, paths, credentials presence, and incompatible combinations at the boundary.
+- Separate secrets from non-secret config and avoid logging secret values.
+- Include migration and fallback behavior for renamed or deprecated config.
+
+## Artifact Schema
+Use this config catalog shape:
+- `Key`: name and aliases.
+- `Owner`: module or package that resolves it.
+- `Type/Allowed Values`: boolean, enum, path, URL, number, JSON, secret.
+- `Default`: value or explicit none.
+- `Precedence`: file, env, flag, runtime, user setting.
+- `Validation`: error message, test, and docs location.
+- `Security`: secret handling and redaction rule.
+- `Migration`: deprecated key, replacement, removal version.
+
+## Quality Gates
+- Every new config key needs docs, validation, and tests for invalid values.
+- Config path decisions must not create a second source of truth for runtime data.
+- Secrets must never be committed, echoed, or written into generated docs.
+- Deprecated config must continue to behave predictably until removal.
+- Stop if config precedence is ambiguous across modules.
+
+## Anti-Patterns
+- Do not read environment variables deep inside business logic when a resolver owns config.
+- Do not silently fall back after invalid explicit user input.
+- Do not mix cache roots, data roots, log roots, and install roots.
+- Do not introduce local-only examples as general documentation.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

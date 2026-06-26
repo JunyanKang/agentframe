@@ -58,6 +58,36 @@ This skill must not:
 5. Link state to relevant files or decisions when useful.
 6. Stop after recording state unless a new explicit task exists.
 
+## Functional Playbook
+Maintain project memory as a decision ledger and context index, not a diary.
+- Pre-flight: identify accepted decisions, durable commands, source-of-truth files, validation evidence, and unresolved questions.
+- Store only information that helps a future agent avoid rediscovery or avoid repeating a mistake.
+- Separate facts, decisions, assumptions, and stale risks.
+- Link memory entries to exact files, commands, commits, release tags, or issue references when available.
+- Prune or supersede obsolete notes rather than layering contradictory guidance.
+
+## Artifact Schema
+Use this memory entry shape:
+- `Topic`: stable name and repository path.
+- `Decision`: accepted rule or outcome.
+- `Evidence`: file path, command, commit, test, release, or user instruction.
+- `How To Reuse`: when a future agent should consult it.
+- `Staleness Risk`: low, medium, high, with refresh trigger.
+- `Supersedes`: older note or conflicting guidance if applicable.
+
+## Quality Gates
+- Memory must not replace source-of-truth docs for active project rules.
+- Do not store secrets, private tokens, or volatile local absolute paths unless the path itself is the durable context.
+- Every memory update should name why the information will matter later.
+- Conflicting memories require reconciliation or an explicit latest-authoritative marker.
+- Stop if the user did not authorize memory edits and repository docs are the right place instead.
+
+## Anti-Patterns
+- Do not summarize every action taken in a session.
+- Do not record unverified guesses as facts.
+- Do not keep stale command output without date or commit context.
+- Do not use memory to hide missing documentation.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

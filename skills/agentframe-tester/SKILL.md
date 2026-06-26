@@ -59,6 +59,36 @@ This skill must not:
 6. Run targeted tests and relevant existing checks.
 7. Record untested risks explicitly.
 
+## Functional Playbook
+Design tests from risk, contracts, and user-observable behavior.
+- Pre-flight: inspect changed code, existing test style, fixtures, commands, and CI lanes.
+- Build a test matrix by surface: unit, integration, contract, CLI/API, migration, accessibility/UI, performance, and reproducibility when applicable.
+- For each behavior, test happy path, boundary values, malformed input, permission/auth, transient failure, and retry/rollback where relevant.
+- Prefer deterministic fixtures and local fakes over network or timing-dependent tests.
+- Keep test names and assertions tied to the contract, not implementation trivia.
+
+## Artifact Schema
+Use this test plan shape:
+- `Behavior Under Test`: observable contract.
+- `Risk Covered`: correctness, data loss, security, compatibility, regression, or performance.
+- `Setup`: fixtures, mocks, environment variables, data files, or services.
+- `Cases`: happy, boundary, negative, error recovery, legacy/migration.
+- `Command`: exact validation command.
+- `Expected Evidence`: pass output, snapshot, artifact, report, or measured threshold.
+
+## Quality Gates
+- Every changed public contract needs at least one regression test or an explicit limitation.
+- Every parser/schema/config change needs malformed input coverage.
+- Every stateful workflow needs failure and recovery coverage.
+- UI or visual output changes need a rendered/manual verification path when automation is unavailable.
+- Do not accept flaky timing sleeps when deterministic synchronization is available.
+
+## Anti-Patterns
+- Do not add tests that only assert implementation details unrelated to behavior.
+- Do not remove or weaken tests to make a patch pass.
+- Do not rely on production services for routine validation.
+- Do not leave snapshots unexplained when they encode important behavior.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.

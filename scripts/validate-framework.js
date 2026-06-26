@@ -21,6 +21,14 @@ const skillMap = {
   compatibility_manager: 'agentframe-compatibility-manager',
   data_model_guardian: 'agentframe-data-model-guardian',
   reproducibility_guardian: 'agentframe-reproducibility-guardian',
+  governance_guardian: 'agentframe-governance-guardian',
+  ci_guardian: 'agentframe-ci-guardian',
+  release_manager: 'agentframe-release-manager',
+  security_guardian: 'agentframe-security-guardian',
+  dependency_guardian: 'agentframe-dependency-guardian',
+  observability_guardian: 'agentframe-observability-guardian',
+  migration_guardian: 'agentframe-migration-guardian',
+  frontend_experience_guardian: 'agentframe-frontend-experience-guardian',
 };
 
 const frameworkHeadings = ['Purpose','Scope','Rules','Required Workflow','Inputs','Outputs','Decision Criteria','Failure Modes','Human Review Requirements','Maintenance Instructions'];

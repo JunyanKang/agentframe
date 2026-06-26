@@ -36,7 +36,15 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   skills/agentframe-configuration-manager \
   skills/agentframe-compatibility-manager \
   skills/agentframe-data-model-guardian \
-  skills/agentframe-reproducibility-guardian
+  skills/agentframe-reproducibility-guardian \
+  skills/agentframe-governance-guardian \
+  skills/agentframe-ci-guardian \
+  skills/agentframe-release-manager \
+  skills/agentframe-security-guardian \
+  skills/agentframe-dependency-guardian \
+  skills/agentframe-observability-guardian \
+  skills/agentframe-migration-guardian \
+  skills/agentframe-frontend-experience-guardian
 ```
 
 ## When To Copy `.codex/`

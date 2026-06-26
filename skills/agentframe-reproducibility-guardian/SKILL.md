@@ -57,6 +57,37 @@ This skill must not:
 4. Specify output validation and result versioning where applicable.
 5. Document known non-repeatability and when stronger controls are needed.
 
+## Functional Playbook
+Make results rerunnable, inspectable, and attributable.
+- Pre-flight: inventory commands, inputs, parameters, environment, dependencies, random seeds, external services, cache paths, and generated artifacts.
+- Capture provenance: source commit, command line, config, data checksums, tool versions, timestamps, and output paths.
+- Distinguish deterministic outputs from expected nondeterminism and define acceptable variance.
+- Ensure generated artifacts can be regenerated or are clearly marked as release assets.
+- Validate rerun from a clean or isolated state when feasible.
+
+## Artifact Schema
+Use this reproducibility manifest:
+- `Run`: date, operator/agent, repo commit, branch, dirty state.
+- `Inputs`: files, datasets, URLs, versions, checksums, credentials presence without secret values.
+- `Environment`: OS, runtime versions, package manager, dependency lockfile, key env vars redacted.
+- `Command`: exact commands and working directory.
+- `Parameters`: flags, config, seeds, thresholds.
+- `Outputs`: files, hashes, logs, reports, release artifacts.
+- `Validation`: rerun command, comparison method, tolerated variance.
+
+## Quality Gates
+- Any published artifact must have provenance or a documented reason it cannot.
+- Any pipeline change must state whether old outputs are invalidated.
+- Any external API or live data source must record retrieval date and query.
+- Randomized or generated outputs must use seeds or acceptance criteria.
+- Stop if results depend on unrecorded local state that cannot be reconstructed.
+
+## Anti-Patterns
+- Do not commit generated outputs without source command or provenance.
+- Do not call a rerun reproducible if it reuses hidden caches or stale intermediates unknowingly.
+- Do not expose secrets in manifests or logs.
+- Do not compare outputs only by existence when content fidelity matters.
+
 ## Constraints
 - Keep the output actionable and bounded.
 - Do not invent project facts.
