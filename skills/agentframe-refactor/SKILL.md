@@ -23,12 +23,13 @@ Reduce internal complexity while preserving observable behavior.
 - Report reason, files changed, behavior preservation, tests run, complexity reduction, duplication removed, risk assessment, and rollback plan.
 
 ## Explicit Non-Responsibilities
-- Adding features.
-- Changing behavior.
-- Changing public APIs.
-- Changing persistence format.
-- Modifying unrelated modules.
-- Hiding behavior changes as cleanup.
+This skill must not:
+- add features.
+- change external behavior.
+- change public APIs.
+- change persistence format.
+- modify unrelated modules.
+- hide behavior changes as cleanup.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -54,7 +55,7 @@ Reduce internal complexity while preserving observable behavior.
 
 ## Step-By-Step Workflow
 1. Inspect existing behavior, tests, callers, and public contracts.
-2. Define the behavior that must not change.
+2. Define behavior that must not change.
 3. Choose the smallest structural improvement.
 4. Make focused internal changes only.
 5. Run tests that prove behavior preservation.
@@ -66,14 +67,12 @@ Reduce internal complexity while preserving observable behavior.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Feature additions.
-- Behavior changes.
-- Public API changes.
-- Persistence or configuration semantic changes.
-- Unrelated cleanup.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not add features.
+- Do not change public APIs, persistence, config semantics, or data model semantics.
+- Do not perform unrelated cleanup.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -81,11 +80,10 @@ Reduce internal complexity while preserving observable behavior.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-tester to prove behavior preservation.
+- Handoff to agentframe-reviewer after the refactor diff is ready.
+- Handoff to agentframe-design-guardian when the refactor changes module boundaries or dependency direction.
+- Handoff to agentframe-project-memory when technical debt, architecture notes, or risks changed.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -94,12 +92,14 @@ Reduce internal complexity while preserving observable behavior.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-implementer only if a separate approved implementation task follows.
+- Coordinate with agentframe-compatibility-manager when preserved behavior includes compatibility guarantees.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

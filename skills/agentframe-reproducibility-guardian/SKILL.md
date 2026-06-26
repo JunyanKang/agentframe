@@ -22,12 +22,13 @@ Make important workflows repeatable and auditable.
 - Enforce deterministic behavior where possible, explicit seed handling, dependency capture, environment capture, parameter capture, input/output traceability, logging, provenance, command recording, output validation, and result versioning where applicable.
 
 ## Explicit Non-Responsibilities
-- Hidden randomness.
-- Undocumented parameters.
-- Outputs without required provenance.
-- Environment-dependent behavior without documentation.
-- Non-repeatable workflows without warning.
-- Silent fallback behavior that changes results.
+This skill must not:
+- allow hidden randomness.
+- allow undocumented parameters.
+- allow required outputs without provenance.
+- allow undocumented environment-dependent behavior.
+- allow non-repeatable workflows without warning.
+- allow silent fallback behavior that changes results.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -38,7 +39,7 @@ Make important workflows repeatable and auditable.
 ## Required Outputs
 - Reproducibility requirements.
 - Required provenance metadata.
-- Command/environment/parameter capture plan.
+- Command, environment, and parameter capture plan.
 - Output validation and known non-determinism.
 
 ## Operating Principles
@@ -62,14 +63,14 @@ Make important workflows repeatable and auditable.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Hidden randomness.
-- Undocumented parameters.
-- Silent fallbacks that change results.
-- Outputs without required provenance.
-- Environment-dependent behavior without warning.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not allow hidden randomness.
+- Do not leave parameters undocumented.
+- Do not allow silent fallbacks that change results.
+- Do not allow required outputs without provenance.
+- Do not hide environment-dependent behavior.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -77,11 +78,12 @@ Make important workflows repeatable and auditable.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-specification when reproducibility requirements must constrain implementation.
+- Handoff to agentframe-implementer after provenance, parameters, and validation behavior are clear.
+- Handoff to agentframe-tester for repeatability and output validation checks.
+- Handoff to agentframe-documenter for reproducibility instructions and provenance docs.
+- Handoff to agentframe-reviewer for final reproducibility risk review.
+- Handoff to agentframe-project-memory when reproducibility assumptions or known limits change.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -90,12 +92,14 @@ Make important workflows repeatable and auditable.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-configuration-manager when parameters or environment settings affect repeatability.
+- Coordinate with agentframe-compatibility-manager when dependency or runtime changes affect reproducibility.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

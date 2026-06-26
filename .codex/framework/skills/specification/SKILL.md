@@ -1,105 +1,107 @@
-# Specification Skill
+# AgentFrame Specification
 
 ## Mission
-Write precise implementation specifications before coding.
+Write the implementation contract before coding begins.
 
 ## When To Use This Skill
-- Use when a task requires responsibility for purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, docs, and rollback.
-- Use when the user explicitly asks for this role or when repository changes touch this role's surface.
+- A task changes behavior, APIs, configuration, data model, dependencies, compatibility, release process, or user workflow.
+- A bug fix needs root-cause constraints and edge-case definition.
+- Implementation would otherwise rely on hidden assumptions.
 
 ## When Not To Use This Skill
-- Do not use when a narrower existing skill fully owns the task.
-- Do not use to bypass repository inspection, specification, review, or validation.
-- Do not use when the task is unrelated to specification responsibilities.
+- Do not use for pure typo fixes or trivial documentation edits.
+- Do not write implementation code.
+- Do not expand scope while specifying.
 
 ## Responsibilities
-- Own and maintain purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, docs, and rollback.
-- State assumptions, risks, and affected files.
-- Produce concrete outputs that a future agent or reviewer can verify.
+- Define purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, documentation, and rollback.
+- Block ambiguous behavior and hidden assumptions.
 
 ## Explicit Non-Responsibilities
-- This skill is not responsible for ambiguous behavior, unspecified inputs, unspecified error handling, hidden assumptions, and scope expansion during implementation.
-- This skill must not silently expand scope beyond its mission.
+This skill must not:
+- write implementation code.
+- leave inputs, outputs, or error handling unspecified.
+- approve hidden assumptions.
+- expand scope during implementation.
 
 ## Required Inputs
-- User goal and explicit constraints.
-- Repository inspection results.
-- Existing instructions and project-local state.
-- Relevant architecture, specification, decision, or validation records when applicable.
+- User request and explicit constraints.
+- Repository inspection results and relevant source files.
+- Existing instructions, project governance, and prior decisions when present.
+- Current tests, docs, package manifests, and validation commands when detectable.
 
 ## Required Outputs
-- Role-specific artifact covering purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, docs, and rollback.
-- Files changed or proposed.
-- Open questions and human-review items.
-- Validation or review evidence.
+- Implementation specification.
+- Acceptance criteria.
+- API, data, configuration, compatibility, security, performance, and observability impact notes.
+- Test and documentation requirements.
+- Rollback plan and open questions.
 
 ## Operating Principles
-- Prefer existing repository patterns and documented contracts.
-- Keep scope limited to this skill mission.
-- Mark assumptions and unknowns explicitly.
-- Escalate conflicts instead of resolving them silently.
-- Produce artifacts that another agent can verify.
+- Inspect before editing or recommending changes.
+- Prefer existing project patterns over new mechanisms.
+- Work one task at a time and keep scope visible.
+- Use standard library, native platform features, and installed dependencies before adding new dependencies.
+- Preserve useful existing content; do not delete, rename, or overwrite without explicit approval.
+- Mark unknown facts as `Unknown - requires human input`.
 
 ## Step-By-Step Workflow
-1. Confirm the skill applies and no narrower skill is sufficient.
-2. Read relevant repository files and existing governance documents.
-3. Identify affected surfaces and stop conditions.
-4. Produce the required artifact using concrete facts.
-5. Cross-check constraints, forbidden behaviors, and related skills.
-6. Update required project files or list why updates were skipped.
-7. Handoff with outputs, risks, open questions, and validation evidence.
+1. Read the task, architecture notes, affected code, tests, and docs.
+2. Define requirements and explicit non-requirements.
+3. Specify inputs, outputs, state changes, errors, edge cases, performance, security, and observability.
+4. Record API, data model, configuration, compatibility, and migration impact.
+5. Define test requirements, documentation requirements, acceptance criteria, and rollback.
+6. Stop if required behavior cannot be specified safely.
 
 ## Constraints
-- Do not delete, rename, or overwrite existing useful content.
+- Keep the output actionable and bounded.
 - Do not invent project facts.
-- Keep reusable guidance generic unless repository facts require specificity.
-- Stay within the role boundary for this skill.
+- Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- ambiguous behavior, unspecified inputs, unspecified error handling, hidden assumptions, and scope expansion during implementation.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating unknowns as facts.
+- Do not leave behavior ambiguous.
+- Do not omit error behavior.
+- Do not treat assumptions as requirements.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
-- The output satisfies the mission and required outputs.
-- The output is consistent with existing architecture and policy.
-- Risks and unknowns are explicit.
-- Human-review gates are identified.
-- Validation or review evidence is named.
+- The output satisfies the requested task and this skill mission.
+- Risks, assumptions, and human-review items are explicit.
+- Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `planner` when work must be split into executable tasks.
-- Handoff to `specification` before implementation begins.
-- Handoff to `implementer` only after scope and acceptance criteria are approved.
-- Handoff to `reviewer` after any meaningful change.
-- Handoff to `project_memory` after decisions or state changes.
+- Handoff to implementer when the specification is complete and accepted.
+- Handoff to tester when validation requirements need tests or commands.
+- Handoff to api_guardian, configuration_manager, compatibility_manager, data_model_guardian, or reproducibility_guardian when those surfaces are affected.
+- Handoff to architect when the specification reveals unresolved design choices.
+- Handoff to project_memory when decisions, risks, or open questions must be recorded.
 
 ## Failure Handling
-- Stop when required inputs are missing and a safe assumption would be risky.
-- Add `Potential Conflict Requiring Human Review` when policies conflict.
-- Create a sibling `.proposed.md` file when direct modification may overwrite useful content.
-- Report validation failures with the exact command and observed result.
+- If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
+- If a target file contains useful content, preserve it or create a sibling `.proposed.md` file.
+- If validation fails, report the exact command and observed failure.
+- If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
-- Coordinate with `design_guardian` for architecture drift checks.
-- Coordinate with `api_guardian`, `configuration_manager`, `data_model_guardian`, and `compatibility_manager` when their surfaces are affected.
-- Coordinate with `tester`, `documenter`, and `reproducibility_guardian` before completion when their evidence is required.
+- Coordinate with guardian skills for affected API, config, data, compatibility, plugin, or reproducibility surfaces.
+- Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update project-local files that record changed architecture, APIs, configuration, data model, compatibility, tests, releases, documentation, memory, risks, or TODOs.
-- Update framework version files when reusable skill behavior changes.
-- List skipped files and the reason in the final report.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
+- List skipped files and reasons in the final report.
 
 ## Quality Bar
-- The output is actionable, bounded, reviewable, and consistent with the repository.
+- The result is specific enough for another Codex session to continue without rediscovering basics.
+- The result avoids generic advice when repository facts can be inspected.
+- The result includes the smallest useful artifact, not speculative scaffolding.
 - No required section is empty.
-- No placeholder is used as the main content.
-- A future agent can continue from the artifact without basic process clarification.
 
 ## Completion Criteria
 - Required outputs exist.
-- Constraints and forbidden behaviors were checked.
-- Human-review items are marked.
-- Validation or review evidence is recorded.
-- Handoff target is clear if work continues.
+- Scope, risks, and open questions are explicit.
+- Validation or the reason validation was not run is reported.
+- Changed, skipped, and human-review files are named.

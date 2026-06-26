@@ -24,10 +24,11 @@ Prevent accidental or silent public API breakage.
 - Report API affected, change type, compatibility impact, version impact, migration, tests, and docs.
 
 ## Explicit Non-Responsibilities
-- Accidental public API changes.
-- Silent breaking changes.
-- Removing public APIs without deprecation.
-- Changing parameter semantics or return types without migration.
+This skill must not:
+- approve accidental public API changes.
+- allow silent breaking changes.
+- remove public APIs without deprecation.
+- change parameter semantics or return types without migration.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -61,13 +62,13 @@ Prevent accidental or silent public API breakage.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Silent breaking changes.
-- Removing public APIs without deprecation.
-- Changing parameter semantics without documentation.
-- Changing return types without migration plan.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not allow silent breaking changes.
+- Do not remove public APIs without deprecation.
+- Do not change parameter semantics without documentation.
+- Do not change return types without migration plan.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -75,11 +76,13 @@ Prevent accidental or silent public API breakage.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-specification when API requirements must be defined before implementation.
+- Handoff to agentframe-implementer only after API change type, migration, and tests are clear.
+- Handoff to agentframe-tester for API contract tests.
+- Handoff to agentframe-documenter for API docs, migration guides, or deprecation notices.
+- Handoff to agentframe-compatibility-manager for version impact.
+- Handoff to agentframe-reviewer for final API review.
+- Handoff to agentframe-project-memory when public API state or decisions change.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -88,12 +91,15 @@ Prevent accidental or silent public API breakage.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-compatibility-manager for semantic versioning and deprecation.
+- Coordinate with plugin_agentframe-architect for plugin APIs.
+- Coordinate with agentframe-data-model-guardian for schema-shaped APIs.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

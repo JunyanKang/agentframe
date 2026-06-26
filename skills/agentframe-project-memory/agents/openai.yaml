@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Project Memory"
   short_description: "Maintain durable project state"
-  default_prompt: "Use $agentframe-project-memory for this software engineering task."
+  default_prompt: "Use $agentframe-project-memory. First inspect existing memory and current project facts. Produce concise durable state, risk, question, and next-action updates. Do not delete history or speculate. Stop unless the user explicitly asks for follow-up work."
 
 policy:
   allow_implicit_invocation: true

@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Tester"
   short_description: "Design focused validation"
-  default_prompt: "Use $agentframe-tester for this software engineering task."
+  default_prompt: "Use $agentframe-tester. First identify changed behavior and risk. Produce focused tests or validation commands with coverage rationale. Do not add brittle or assertion-free tests. Hand off failures to implementation and evidence to review."
 
 policy:
   allow_implicit_invocation: true

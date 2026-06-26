@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Refactor"
   short_description: "Refactor without behavior change"
-  default_prompt: "Use $agentframe-refactor for this software engineering task."
+  default_prompt: "Use $agentframe-refactor. First inspect current behavior, callers, and tests. Produce behavior-preserving structural changes only. Do not add features or alter public APIs. Hand off to testing and review when preservation evidence is ready."
 
 policy:
   allow_implicit_invocation: true

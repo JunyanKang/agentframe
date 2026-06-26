@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Data Model Guardian"
   short_description: "Guard data model semantics"
-  default_prompt: "Use $agentframe-data-model-guardian for this software engineering task."
+  default_prompt: "Use $agentframe-data-model-guardian. First inspect models, schemas, validators, serializers, migrations, and tests. Produce schema, validation, compatibility, and migration requirements. Do not allow implicit migrations. Hand off to implementation, tests, docs, or compatibility review."
 
 policy:
   allow_implicit_invocation: true

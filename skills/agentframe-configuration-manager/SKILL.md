@@ -14,22 +14,21 @@ Keep configuration explicit, validated, documented, and compatible.
 - Invalid configuration is silently ignored.
 
 ## When Not To Use This Skill
-- Do not add config for a value that never changes.
-- Do not use when no operational parameter or config surface is affected.
-- Do not create a config system for speculative future flexibility.
+- Do not add configuration for a value that never changes.
+- Do not use when no operational parameter or configuration surface is affected.
+- Do not create a configuration system for speculative future flexibility.
 
 ## Responsibilities
-- Ensure config is centralized, validated, typed where possible, documented, overrideable through approved mechanisms, reproducible, environment-aware, and compatible.
-- Maintain schema, defaults, validation rules, environment policy, CLI/file policy, precedence order, and migrations.
+- Ensure configuration is centralized, validated, typed where possible, documented, overrideable through approved mechanisms, reproducible, environment-aware, and compatible.
+- Maintain schema, defaults, validation rules, environment policy, CLI or file policy, precedence order, and migrations.
 
 ## Explicit Non-Responsibilities
-- Hard-coded operational parameters.
-- Hidden configuration.
-- Undocumented defaults.
-- Duplicated parsing.
-- Inconsistent names.
-- Scattered config parsing.
-- Silently ignored invalid config.
+This skill must not:
+- introduce hidden configuration.
+- allow hard-coded operational parameters when configuration is required.
+- leave defaults undocumented.
+- duplicate configuration parsing.
+- silently ignore invalid configuration.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -40,7 +39,7 @@ Keep configuration explicit, validated, documented, and compatible.
 ## Required Outputs
 - Configuration inventory or schema.
 - Defaults, validation rules, sources, precedence order, and migration requirements.
-- Docs and tests required.
+- Documentation and tests required.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -54,7 +53,7 @@ Keep configuration explicit, validated, documented, and compatible.
 1. Inspect current config files, environment variables, CLI flags, docs, tests, and runtime loading.
 2. Identify sources, defaults, validation, and precedence.
 3. Centralize or align parsing only where it reduces real duplication or risk.
-4. Define invalid-config behavior and compatibility impact.
+4. Define invalid-configuration behavior and compatibility impact.
 5. Update documentation, examples, tests, and migration notes.
 
 ## Constraints
@@ -63,14 +62,14 @@ Keep configuration explicit, validated, documented, and compatible.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Hidden config.
-- Undocumented defaults.
-- Silently ignored invalid values.
-- Scattered parsing without reason.
-- Adding speculative knobs.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not introduce hidden configuration.
+- Do not leave defaults undocumented.
+- Do not silently ignore invalid values.
+- Do not scatter parsing without reason.
+- Do not add speculative knobs.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -78,11 +77,12 @@ Keep configuration explicit, validated, documented, and compatible.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-specification when configuration behavior must be defined before implementation.
+- Handoff to agentframe-implementer after schema, defaults, validation, and precedence are clear.
+- Handoff to agentframe-tester for invalid-input, precedence, and migration tests.
+- Handoff to agentframe-documenter for configuration docs.
+- Handoff to agentframe-compatibility-manager for config format or default changes.
+- Handoff to agentframe-project-memory when configuration model changes.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -91,12 +91,14 @@ Keep configuration explicit, validated, documented, and compatible.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-compatibility-manager for configuration migrations.
+- Coordinate with agentframe-reproducibility-guardian when configuration affects repeatability.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

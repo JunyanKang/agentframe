@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Planner"
   short_description: "Plan reviewable software tasks"
-  default_prompt: "Use $agentframe-planner for this software engineering task."
+  default_prompt: "Use $agentframe-planner. First inspect the goal, constraints, and repository state. Produce ordered tasks with acceptance criteria. Do not write implementation code. Stop and hand off to specification when tasks are ready."
 
 policy:
   allow_implicit_invocation: true

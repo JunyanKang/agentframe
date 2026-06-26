@@ -1,55 +1,66 @@
-# Api Contract Template
+# API Contract Template
 
 ## Purpose
-Provide a reusable structure for api contract template documents.
+Define a public or integration-facing API contract and its compatibility requirements.
 
 ## Metadata
 - Title:
 - Owner: Unknown - requires human input
-- Status: Draft
-- Created: 2026-06-26
-- Last updated: 2026-06-26
-- Related files: Unknown - requires human input
+- Status: Draft | Proposed | Approved | Superseded
+- Created: YYYY-MM-DD
+- Last updated: YYYY-MM-DD
+- Related files:
+- Related decisions:
 
 ## Required Sections
-### API Surface
-- Required content: describe api surface with concrete facts, decisions, constraints, and acceptance criteria where applicable.
 
-### Stability Level
-- Required content: describe stability level with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### API Identity
+- Name:
+- Type: Function | Class | CLI | Service | File | Event | Plugin contract
+- Stability: Public | Experimental | Deprecated | Internal
+- Owner:
 
-### Inputs
-- Required content: describe inputs with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Outputs
-- Required content: describe outputs with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Errors
-- Required content: describe errors with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Contract
+- Inputs:
+- Outputs:
+- Error behavior:
+- Side effects:
+- Idempotency:
+- Ordering or timing guarantees:
 
 ### Compatibility
-- Required content: describe compatibility with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Backward compatibility promise:
+- Breaking change definition:
+- Deprecation policy:
+- Migration guide required: Yes | No
 
-### Contract Tests
-- Required content: describe contract tests with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Validation
+- Contract test:
+- Invalid-input test:
+- Compatibility test:
+- Documentation check:
 
-### Examples
-- Required content: describe examples with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Change Control
+- Allowed compatible changes:
+- Changes requiring review:
+- Changes requiring version bump:
+- Rollback step:
 
 ## Optional Sections
-- Alternatives considered.
-- Open questions.
-- Links to related decisions.
-- Migration or rollback notes.
+- Alternatives considered:
+- Open questions:
+- Related risks:
+- Follow-up tasks:
 
 ## Review Checklist
-- The document has a clear owner and status.
-- All required sections contain actionable content.
-- Unknown facts are marked as `Unknown - requires human input`.
-- The document does not include domain-specific examples unless already present in the repository.
-- Validation or review evidence is named where applicable.
+- Required fields are filled or marked `Unknown - requires human input`.
+- Claims are traceable to repository files, commands, decisions, or user input.
+- No domain-specific example is included unless it already exists in the target repository.
+- Compatibility, migration, testing, and documentation impact are stated when relevant.
+- Human-review items are clearly marked.
 
 ## Completion Criteria
-- Required sections are complete enough for an agent or reviewer to act without basic process clarification.
-- Conflicts are explicitly marked.
-- Follow-up work is listed with owner, priority, and acceptance criteria when known.
+- The document is actionable without basic process clarification.
+- Conflicts are explicitly marked as `Potential Conflict Requiring Human Review`.
+- Acceptance checks or review gates are concrete.
+- Follow-up work has an owner, priority, dependency, and acceptance criteria when known.

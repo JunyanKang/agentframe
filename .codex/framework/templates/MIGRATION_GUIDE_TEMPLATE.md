@@ -1,52 +1,67 @@
 # Migration Guide Template
 
 ## Purpose
-Provide a reusable structure for migration guide template documents.
+Guide users or maintainers through a breaking or compatibility-relevant change.
 
 ## Metadata
 - Title:
 - Owner: Unknown - requires human input
-- Status: Draft
-- Created: 2026-06-26
-- Last updated: 2026-06-26
-- Related files: Unknown - requires human input
+- Status: Draft | Proposed | Approved | Superseded
+- Created: YYYY-MM-DD
+- Last updated: YYYY-MM-DD
+- Related files:
+- Related decisions:
 
 ## Required Sections
+
 ### Audience
-- Required content: describe audience with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Who must migrate:
+- Who is unaffected:
+- Prerequisites:
+- Supported source versions:
+- Supported target versions:
 
-### Before You Start
-- Required content: describe before you start with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Change Summary
+- Old behavior:
+- New behavior:
+- Reason for change:
+- Compatibility impact:
 
-### Breaking Changes
-- Required content: describe breaking changes with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Steps
+- Step number:
+- Action:
+- Command or file change:
+- Expected result:
+- Validation check:
+- Rollback for this step:
 
-### Step-By-Step Migration
-- Required content: describe step-by-step migration with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Validation
-- Required content: describe validation with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Rollback
-- Required content: describe rollback with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Verification
+- Post-migration command:
+- Expected output:
+- Data or config check:
+- Known warnings:
 
 ### Troubleshooting
-- Required content: describe troubleshooting with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Symptom:
+- Likely cause:
+- Fix:
+- Escalation condition:
 
 ## Optional Sections
-- Alternatives considered.
-- Open questions.
-- Links to related decisions.
-- Migration or rollback notes.
+- Alternatives considered:
+- Open questions:
+- Related risks:
+- Follow-up tasks:
 
 ## Review Checklist
-- The document has a clear owner and status.
-- All required sections contain actionable content.
-- Unknown facts are marked as `Unknown - requires human input`.
-- The document does not include domain-specific examples unless already present in the repository.
-- Validation or review evidence is named where applicable.
+- Required fields are filled or marked `Unknown - requires human input`.
+- Claims are traceable to repository files, commands, decisions, or user input.
+- No domain-specific example is included unless it already exists in the target repository.
+- Compatibility, migration, testing, and documentation impact are stated when relevant.
+- Human-review items are clearly marked.
 
 ## Completion Criteria
-- Required sections are complete enough for an agent or reviewer to act without basic process clarification.
-- Conflicts are explicitly marked.
-- Follow-up work is listed with owner, priority, and acceptance criteria when known.
+- The document is actionable without basic process clarification.
+- Conflicts are explicitly marked as `Potential Conflict Requiring Human Review`.
+- Acceptance checks or review gates are concrete.
+- Follow-up work has an owner, priority, dependency, and acceptance criteria when known.

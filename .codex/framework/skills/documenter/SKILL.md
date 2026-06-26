@@ -1,105 +1,107 @@
-# Documenter Skill
+# AgentFrame Documenter
 
 ## Mission
-Maintain user-facing and developer-facing documentation.
+Keep documentation aligned with actual repository behavior and workflow.
 
 ## When To Use This Skill
-- Use when a task requires responsibility for README, user guide, developer guide, API docs, configuration guide, architecture docs, migration guide, changelog, examples, and troubleshooting guide when applicable.
-- Use when the user explicitly asks for this role or when repository changes touch this role's surface.
+- Behavior, APIs, configuration, data model, workflows, installation, compatibility, or release process changed.
+- README, user guide, developer guide, API docs, configuration guide, architecture docs, migration guide, changelog, examples, or troubleshooting need updates.
+- Docs conflict with code or current project state.
 
 ## When Not To Use This Skill
-- Do not use when a narrower existing skill fully owns the task.
-- Do not use to bypass repository inspection, specification, review, or validation.
-- Do not use when the task is unrelated to documenter responsibilities.
+- Do not document nonexistent features.
+- Do not invent project facts.
+- Do not add examples that cannot run.
 
 ## Responsibilities
-- Own and maintain README, user guide, developer guide, API docs, configuration guide, architecture docs, migration guide, changelog, examples, and troubleshooting guide when applicable.
-- State assumptions, risks, and affected files.
-- Produce concrete outputs that a future agent or reviewer can verify.
+- Maintain user-facing and developer-facing docs.
+- Update docs when behavior, APIs, config, data model, workflows, installation, compatibility, or release process changes.
+- Name documentation gaps and validation status.
 
 ## Explicit Non-Responsibilities
-- This skill is not responsible for documentation that contradicts code, undocumented breaking changes, undocumented configuration, undocumented public APIs, and examples that cannot run.
-- This skill must not silently expand scope beyond its mission.
+This skill must not:
+- write documentation that contradicts code.
+- leave breaking changes undocumented.
+- document configuration options that do not exist.
+- document public APIs that are not actually public.
+- add examples that cannot run.
 
 ## Required Inputs
-- User goal and explicit constraints.
-- Repository inspection results.
-- Existing instructions and project-local state.
-- Relevant architecture, specification, decision, or validation records when applicable.
+- User request and explicit constraints.
+- Repository inspection results and relevant source files.
+- Existing instructions, project governance, and prior decisions when present.
+- Current tests, docs, package manifests, and validation commands when detectable.
 
 ## Required Outputs
-- Role-specific artifact covering README, user guide, developer guide, API docs, configuration guide, architecture docs, migration guide, changelog, examples, and troubleshooting guide when applicable.
-- Files changed or proposed.
-- Open questions and human-review items.
-- Validation or review evidence.
+- Updated documentation.
+- Documentation gaps.
+- Validation status for commands or examples.
+- Human-review items for unknown facts.
 
 ## Operating Principles
-- Prefer existing repository patterns and documented contracts.
-- Keep scope limited to this skill mission.
-- Mark assumptions and unknowns explicitly.
-- Escalate conflicts instead of resolving them silently.
-- Produce artifacts that another agent can verify.
+- Inspect before editing or recommending changes.
+- Prefer existing project patterns over new mechanisms.
+- Work one task at a time and keep scope visible.
+- Use standard library, native platform features, and installed dependencies before adding new dependencies.
+- Preserve useful existing content; do not delete, rename, or overwrite without explicit approval.
+- Mark unknown facts as `Unknown - requires human input`.
 
 ## Step-By-Step Workflow
-1. Confirm the skill applies and no narrower skill is sufficient.
-2. Read relevant repository files and existing governance documents.
-3. Identify affected surfaces and stop conditions.
-4. Produce the required artifact using concrete facts.
-5. Cross-check constraints, forbidden behaviors, and related skills.
-6. Update required project files or list why updates were skipped.
-7. Handoff with outputs, risks, open questions, and validation evidence.
+1. Inspect current code, config, tests, docs, and user-visible behavior.
+2. Identify affected documentation surfaces.
+3. Update only the sections needed for current behavior.
+4. Use concrete commands, paths, inputs, outputs, constraints, and limitations.
+5. Validate examples when practical.
+6. Mark unknowns explicitly and report gaps.
 
 ## Constraints
-- Do not delete, rename, or overwrite existing useful content.
+- Keep the output actionable and bounded.
 - Do not invent project facts.
-- Keep reusable guidance generic unless repository facts require specificity.
-- Stay within the role boundary for this skill.
+- Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- documentation that contradicts code, undocumented breaking changes, undocumented configuration, undocumented public APIs, and examples that cannot run.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating unknowns as facts.
+- Do not invent features, commands, or examples.
+- Do not leave changed configuration or public APIs undocumented.
+- Do not contradict current code or validation behavior.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
-- The output satisfies the mission and required outputs.
-- The output is consistent with existing architecture and policy.
-- Risks and unknowns are explicit.
-- Human-review gates are identified.
-- Validation or review evidence is named.
+- The output satisfies the requested task and this skill mission.
+- Risks, assumptions, and human-review items are explicit.
+- Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `planner` when work must be split into executable tasks.
-- Handoff to `specification` before implementation begins.
-- Handoff to `implementer` only after scope and acceptance criteria are approved.
-- Handoff to `reviewer` after any meaningful change.
-- Handoff to `project_memory` after decisions or state changes.
+- Handoff to reviewer when documentation changes need acceptance review.
+- Handoff to project_memory when documentation updates alter durable project state, risks, or next actions.
+- Handoff to implementer only when documentation inspection reveals code/docs mismatch that requires code changes.
+- Handoff to tester when documented commands or examples need validation.
 
 ## Failure Handling
-- Stop when required inputs are missing and a safe assumption would be risky.
-- Add `Potential Conflict Requiring Human Review` when policies conflict.
-- Create a sibling `.proposed.md` file when direct modification may overwrite useful content.
-- Report validation failures with the exact command and observed result.
+- If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
+- If a target file contains useful content, preserve it or create a sibling `.proposed.md` file.
+- If validation fails, report the exact command and observed failure.
+- If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
-- Coordinate with `design_guardian` for architecture drift checks.
-- Coordinate with `api_guardian`, `configuration_manager`, `data_model_guardian`, and `compatibility_manager` when their surfaces are affected.
-- Coordinate with `tester`, `documenter`, and `reproducibility_guardian` before completion when their evidence is required.
+- Coordinate with api_guardian, configuration_manager, compatibility_manager, or data_model_guardian when those docs changed.
+- Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update project-local files that record changed architecture, APIs, configuration, data model, compatibility, tests, releases, documentation, memory, risks, or TODOs.
-- Update framework version files when reusable skill behavior changes.
-- List skipped files and the reason in the final report.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
+- List skipped files and reasons in the final report.
 
 ## Quality Bar
-- The output is actionable, bounded, reviewable, and consistent with the repository.
+- The result is specific enough for another Codex session to continue without rediscovering basics.
+- The result avoids generic advice when repository facts can be inspected.
+- The result includes the smallest useful artifact, not speculative scaffolding.
 - No required section is empty.
-- No placeholder is used as the main content.
-- A future agent can continue from the artifact without basic process clarification.
 
 ## Completion Criteria
 - Required outputs exist.
-- Constraints and forbidden behaviors were checked.
-- Human-review items are marked.
-- Validation or review evidence is recorded.
-- Handoff target is clear if work continues.
+- Scope, risks, and open questions are explicit.
+- Validation or the reason validation was not run is reported.
+- Changed, skipped, and human-review files are named.

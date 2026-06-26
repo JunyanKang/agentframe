@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Implementer"
   short_description: "Implement one scoped task safely"
-  default_prompt: "Use $agentframe-implementer for this software engineering task."
+  default_prompt: "Use $agentframe-implementer. First inspect instructions, callers, and tests for one approved task. Produce the smallest validated diff. Do not bundle unrelated changes. Hand off to testing, review, docs, or project memory as needed."
 
 policy:
   allow_implicit_invocation: true

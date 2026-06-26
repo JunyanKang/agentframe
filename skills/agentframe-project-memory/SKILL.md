@@ -24,10 +24,11 @@ Keep project memory accurate enough for future Codex sessions to resume work saf
 - Separate confirmed facts from assumptions.
 
 ## Explicit Non-Responsibilities
-- Deleting historical decisions.
-- Losing unresolved questions.
-- Mixing speculation with approved decisions.
-- Replacing project state with vague summaries.
+This skill must not:
+- delete historical decisions.
+- replace project state with vague summaries.
+- lose unresolved questions.
+- mix speculation with approved decisions.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -55,7 +56,7 @@ Keep project memory accurate enough for future Codex sessions to resume work saf
 3. Append or update concise entries without deleting history.
 4. Mark stale facts with date and reason.
 5. Link state to relevant files or decisions when useful.
-6. Report memory changes and human-review items.
+6. Stop after recording state unless a new explicit task exists.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -63,13 +64,13 @@ Keep project memory accurate enough for future Codex sessions to resume work saf
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Deleting historical decisions.
-- Treating speculation as approved state.
-- Dropping unresolved questions.
-- Overwriting manually maintained memory without review.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not delete historical decisions.
+- Do not treat speculation as approved state.
+- Do not drop unresolved questions.
+- Do not overwrite manually maintained memory without review.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -77,11 +78,10 @@ Keep project memory accurate enough for future Codex sessions to resume work saf
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Stop after recording memory when no explicit next task exists.
+- Handoff to agentframe-reviewer only if memory conflicts need review.
+- Handoff to agentframe-planner only if recorded next actions must become executable tasks and the user asked to continue.
+- Handoff to agentframe-documenter only if memory reveals stale or missing documentation and the user asked to continue.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -90,12 +90,14 @@ Keep project memory accurate enough for future Codex sessions to resume work saf
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Receive state updates from all skills after meaningful changes.
+- Coordinate with agentframe-documenter when durable state and documentation must stay aligned.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

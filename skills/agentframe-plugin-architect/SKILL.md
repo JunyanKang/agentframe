@@ -23,11 +23,12 @@ Keep plugin systems extensible without coupling core logic to individual plugins
 - Separate core system, extension interface, plugin implementation, plugin configuration, and plugin runtime context.
 
 ## Explicit Non-Responsibilities
-- Hard-coded plugin branches in core logic.
-- Plugins depending on private internals.
-- Core depending on individual plugins.
-- Undocumented plugin APIs.
-- Unstable plugin contracts.
+This skill must not:
+- add hard-coded plugin-specific branches in core logic.
+- allow plugins to depend on private internals.
+- allow core logic to depend on individual plugins.
+- leave plugin APIs undocumented.
+- approve unstable plugin contracts without version policy.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -38,7 +39,7 @@ Keep plugin systems extensible without coupling core logic to individual plugins
 ## Required Outputs
 - Plugin boundary design.
 - Discovery, registration, lifecycle, and runtime context rules.
-- Plugin contract, configuration, compatibility, error-handling, docs, and test requirements.
+- Plugin contract, configuration, compatibility, error-handling, documentation, and test requirements.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -61,13 +62,13 @@ Keep plugin systems extensible without coupling core logic to individual plugins
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Hard-coded plugin-specific branches in core.
-- Private-internal plugin dependencies.
-- Core dependencies on individual plugins.
-- Undocumented or untestable plugin APIs.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not hard-code plugin-specific branches in core.
+- Do not permit private-internal plugin dependencies.
+- Do not permit core dependencies on individual plugins.
+- Do not approve undocumented or untestable plugin APIs.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -75,11 +76,13 @@ Keep plugin systems extensible without coupling core logic to individual plugins
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to architect or agentframe-design-guardian when plugin boundaries affect system architecture.
+- Handoff to agentframe-api-guardian when plugin contracts are public APIs.
+- Handoff to agentframe-configuration-manager when plugin configuration changes.
+- Handoff to agentframe-compatibility-manager when plugin version compatibility changes.
+- Handoff to agentframe-specification before implementation.
+- Handoff to agentframe-tester and agentframe-reviewer after plugin contract changes.
+- Handoff to agentframe-project-memory when extension decisions are recorded.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -88,12 +91,14 @@ Keep plugin systems extensible without coupling core logic to individual plugins
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-design-guardian for core/extension boundary checks.
+- Coordinate with agentframe-compatibility-manager for plugin version policy.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

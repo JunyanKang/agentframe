@@ -1,52 +1,64 @@
 # Deprecation Notice Template
 
 ## Purpose
-Provide a reusable structure for deprecation notice template documents.
+Document a deprecated API, configuration, workflow, file format, or behavior.
 
 ## Metadata
 - Title:
 - Owner: Unknown - requires human input
-- Status: Draft
-- Created: 2026-06-26
-- Last updated: 2026-06-26
-- Related files: Unknown - requires human input
+- Status: Draft | Proposed | Approved | Superseded
+- Created: YYYY-MM-DD
+- Last updated: YYYY-MM-DD
+- Related files:
+- Related decisions:
 
 ## Required Sections
+
 ### Deprecated Surface
-- Required content: describe deprecated surface with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Name:
+- Type: API | Config | Workflow | File format | Behavior
+- Stability status: Deprecated
+- First deprecated in:
+- Removal target:
 
 ### Reason
-- Required content: describe reason with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Replacement
-- Required content: describe replacement with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Problem with current surface:
+- Replacement:
+- Why replacement is preferred:
 
 ### Timeline
-- Required content: describe timeline with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Compatibility
-- Required content: describe compatibility with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Notice date: YYYY-MM-DD
+- Support window:
+- Removal date or condition:
+- Communication channel:
 
 ### Migration
-- Required content: describe migration with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Replacement path:
+- Required user action:
+- Validation check:
+- Rollback option:
 
-### Support Window
-- Required content: describe support window with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Compatibility
+- Backward-compatible period:
+- Breaking-change classification:
+- Tests required:
+- Docs required:
 
 ## Optional Sections
-- Alternatives considered.
-- Open questions.
-- Links to related decisions.
-- Migration or rollback notes.
+- Alternatives considered:
+- Open questions:
+- Related risks:
+- Follow-up tasks:
 
 ## Review Checklist
-- The document has a clear owner and status.
-- All required sections contain actionable content.
-- Unknown facts are marked as `Unknown - requires human input`.
-- The document does not include domain-specific examples unless already present in the repository.
-- Validation or review evidence is named where applicable.
+- Required fields are filled or marked `Unknown - requires human input`.
+- Claims are traceable to repository files, commands, decisions, or user input.
+- No domain-specific example is included unless it already exists in the target repository.
+- Compatibility, migration, testing, and documentation impact are stated when relevant.
+- Human-review items are clearly marked.
 
 ## Completion Criteria
-- Required sections are complete enough for an agent or reviewer to act without basic process clarification.
-- Conflicts are explicitly marked.
-- Follow-up work is listed with owner, priority, and acceptance criteria when known.
+- The document is actionable without basic process clarification.
+- Conflicts are explicitly marked as `Potential Conflict Requiring Human Review`.
+- Acceptance checks or review gates are concrete.
+- Follow-up work has an owner, priority, dependency, and acceptance criteria when known.

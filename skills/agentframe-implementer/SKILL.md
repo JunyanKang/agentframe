@@ -24,12 +24,13 @@ Implement one approved task with the smallest correct diff and validation eviden
 - Report files changed, behavior changed, tests changed, commands run, known limitations, follow-up work, and API/config/data impact.
 
 ## Explicit Non-Responsibilities
-- Unrelated file changes.
-- Opportunistic refactoring.
-- Public API changes without approval.
-- Dependency additions without approval.
-- Architecture changes without approval.
-- Silently ignoring failing tests.
+This skill must not:
+- make unrelated file changes.
+- perform opportunistic refactoring.
+- change public APIs without approval.
+- add dependencies without approval.
+- change architecture without approval.
+- silently ignore failing tests.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -40,7 +41,7 @@ Implement one approved task with the smallest correct diff and validation eviden
 ## Required Outputs
 - Focused implementation diff.
 - Tests or validation evidence.
-- Change report with files, behavior, commands, limitations, follow-up, and impact on API/config/data.
+- Change report with files, behavior, commands, limitations, follow-up, and impact on API, configuration, and data model.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -65,13 +66,12 @@ Implement one approved task with the smallest correct diff and validation eviden
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Unrelated file changes.
-- Implementing multiple features together.
-- Changing public APIs, architecture, dependencies, configuration, or data model without approval.
-- Silently ignoring failing tests.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not implement multiple features together.
+- Do not change public APIs, architecture, dependencies, configuration, or data model without approval.
+- Do not ignore failing validation.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -79,11 +79,11 @@ Implement one approved task with the smallest correct diff and validation eviden
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-tester when new or changed behavior needs validation.
+- Handoff to agentframe-reviewer after meaningful implementation changes.
+- Handoff to agentframe-documenter when behavior, API, config, workflow, or release process changed.
+- Handoff to agentframe-project-memory when durable project state changed.
+- Handoff to relevant guardian skills if implementation exposes API, configuration, data, compatibility, plugin, reproducibility, or architecture issues.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -92,12 +92,14 @@ Implement one approved task with the smallest correct diff and validation eviden
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-specification to resolve missing requirements.
+- Coordinate with agentframe-tester and agentframe-reviewer before completion for non-trivial changes.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

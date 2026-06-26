@@ -24,11 +24,12 @@ Convert goals into small tasks that can be implemented, tested, and reviewed ind
 - Surface stop conditions and required human decisions.
 
 ## Explicit Non-Responsibilities
-- Writing implementation code.
-- Creating vague tasks.
-- Bundling multiple unrelated features.
-- Creating tasks without acceptance criteria.
-- Bypassing specification.
+This skill must not:
+- write implementation code.
+- create vague tasks.
+- bundle unrelated features into one task.
+- create tasks without acceptance criteria.
+- bypass specification for non-trivial implementation.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -39,7 +40,7 @@ Convert goals into small tasks that can be implemented, tested, and reviewed ind
 ## Required Outputs
 - Task breakdown with priority, dependencies, estimated complexity, and owner if known.
 - Acceptance criteria for every task.
-- Review gates and validation commands.
+- Review and validation gates.
 - Explicit non-goals and deferred work.
 
 ## Operating Principles
@@ -56,7 +57,7 @@ Convert goals into small tasks that can be implemented, tested, and reviewed ind
 3. Split work into the fewest independently reviewable tasks.
 4. Order tasks by dependency and risk.
 5. Attach acceptance criteria, validation, expected files, and review gates to each task.
-6. Identify decisions or specs required before implementation.
+6. Identify decisions or specifications required before implementation.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -64,14 +65,12 @@ Convert goals into small tasks that can be implemented, tested, and reviewed ind
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Vague tasks.
-- Multi-feature tasks.
-- Tasks without acceptance criteria.
-- Tasks that modify unrelated subsystems.
-- Tasks that bypass specification.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not create vague tasks.
+- Do not combine unrelated work into one task.
+- Do not plan speculative future work as current scope.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -79,11 +78,10 @@ Convert goals into small tasks that can be implemented, tested, and reviewed ind
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-specification for any task that changes behavior, APIs, data, configuration, compatibility, or release process.
+- Handoff to architect when task breakdown exposes unresolved design decisions.
+- Handoff to agentframe-implementer only for tasks with clear acceptance criteria and no missing agentframe-specification.
+- Handoff to agentframe-project-memory when roadmap, priorities, or open questions change.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -92,12 +90,14 @@ Convert goals into small tasks that can be implemented, tested, and reviewed ind
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-architect when design decisions drive task boundaries.
+- Coordinate with agentframe-tester to make validation gates concrete.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

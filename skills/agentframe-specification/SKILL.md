@@ -19,13 +19,15 @@ Write the implementation contract before coding begins.
 - Do not expand scope while specifying.
 
 ## Responsibilities
-- Define purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, docs, and rollback.
+- Define purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, documentation, and rollback.
 - Block ambiguous behavior and hidden assumptions.
 
 ## Explicit Non-Responsibilities
-- Writing implementation code.
-- Choosing architecture without architect review when architecture is affected.
-- Approving unspecified error handling or inputs.
+This skill must not:
+- write implementation code.
+- leave inputs, outputs, or error handling unspecified.
+- approve hidden assumptions.
+- expand scope during implementation.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -36,7 +38,7 @@ Write the implementation contract before coding begins.
 ## Required Outputs
 - Implementation specification.
 - Acceptance criteria.
-- API/data/config/compatibility impact notes.
+- API, data, configuration, compatibility, security, performance, and observability impact notes.
 - Test and documentation requirements.
 - Rollback plan and open questions.
 
@@ -54,7 +56,7 @@ Write the implementation contract before coding begins.
 3. Specify inputs, outputs, state changes, errors, edge cases, performance, security, and observability.
 4. Record API, data model, configuration, compatibility, and migration impact.
 5. Define test requirements, documentation requirements, acceptance criteria, and rollback.
-6. Stop if a required behavior cannot be specified safely.
+6. Stop if required behavior cannot be specified safely.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -62,14 +64,12 @@ Write the implementation contract before coding begins.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Ambiguous behavior.
-- Unspecified inputs.
-- Unspecified error handling.
-- Hidden assumptions.
-- Scope expansion during implementation.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not leave behavior ambiguous.
+- Do not omit error behavior.
+- Do not treat assumptions as requirements.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -77,11 +77,11 @@ Write the implementation contract before coding begins.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-implementer when the specification is complete and accepted.
+- Handoff to agentframe-tester when validation requirements need tests or commands.
+- Handoff to agentframe-api-guardian, agentframe-configuration-manager, agentframe-compatibility-manager, agentframe-data-model-guardian, or agentframe-reproducibility-guardian when those surfaces are affected.
+- Handoff to architect when the specification reveals unresolved design choices.
+- Handoff to agentframe-project-memory when decisions, risks, or open questions must be recorded.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -90,13 +90,13 @@ Write the implementation contract before coding begins.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
-- Use `agentframe-api-guardian`, `agentframe-data-model-guardian`, `agentframe-configuration-manager`, and `agentframe-compatibility-manager` when those surfaces are touched.
+- Coordinate with guardian skills for affected API, config, data, compatibility, plugin, or reproducibility surfaces.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

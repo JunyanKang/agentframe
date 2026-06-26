@@ -21,12 +21,14 @@ Block architecture drift unless an approved decision record exists.
 ## Responsibilities
 - Check every meaningful change for architecture drift.
 - Maintain architecture consistency, module responsibility boundaries, dependency direction, and decision traceability.
-- Block violations unless approved ADR exists.
+- Block violations unless an approved ADR exists.
 
 ## Explicit Non-Responsibilities
-- Implementing architecture changes.
-- Approving drift silently.
-- Replacing architect decisions without human review.
+This skill must not:
+- implement architecture changes.
+- approve drift silently.
+- replace architect decisions without human review.
+- ignore circular dependencies, layer violations, or hidden coupling.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -61,13 +63,12 @@ Block architecture drift unless an approved decision record exists.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Approving architecture violations without ADR.
-- Ignoring hidden coupling.
-- Allowing core to depend on private extension internals.
-- Treating duplicated responsibilities as harmless without rationale.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not approve architecture violations without ADR.
+- Do not ignore hidden coupling.
+- Do not allow core code to depend on private extension internals.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -75,11 +76,12 @@ Block architecture drift unless an approved decision record exists.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to architect when new design decisions are required.
+- Handoff to agentframe-specification when accepted design constraints must become implementation requirements.
+- Handoff to agentframe-implementer when the correction is clear and approved.
+- Handoff to agentframe-tester when architecture constraints need validation checks.
+- Handoff to agentframe-reviewer for final acceptance review.
+- Handoff to agentframe-project-memory after architecture risks or decisions are recorded.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -88,12 +90,14 @@ Block architecture drift unless an approved decision record exists.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with plugin_agentframe-architect for extension boundaries.
+- Coordinate with agentframe-api-guardian, agentframe-configuration-manager, agentframe-data-model-guardian, and agentframe-compatibility-manager when those surfaces drive design constraints.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

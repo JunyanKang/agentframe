@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Design Guardian"
   short_description: "Block architecture drift"
-  default_prompt: "Use $agentframe-design-guardian for this software engineering task."
+  default_prompt: "Use $agentframe-design-guardian. First inspect architecture rules, diffs, and affected code. Produce a drift report with violations and required decisions. Do not approve architecture violations silently. Hand off to architecture, specification, or fixes as needed."
 
 policy:
   allow_implicit_invocation: true

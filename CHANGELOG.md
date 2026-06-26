@@ -1,5 +1,47 @@
 # Changelog
 
+## Unreleased
+### Added
+- None.
+
+### Changed
+- None.
+
+### Fixed
+- None.
+
+### Validation
+- None.
+
+### Migration Notes
+- None.
+
+## 0.4.0 - 2026-06-26
+### Added
+- Root `AGENTS.md` routing file for future agents.
+- `.codex/framework/SOURCE_OF_TRUTH.md` defining canonical installable skills and framework-local reference copies.
+- `.codex/framework/SKILL_ROUTING.md` with skill selection matrix, workflow order, co-invocation rules, stop conditions, and review gates.
+- `docs/ADOPTION.md` for installing skills and adopting the optional `.codex/` framework.
+- Validator checks for source-of-truth drift, skill handoff quality, non-responsibility wording, template placeholder text, and role-specific default prompts.
+
+### Changed
+- Installable skills and framework-local skill copies now use synchronized substantive content.
+- Handoff rules are role-specific instead of a shared generic block.
+- Explicit non-responsibilities now use clear prohibitive language.
+- Template files now use actionable fill-in structures and generic date placeholders.
+- `agents/openai.yaml` default prompts are role-specific and operational.
+
+### Fixed
+- Validator now detects low-quality placeholder text and unintentional drift between canonical installable skills and framework-local reference copies.
+
+### Validation
+- Run `npm run validate` after framework, skill, template, or routing changes.
+- Run Codex skill validation for installable skills when skill frontmatter or metadata changes.
+
+### Migration Notes
+- Existing adopters should treat `skills/agentframe-*` as canonical and synchronize local `.codex/framework/skills/*` copies if they customize skill content.
+- Existing adopters should run `npm run validate` after pulling this release because the validator now detects source-of-truth drift.
+
 ## 0.3.0 - 2026-06-26
 ### Added
 - Complete installable Codex skill set matching the original AgentFrame specification:

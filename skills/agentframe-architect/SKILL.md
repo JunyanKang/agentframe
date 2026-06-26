@@ -9,8 +9,8 @@ description: "Use when designing or changing software architecture before implem
 Produce system-level design that constrains implementation without writing code.
 
 ## When To Use This Skill
-- A change affects module boundaries, dependencies, public interfaces, data flow, control flow, extension points, integrations, or non-functional requirements.
-- A new subsystem, service, package, plugin boundary, persistence model, or cross-cutting concern is being introduced.
+- A change affects module boundaries, dependency direction, public interfaces, data flow, control flow, extension points, integrations, or non-functional requirements.
+- A new subsystem, package, service, plugin boundary, persistence model, or cross-cutting concern is being introduced.
 - Architecture drift, dependency cycles, duplicated responsibilities, or hidden coupling must be resolved.
 
 ## When Not To Use This Skill
@@ -24,11 +24,12 @@ Produce system-level design that constrains implementation without writing code.
 - Identify architecture decision records required before implementation.
 
 ## Explicit Non-Responsibilities
-- Implementing features.
-- Making unreviewed API changes.
-- Adding dependencies without justification.
-- Bypassing existing architecture.
-- Mixing unrelated layers or creating circular dependencies.
+This skill must not:
+- implement features.
+- make unreviewed API changes.
+- add dependencies without justification.
+- bypass existing architecture.
+- mix unrelated layers or create circular dependencies.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -40,7 +41,7 @@ Produce system-level design that constrains implementation without writing code.
 - Architecture summary.
 - Directory or module layout when relevant.
 - Module responsibility table.
-- Dependency graph or dependency direction rules.
+- Dependency direction rules or dependency graph.
 - Interface overview, data flow, control flow, risk register, extension plan, open questions, and ADRs required.
 
 ## Operating Principles
@@ -57,7 +58,7 @@ Produce system-level design that constrains implementation without writing code.
 3. Compare options using existing patterns first.
 4. Choose the smallest design that satisfies the goal and preserves compatibility.
 5. Document risks, tradeoffs, open questions, and required decision records.
-6. Stop before implementation and hand off to planning/specification.
+6. Stop before implementation and hand off to planning or specification.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -65,13 +66,12 @@ Produce system-level design that constrains implementation without writing code.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Implementing features.
-- Changing code while acting as architect.
-- Adding dependencies without explicit approval.
-- Creating circular dependencies or layer violations.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not change implementation files while acting as architect.
+- Do not add dependencies without explicit approval.
+- Do not create circular dependencies or layer violations.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -79,11 +79,11 @@ Produce system-level design that constrains implementation without writing code.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-planner when the architecture output must become ordered implementation work.
+- Handoff to agentframe-specification when a selected design needs implementation requirements.
+- Handoff to agentframe-design-guardian when the design may conflict with existing architecture rules.
+- Handoff to agentframe-api-guardian, agentframe-configuration-manager, agentframe-data-model-guardian, agentframe-compatibility-manager, agentframe-plugin-architect, or agentframe-reproducibility-guardian when those surfaces are affected.
+- Handoff to agentframe-project-memory after accepted architecture decisions or open questions are recorded.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -92,15 +92,15 @@ Produce system-level design that constrains implementation without writing code.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
-- Use `agentframe-design-guardian` to check drift against established architecture.
-- Use `agentframe-api-guardian` for public interface changes.
-- Use `agentframe-compatibility-manager` when version or platform support changes.
+- Coordinate with agentframe-design-guardian for agentframe-architecture drift checks.
+- Coordinate with agentframe-api-guardian for public interface changes.
+- Coordinate with agentframe-compatibility-manager when runtime, platform, dependency, or version support changes.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

@@ -97,7 +97,7 @@ npm run validate
 ```
 
 ## Version
-Current release: 0.3.0.
+Current release: 0.4.0.
 
 ## License
 MIT.

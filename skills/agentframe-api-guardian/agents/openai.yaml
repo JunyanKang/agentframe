@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame API Guardian"
   short_description: "Protect public API stability"
-  default_prompt: "Use $agentframe-api-guardian for this software engineering task."
+  default_prompt: "Use $agentframe-api-guardian. First inspect exports, docs, tests, and integration surfaces. Produce API impact, compatibility, migration, and contract-test requirements. Do not allow silent breaking changes. Hand off to specification, implementation, docs, or compatibility review."
 
 policy:
   allow_implicit_invocation: true

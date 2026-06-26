@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Reproducibility Guardian"
   short_description: "Make workflows reproducible"
-  default_prompt: "Use $agentframe-reproducibility-guardian for this software engineering task."
+  default_prompt: "Use $agentframe-reproducibility-guardian. First inspect workflow inputs, outputs, parameters, environment, dependencies, and randomness. Produce provenance and repeatability requirements. Do not allow hidden non-determinism. Hand off to implementation, tests, docs, or review."
 
 policy:
   allow_implicit_invocation: true

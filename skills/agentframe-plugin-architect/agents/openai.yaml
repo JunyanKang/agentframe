@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Plugin Architect"
   short_description: "Design plugin boundaries"
-  default_prompt: "Use $agentframe-plugin-architect for this software engineering task."
+  default_prompt: "Use $agentframe-plugin-architect. First inspect core and extension boundaries. Produce plugin contracts, lifecycle, compatibility, and isolation rules. Do not hard-code plugin-specific core branches. Hand off to specification, API, config, compatibility, testing, or review."
 
 policy:
   allow_implicit_invocation: true

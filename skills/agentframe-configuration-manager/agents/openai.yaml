@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Configuration Manager"
   short_description: "Govern configuration safely"
-  default_prompt: "Use $agentframe-configuration-manager for this software engineering task."
+  default_prompt: "Use $agentframe-configuration-manager. First inspect config sources, defaults, validation, and docs. Produce schema, precedence, validation, and migration requirements. Do not introduce hidden config. Hand off to implementation, tests, docs, or compatibility review."
 
 policy:
   allow_implicit_invocation: true

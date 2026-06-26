@@ -23,12 +23,13 @@ Protect data model consistency and persistence semantics.
 - For every data model change, report schema, compatibility, validation, migration, tests, and docs impact.
 
 ## Explicit Non-Responsibilities
-- Ad hoc core data structures.
-- Inconsistent field names.
-- Undocumented schema changes.
-- Implicit schema migrations.
-- Modules mutating shared data without contract.
-- Persistence changes without migration plan.
+This skill must not:
+- allow ad hoc data structures for core concepts.
+- allow inconsistent field names.
+- allow undocumented schema changes.
+- allow implicit schema migration.
+- allow shared data mutation without contract.
+- allow persistence format changes without migration plan.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -40,7 +41,7 @@ Protect data model consistency and persistence semantics.
 - Data model or schema impact.
 - Validation and serialization rules.
 - Compatibility and migration plan.
-- Tests and docs required.
+- Tests and documentation required.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -63,14 +64,14 @@ Protect data model consistency and persistence semantics.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Ad hoc core data structures.
-- Undocumented schema changes.
-- Implicit migrations.
-- Shared data mutation without contract.
-- Persistence format changes without migration.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not allow ad hoc core data structures.
+- Do not allow undocumented schema changes.
+- Do not allow implicit migrations.
+- Do not allow shared data mutation without contract.
+- Do not change persistence formats without migration.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -78,11 +79,12 @@ Protect data model consistency and persistence semantics.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-specification when schema or persistence behavior must be defined before implementation.
+- Handoff to agentframe-implementer after schema, validation, serialization, and migration rules are clear.
+- Handoff to agentframe-tester for validation, serialization, migration, and backward-compatibility tests.
+- Handoff to agentframe-documenter for schema or data model docs.
+- Handoff to agentframe-compatibility-manager for persisted format or migration impact.
+- Handoff to agentframe-project-memory when data model state changes.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -91,12 +93,14 @@ Protect data model consistency and persistence semantics.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-api-guardian for schema-shaped public APIs.
+- Coordinate with agentframe-compatibility-manager for persistence compatibility.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

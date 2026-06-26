@@ -9,7 +9,7 @@ description: "Use when creating or maintaining software test strategy: unit test
 Prove changed behavior with the smallest reliable validation surface.
 
 ## When To Use This Skill
-- Logic, branches, parsers, APIs, persistence, configuration, compatibility, concurrency, performance, money/security paths, or release behavior changed.
+- Logic, branches, parsers, APIs, persistence, configuration, compatibility, concurrency, performance, security-sensitive paths, or release behavior changed.
 - A bug fix needs a regression check.
 - Existing tests do not cover the risk.
 
@@ -23,11 +23,12 @@ Prove changed behavior with the smallest reliable validation surface.
 - Produce test plan, test files, test commands, coverage rationale, untested risks, fixtures, and expected failures.
 
 ## Explicit Non-Responsibilities
-- Only testing happy paths.
-- Tests depending on uncontrolled external state.
-- Tests without assertions.
-- Tests that duplicate implementation logic.
-- Fragile timing-based tests without justification.
+This skill must not:
+- test only happy paths for non-trivial logic.
+- rely on uncontrolled external state.
+- create tests without assertions.
+- duplicate implementation logic in assertions.
+- add fragile timing-based tests without justification.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -64,13 +65,12 @@ Prove changed behavior with the smallest reliable validation surface.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Happy-path-only coverage for non-trivial logic.
-- External-state-dependent tests without control.
-- Assertion-free tests.
-- Copying implementation logic into tests.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not use happy-path-only coverage for non-trivial logic.
+- Do not depend on uncontrolled external services or timing.
+- Do not create assertion-free tests.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -78,11 +78,10 @@ Prove changed behavior with the smallest reliable validation surface.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-implementer when tests expose defects or missing behavior.
+- Handoff to agentframe-reviewer when validation evidence is ready for acceptance review.
+- Handoff to agentframe-documenter when test commands or validation expectations must be documented.
+- Handoff to agentframe-project-memory when testing policy, risk, or known gaps change.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -91,12 +90,14 @@ Prove changed behavior with the smallest reliable validation surface.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-implementer on failing tests.
+- Coordinate with agentframe-compatibility-manager or agentframe-reproducibility-guardian for compatibility or repeatability checks.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

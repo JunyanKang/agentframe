@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Specification"
   short_description: "Write implementation specs"
-  default_prompt: "Use $agentframe-specification for this software engineering task."
+  default_prompt: "Use $agentframe-specification. First inspect the approved task and affected files. Produce an implementation specification with impacts, tests, docs, and rollback. Do not edit implementation files. Hand off to implementation or relevant guardian skills when complete."
 
 policy:
   allow_implicit_invocation: true

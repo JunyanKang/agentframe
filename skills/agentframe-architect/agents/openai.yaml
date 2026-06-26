@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Architect"
   short_description: "Design architecture before coding"
-  default_prompt: "Use $agentframe-architect for this software engineering task."
+  default_prompt: "Use $agentframe-architect. First inspect repository instructions and relevant architecture files. Produce architecture artifacts only. Do not write implementation code. Stop and hand off to planning or specification when architecture output is complete."
 
 policy:
   allow_implicit_invocation: true

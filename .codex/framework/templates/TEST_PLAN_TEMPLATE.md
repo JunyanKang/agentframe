@@ -1,55 +1,65 @@
 # Test Plan Template
 
 ## Purpose
-Provide a reusable structure for test plan template documents.
+Plan focused validation for changed behavior, compatibility, error handling, or workflows.
 
 ## Metadata
 - Title:
 - Owner: Unknown - requires human input
-- Status: Draft
-- Created: 2026-06-26
-- Last updated: 2026-06-26
-- Related files: Unknown - requires human input
+- Status: Draft | Proposed | Approved | Superseded
+- Created: YYYY-MM-DD
+- Last updated: YYYY-MM-DD
+- Related files:
+- Related decisions:
 
 ## Required Sections
+
 ### Scope
-- Required content: describe scope with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Behavior under test:
+- Affected files:
+- Risk being covered:
+- Out of scope:
 
-### Test Types
-- Required content: describe test types with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Fixtures
-- Required content: describe fixtures with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Test Cases
+- Case ID:
+- Type: Unit | Integration | Regression | Boundary | Error path | Compatibility | Performance
+- Input:
+- Expected result:
+- Assertion:
+- Fixture required:
 
 ### Commands
-- Required content: describe commands with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Setup command:
+- Test command:
+- Expected exit code:
+- Expected output or artifact:
 
-### Assertions
-- Required content: describe assertions with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Coverage Rationale
+- Covered risk:
+- Why this level is sufficient:
+- Untested risk:
+- Reason risk is accepted:
 
-### Edge Cases
-- Required content: describe edge cases with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Failure Paths
-- Required content: describe failure paths with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Untested Risks
-- Required content: describe untested risks with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Failure Handling
+- Expected failure if bug exists:
+- Debug signal:
+- Rollback or fix path:
 
 ## Optional Sections
-- Alternatives considered.
-- Open questions.
-- Links to related decisions.
-- Migration or rollback notes.
+- Alternatives considered:
+- Open questions:
+- Related risks:
+- Follow-up tasks:
 
 ## Review Checklist
-- The document has a clear owner and status.
-- All required sections contain actionable content.
-- Unknown facts are marked as `Unknown - requires human input`.
-- The document does not include domain-specific examples unless already present in the repository.
-- Validation or review evidence is named where applicable.
+- Required fields are filled or marked `Unknown - requires human input`.
+- Claims are traceable to repository files, commands, decisions, or user input.
+- No domain-specific example is included unless it already exists in the target repository.
+- Compatibility, migration, testing, and documentation impact are stated when relevant.
+- Human-review items are clearly marked.
 
 ## Completion Criteria
-- Required sections are complete enough for an agent or reviewer to act without basic process clarification.
-- Conflicts are explicitly marked.
-- Follow-up work is listed with owner, priority, and acceptance criteria when known.
+- The document is actionable without basic process clarification.
+- Conflicts are explicitly marked as `Potential Conflict Requiring Human Review`.
+- Acceptance checks or review gates are concrete.
+- Follow-up work has an owner, priority, dependency, and acceptance criteria when known.

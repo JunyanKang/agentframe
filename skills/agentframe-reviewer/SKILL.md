@@ -9,8 +9,8 @@ description: "Use when reviewing code, documentation, architecture, specificatio
 Find defects and risks that matter before acceptance.
 
 ## When To Use This Skill
-- The user asks for review, audit, PR review, risk assessment, or whether a change is safe.
-- A meaningful diff, design, spec, or release candidate needs evaluation.
+- The user asks for review, audit, pull request review, risk assessment, or whether a change is safe.
+- A meaningful diff, design, specification, or release candidate needs evaluation.
 - Tests, docs, compatibility, or security risk may be missing.
 
 ## When Not To Use This Skill
@@ -23,11 +23,13 @@ Find defects and risks that matter before acceptance.
 - Categorize findings as Blocking, Major, Minor, or Suggestions.
 
 ## Explicit Non-Responsibilities
-- Approving missing tests without justification.
-- Approving scope expansion without approval.
-- Approving architecture changes without decision records.
-- Approving public API changes without migration/deprecation plan.
-- Approving swallowed errors or compatibility violations.
+This skill must not:
+- rubber-stamp approval.
+- approve missing tests without justification.
+- approve scope expansion without approval.
+- approve architecture changes without decision records.
+- approve public API changes without migration or deprecation plans.
+- ignore swallowed errors or compatibility violations.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -63,13 +65,12 @@ Find defects and risks that matter before acceptance.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Rubber-stamp approval.
-- Style-only review when behavioral risk exists.
-- Long summaries before findings.
-- Ignoring missing tests or documentation for changed behavior.
-- Ignoring existing instructions.
-- Expanding scope without approval.
-- Treating assumptions as confirmed facts.
+- Do not put long summaries before findings.
+- Do not approve undocumented breaking changes.
+- Do not ignore missing tests for changed behavior.
+- Do not ignore existing instructions.
+- Do not expand scope without approval.
+- Do not treat assumptions as confirmed facts.
 
 ## Review Criteria
 - The output satisfies the requested task and this skill mission.
@@ -77,11 +78,12 @@ Find defects and risks that matter before acceptance.
 - Validation or review evidence is named when applicable.
 
 ## Handoff Rules
-- Handoff to `agentframe-planner` when the work must be split into ordered tasks.
-- Handoff to `agentframe-specification` before non-trivial implementation begins.
-- Handoff to `agentframe-implementer` only after the task has clear acceptance criteria.
-- Handoff to `agentframe-reviewer` before acceptance of meaningful changes.
-- Handoff to `agentframe-project-memory` when durable project state changes.
+- Handoff to agentframe-implementer when fixes are required.
+- Handoff to agentframe-tester when validation is missing or weak.
+- Handoff to agentframe-documenter when documentation gaps are found.
+- Handoff to agentframe-design-guardian for architecture drift.
+- Handoff to agentframe-api-guardian, agentframe-configuration-manager, agentframe-compatibility-manager, agentframe-data-model-guardian, agentframe-plugin-architect, or agentframe-reproducibility-guardian for surface-specific risks.
+- Handoff to agentframe-project-memory when review findings change durable project state or risk records.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.
@@ -90,12 +92,14 @@ Find defects and risks that matter before acceptance.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Coordinate with agentframe-tester for validation gaps.
+- Coordinate with guardian skills for specialized compatibility, API, config, data, plugin, reproducibility, or agentframe-architecture review.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
-- Use `agentframe-documenter` when user-facing or developer-facing docs must change.
-- Use `agentframe-tester` when behavior or risk requires executable validation.
+- Use documentation and testing skills when docs or validation must change.
 
 ## File Update Obligations
-- Update affected docs, tests, release notes, or `.codex/project` records when the repository state changes.
+- Update affected docs, tests, release notes, or `.codex/project` records when repository state changes.
+- Keep canonical installable skills and framework-local reference copies synchronized according to `.codex/framework/SOURCE_OF_TRUTH.md`.
 - List skipped files and reasons in the final report.
 
 ## Quality Bar

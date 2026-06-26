@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Reviewer"
   short_description: "Review diffs for real risks"
-  default_prompt: "Use $agentframe-reviewer for this software engineering task."
+  default_prompt: "Use $agentframe-reviewer. First inspect the diff and surrounding code. Produce severity-ordered findings with file references. Do not rewrite code unless asked. Hand off fixes, tests, docs, or guardian review based on findings."
 
 policy:
   allow_implicit_invocation: true

@@ -1,55 +1,72 @@
 # Release Template
 
 ## Purpose
-Provide a reusable structure for release template documents.
+Prepare a release with version, compatibility, validation, artifacts, and rollback notes.
 
 ## Metadata
 - Title:
 - Owner: Unknown - requires human input
-- Status: Draft
-- Created: 2026-06-26
-- Last updated: 2026-06-26
-- Related files: Unknown - requires human input
+- Status: Draft | Proposed | Approved | Superseded
+- Created: YYYY-MM-DD
+- Last updated: YYYY-MM-DD
+- Related files:
+- Related decisions:
 
 ## Required Sections
-### Version
-- Required content: describe version with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+
+### Release Identity
+- Version:
+- Release date: YYYY-MM-DD
+- Release owner:
+- Release type: Major | Minor | Patch | Prerelease
 
 ### Summary
-- Required content: describe summary with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Why this release exists:
+- User-visible changes:
+- Maintainer-visible changes:
+- Out of scope:
 
 ### Compatibility
-- Required content: describe compatibility with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Migration
-- Required content: describe migration with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Breaking changes:
+- Deprecations:
+- Migration required: Yes | No
+- Supported runtimes or platforms:
+- Dependency changes:
 
 ### Validation
-- Required content: describe validation with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Validation command:
+- Result:
+- CI run:
+- Manual checks:
+- Known gaps:
 
 ### Artifacts
-- Required content: describe artifacts with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Source tag:
+- Package or binary artifact:
+- Documentation artifact:
+- Checksum or provenance if applicable:
 
 ### Rollback
-- Required content: describe rollback with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Known Issues
-- Required content: describe known issues with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Rollback trigger:
+- Rollback command or process:
+- Data or config rollback:
+- Communication required:
 
 ## Optional Sections
-- Alternatives considered.
-- Open questions.
-- Links to related decisions.
-- Migration or rollback notes.
+- Alternatives considered:
+- Open questions:
+- Related risks:
+- Follow-up tasks:
 
 ## Review Checklist
-- The document has a clear owner and status.
-- All required sections contain actionable content.
-- Unknown facts are marked as `Unknown - requires human input`.
-- The document does not include domain-specific examples unless already present in the repository.
-- Validation or review evidence is named where applicable.
+- Required fields are filled or marked `Unknown - requires human input`.
+- Claims are traceable to repository files, commands, decisions, or user input.
+- No domain-specific example is included unless it already exists in the target repository.
+- Compatibility, migration, testing, and documentation impact are stated when relevant.
+- Human-review items are clearly marked.
 
 ## Completion Criteria
-- Required sections are complete enough for an agent or reviewer to act without basic process clarification.
-- Conflicts are explicitly marked.
-- Follow-up work is listed with owner, priority, and acceptance criteria when known.
+- The document is actionable without basic process clarification.
+- Conflicts are explicitly marked as `Potential Conflict Requiring Human Review`.
+- Acceptance checks or review gates are concrete.
+- Follow-up work has an owner, priority, dependency, and acceptance criteria when known.

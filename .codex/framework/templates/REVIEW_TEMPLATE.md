@@ -1,52 +1,66 @@
 # Review Template
 
 ## Purpose
-Provide a reusable structure for review template documents.
+Structure a review of a diff, design, specification, release candidate, or documentation change.
 
 ## Metadata
 - Title:
 - Owner: Unknown - requires human input
-- Status: Draft
-- Created: 2026-06-26
-- Last updated: 2026-06-26
-- Related files: Unknown - requires human input
+- Status: Draft | Proposed | Approved | Superseded
+- Created: YYYY-MM-DD
+- Last updated: YYYY-MM-DD
+- Related files:
+- Related decisions:
 
 ## Required Sections
+
 ### Scope Reviewed
-- Required content: describe scope reviewed with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Files reviewed:
+- Change summary:
+- Specification or issue:
+- Out of scope:
 
 ### Findings
-- Required content: describe findings with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Severity: Blocking | Major | Minor | Suggestion
+- File and line:
+- Issue:
+- Impact:
+- Suggested fix:
 
-### Architecture Compliance
-- Required content: describe architecture compliance with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Compliance Checks
+- Architecture compliance: Pass | Fail | Not applicable
+- Specification compliance: Pass | Fail | Not applicable
+- API compatibility: Pass | Fail | Not applicable
+- Configuration consistency: Pass | Fail | Not applicable
+- Data model consistency: Pass | Fail | Not applicable
 
-### Specification Compliance
-- Required content: describe specification compliance with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Testing Evidence
-- Required content: describe testing evidence with concrete facts, decisions, constraints, and acceptance criteria where applicable.
-
-### Documentation Impact
-- Required content: describe documentation impact with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+### Validation Evidence
+- Tests reviewed:
+- Commands run:
+- Manual checks:
+- Missing validation:
 
 ### Decision
-- Required content: describe decision with concrete facts, decisions, constraints, and acceptance criteria where applicable.
+- Review decision: Approve | Request changes | Block
+- Open questions:
+- Residual risk:
+- Required follow-up:
 
 ## Optional Sections
-- Alternatives considered.
-- Open questions.
-- Links to related decisions.
-- Migration or rollback notes.
+- Alternatives considered:
+- Open questions:
+- Related risks:
+- Follow-up tasks:
 
 ## Review Checklist
-- The document has a clear owner and status.
-- All required sections contain actionable content.
-- Unknown facts are marked as `Unknown - requires human input`.
-- The document does not include domain-specific examples unless already present in the repository.
-- Validation or review evidence is named where applicable.
+- Required fields are filled or marked `Unknown - requires human input`.
+- Claims are traceable to repository files, commands, decisions, or user input.
+- No domain-specific example is included unless it already exists in the target repository.
+- Compatibility, migration, testing, and documentation impact are stated when relevant.
+- Human-review items are clearly marked.
 
 ## Completion Criteria
-- Required sections are complete enough for an agent or reviewer to act without basic process clarification.
-- Conflicts are explicitly marked.
-- Follow-up work is listed with owner, priority, and acceptance criteria when known.
+- The document is actionable without basic process clarification.
+- Conflicts are explicitly marked as `Potential Conflict Requiring Human Review`.
+- Acceptance checks or review gates are concrete.
+- Follow-up work has an owner, priority, dependency, and acceptance criteria when known.
