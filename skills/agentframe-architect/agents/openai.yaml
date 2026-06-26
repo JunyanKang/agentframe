@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Architect"
+  short_description: "Design architecture before coding"
+  default_prompt: "Use $agentframe-architect for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

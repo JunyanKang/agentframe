@@ -1,7 +1,7 @@
 # Framework Version
 
 ## Purpose
-Track AgentFrame version 0.1.0, version semantics, changelog format, compatibility expectations, and upgrade policy.
+Track AgentFrame version 0.2.0, version semantics, changelog format, compatibility expectations, and upgrade policy.
 
 ## Scope
 This document applies to AgentFrame governance assets and to repositories that adopt them. It does not define product features or domain-specific behavior.
@@ -14,7 +14,7 @@ This document applies to AgentFrame governance assets and to repositories that a
 - Record conflicts instead of resolving them silently.
 - Use semantic versioning.
 - Treat required skill section changes as compatibility-relevant.
-- Current version: `0.1.0`.
+- Current version: `0.2.0`.
 - Changelog entry format: `YYYY-MM-DD - version - type - summary - migration`.
 
 ## Required Workflow

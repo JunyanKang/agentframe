@@ -3,13 +3,15 @@
 ## Public API Inventory If Detectable
 - File layout under `.codex/`.
 - Required skill and checklist section names.
+- Installable skill layout under `skills/<skill-name>/SKILL.md`.
+- Skill metadata files under `skills/<skill-name>/agents/openai.yaml`.
 - `npm run validate` command.
 
 ## Private/Internal API Notes
 - Implementation details inside `scripts/validate-framework.js` are internal.
 
 ## API Stability Status
-Initial experimental API until version 1.0.0.
+Initial experimental API until version 1.0.0. Installable skill names are public from version 0.2.0.
 
 ## Compatibility Rules
 Breaking file layout or required section changes require major version after 1.0.0 and migration notes before 1.0.0.

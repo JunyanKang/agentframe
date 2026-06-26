@@ -1,25 +1,25 @@
 # Memory
 
 ## Current State
-AgentFrame initial framework assets were generated in an empty repository on 2026-06-26.
+AgentFrame provides installable Codex software engineering skills under `skills/` and optional repository governance under `.codex/`.
 
 ## Recent Changes
 - Created framework policies, templates, skills, project-local documents, public docs, validation script, GitHub templates, and CI workflow.
+- Added version 0.2.0 installable Codex skills with standard `SKILL.md` frontmatter and `agents/openai.yaml` metadata.
 
 ## Active Tasks
-- Publish repository to GitHub.
+- Publish version 0.2.0 with installable skills to GitHub.
 
 ## Open Questions
-- Final GitHub repository name if `agentframe` is unavailable.
 - Whether to add real adopter examples later.
 
 ## Known Risks
 - Large number of Markdown artifacts can drift if validation is not run.
+- Skill trigger descriptions can become noisy if too many narrow skills are added before real usage.
 
 ## Technical Debt
 - No real adopter examples yet; intentionally deferred until evidence exists.
 
 ## Next Actions
 - Run validation.
-- Initialize git.
-- Create public GitHub repository.
+- Tag and publish `v0.2.0`.

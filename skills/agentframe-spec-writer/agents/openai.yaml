@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Spec Writer"
+  short_description: "Write precise implementation specs"
+  default_prompt: "Use $agentframe-spec-writer for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

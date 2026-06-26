@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Tester"
+  short_description: "Design focused validation"
+  default_prompt: "Use $agentframe-tester for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

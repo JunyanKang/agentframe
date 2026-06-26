@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Project Steward"
+  short_description: "Maintain project governance state"
+  default_prompt: "Use $agentframe-project-steward for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

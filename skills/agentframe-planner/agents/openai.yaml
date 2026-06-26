@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Planner"
+  short_description: "Turn goals into reviewable tasks"
+  default_prompt: "Use $agentframe-planner for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

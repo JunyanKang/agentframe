@@ -1,7 +1,7 @@
 {
   "name": "agentframe",
-  "version": "0.1.0",
-  "description": "Reusable AI-assisted software engineering framework for coding agents.",
+  "version": "0.2.0",
+  "description": "Installable Codex software engineering skills plus optional project governance framework.",
   "private": false,
   "license": "MIT",
   "type": "commonjs",

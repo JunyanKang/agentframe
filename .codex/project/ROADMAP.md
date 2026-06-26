@@ -2,7 +2,8 @@
 
 ## Milestones
 - 0.1.0: initial framework, templates, skills, validation, and public repository setup.
-- 0.2.0: add examples only after real adopter feedback.
+- 0.2.0: add Codex skill-installer compatible `skills/` packages.
+- 0.3.0: add examples only after real adopter feedback.
 - 1.0.0: stable skill contract and compatibility policy.
 
 ## Goals
