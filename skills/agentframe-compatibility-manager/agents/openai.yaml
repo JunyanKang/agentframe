@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Compatibility Manager"
+  short_description: "Manage compatibility impact"
+  default_prompt: "Use $agentframe-compatibility-manager for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

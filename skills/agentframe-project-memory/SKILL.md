@@ -1,33 +1,33 @@
 ---
-name: agentframe-tester
-description: "Use when creating or maintaining software test strategy: unit tests, integration tests, regression tests, boundary tests, error-path tests, invalid-input tests, large-input tests, concurrency tests where relevant, performance tests where relevant, compatibility tests where relevant, fixtures, test commands, coverage rationale, and untested risks."
+name: agentframe-project-memory
+description: "Use when maintaining durable project state after meaningful changes. Tracks current architecture, modules, public APIs, configuration model, data model, dependencies, active decisions, open questions, known risks, technical debt, bugs, roadmap, recent changes, and next actions. Keeps memory concise but complete without deleting history."
 ---
 
-# AgentFrame Tester
+# AgentFrame Project Memory
 
 ## Mission
-Prove changed behavior with the smallest reliable validation surface.
+Keep project memory accurate enough for future Codex sessions to resume work safely.
 
 ## When To Use This Skill
-- Logic, branches, parsers, APIs, persistence, configuration, compatibility, concurrency, performance, money/security paths, or release behavior changed.
-- A bug fix needs a regression check.
-- Existing tests do not cover the risk.
+- A meaningful change affects architecture, modules, APIs, configuration, data model, dependencies, decisions, risks, roadmap, bugs, or next actions.
+- Project memory is stale, missing, vague, or conflicting.
+- A repository adopts AgentFrame governance.
 
 ## When Not To Use This Skill
-- Do not add test scaffolding for trivial documentation-only changes.
-- Do not create fragile timing tests without justification.
-- Do not introduce a new test framework when the existing one suffices.
+- Do not update memory for trivial edits with no durable state change.
+- Do not replace detailed project state with vague summaries.
+- Do not delete historical decisions.
 
 ## Responsibilities
-- Cover unit, integration, regression, boundary, error-path, invalid-input, large-input, concurrency, performance, and compatibility tests where relevant.
-- Produce test plan, test files, test commands, coverage rationale, untested risks, fixtures, and expected failures.
+- Track current architecture, modules, APIs, configuration, data model, dependencies, decisions, questions, risks, debt, bugs, roadmap, recent changes, and next actions.
+- Keep memory concise but complete.
+- Separate confirmed facts from assumptions.
 
 ## Explicit Non-Responsibilities
-- Only testing happy paths.
-- Tests depending on uncontrolled external state.
-- Tests without assertions.
-- Tests that duplicate implementation logic.
-- Fragile timing-based tests without justification.
+- Deleting historical decisions.
+- Losing unresolved questions.
+- Mixing speculation with approved decisions.
+- Replacing project state with vague summaries.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -36,10 +36,10 @@ Prove changed behavior with the smallest reliable validation surface.
 - Current tests, docs, package manifests, and validation commands when detectable.
 
 ## Required Outputs
-- Test plan.
-- Test files or commands.
-- Coverage rationale.
-- Untested risks, fixtures required, and expected failures if any.
+- Updated memory.
+- Open questions.
+- Known risks and technical debt.
+- Next actions and stale entries marked.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -50,13 +50,12 @@ Prove changed behavior with the smallest reliable validation surface.
 - Mark unknown facts as `Unknown - requires human input`.
 
 ## Step-By-Step Workflow
-1. Identify changed behavior and failure modes.
-2. Choose the narrowest useful test level.
-3. Use existing framework, fixtures, and naming patterns.
-4. Add assertions that fail for the risk being covered.
-5. Include edge, invalid-input, and error-path cases when applicable.
-6. Run targeted tests and relevant existing checks.
-7. Record untested risks explicitly.
+1. Read existing memory and current project files.
+2. Identify confirmed facts, assumptions, changes, unresolved questions, risks, and next actions.
+3. Append or update concise entries without deleting history.
+4. Mark stale facts with date and reason.
+5. Link state to relevant files or decisions when useful.
+6. Report memory changes and human-review items.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -64,10 +63,10 @@ Prove changed behavior with the smallest reliable validation surface.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Happy-path-only coverage for non-trivial logic.
-- External-state-dependent tests without control.
-- Assertion-free tests.
-- Copying implementation logic into tests.
+- Deleting historical decisions.
+- Treating speculation as approved state.
+- Dropping unresolved questions.
+- Overwriting manually maintained memory without review.
 - Ignoring existing instructions.
 - Expanding scope without approval.
 - Treating assumptions as confirmed facts.

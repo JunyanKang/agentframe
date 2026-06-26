@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Data Model Guardian"
+  short_description: "Guard data model semantics"
+  default_prompt: "Use $agentframe-data-model-guardian for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

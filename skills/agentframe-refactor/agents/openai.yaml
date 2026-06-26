@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Refactor"
+  short_description: "Refactor without behavior change"
+  default_prompt: "Use $agentframe-refactor for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

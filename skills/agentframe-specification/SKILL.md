@@ -1,33 +1,31 @@
 ---
-name: agentframe-tester
-description: "Use when creating or maintaining software test strategy: unit tests, integration tests, regression tests, boundary tests, error-path tests, invalid-input tests, large-input tests, concurrency tests where relevant, performance tests where relevant, compatibility tests where relevant, fixtures, test commands, coverage rationale, and untested risks."
+name: agentframe-specification
+description: "Use before coding non-trivial software changes to write precise implementation specifications covering purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, documentation, and rollback."
 ---
 
-# AgentFrame Tester
+# AgentFrame Specification
 
 ## Mission
-Prove changed behavior with the smallest reliable validation surface.
+Write the implementation contract before coding begins.
 
 ## When To Use This Skill
-- Logic, branches, parsers, APIs, persistence, configuration, compatibility, concurrency, performance, money/security paths, or release behavior changed.
-- A bug fix needs a regression check.
-- Existing tests do not cover the risk.
+- A task changes behavior, APIs, configuration, data model, dependencies, compatibility, release process, or user workflow.
+- A bug fix needs root-cause constraints and edge-case definition.
+- Implementation would otherwise rely on hidden assumptions.
 
 ## When Not To Use This Skill
-- Do not add test scaffolding for trivial documentation-only changes.
-- Do not create fragile timing tests without justification.
-- Do not introduce a new test framework when the existing one suffices.
+- Do not use for pure typo fixes or trivial documentation edits.
+- Do not write implementation code.
+- Do not expand scope while specifying.
 
 ## Responsibilities
-- Cover unit, integration, regression, boundary, error-path, invalid-input, large-input, concurrency, performance, and compatibility tests where relevant.
-- Produce test plan, test files, test commands, coverage rationale, untested risks, fixtures, and expected failures.
+- Define purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, docs, and rollback.
+- Block ambiguous behavior and hidden assumptions.
 
 ## Explicit Non-Responsibilities
-- Only testing happy paths.
-- Tests depending on uncontrolled external state.
-- Tests without assertions.
-- Tests that duplicate implementation logic.
-- Fragile timing-based tests without justification.
+- Writing implementation code.
+- Choosing architecture without architect review when architecture is affected.
+- Approving unspecified error handling or inputs.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -36,10 +34,11 @@ Prove changed behavior with the smallest reliable validation surface.
 - Current tests, docs, package manifests, and validation commands when detectable.
 
 ## Required Outputs
-- Test plan.
-- Test files or commands.
-- Coverage rationale.
-- Untested risks, fixtures required, and expected failures if any.
+- Implementation specification.
+- Acceptance criteria.
+- API/data/config/compatibility impact notes.
+- Test and documentation requirements.
+- Rollback plan and open questions.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -50,13 +49,12 @@ Prove changed behavior with the smallest reliable validation surface.
 - Mark unknown facts as `Unknown - requires human input`.
 
 ## Step-By-Step Workflow
-1. Identify changed behavior and failure modes.
-2. Choose the narrowest useful test level.
-3. Use existing framework, fixtures, and naming patterns.
-4. Add assertions that fail for the risk being covered.
-5. Include edge, invalid-input, and error-path cases when applicable.
-6. Run targeted tests and relevant existing checks.
-7. Record untested risks explicitly.
+1. Read the task, architecture notes, affected code, tests, and docs.
+2. Define requirements and explicit non-requirements.
+3. Specify inputs, outputs, state changes, errors, edge cases, performance, security, and observability.
+4. Record API, data model, configuration, compatibility, and migration impact.
+5. Define test requirements, documentation requirements, acceptance criteria, and rollback.
+6. Stop if a required behavior cannot be specified safely.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -64,10 +62,11 @@ Prove changed behavior with the smallest reliable validation surface.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Happy-path-only coverage for non-trivial logic.
-- External-state-dependent tests without control.
-- Assertion-free tests.
-- Copying implementation logic into tests.
+- Ambiguous behavior.
+- Unspecified inputs.
+- Unspecified error handling.
+- Hidden assumptions.
+- Scope expansion during implementation.
 - Ignoring existing instructions.
 - Expanding scope without approval.
 - Treating assumptions as confirmed facts.
@@ -91,6 +90,7 @@ Prove changed behavior with the smallest reliable validation surface.
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
+- Use `agentframe-api-guardian`, `agentframe-data-model-guardian`, `agentframe-configuration-manager`, and `agentframe-compatibility-manager` when those surfaces are touched.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
 - Use `agentframe-documenter` when user-facing or developer-facing docs must change.
 - Use `agentframe-tester` when behavior or risk requires executable validation.

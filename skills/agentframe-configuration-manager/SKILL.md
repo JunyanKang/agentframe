@@ -1,33 +1,35 @@
 ---
-name: agentframe-tester
-description: "Use when creating or maintaining software test strategy: unit tests, integration tests, regression tests, boundary tests, error-path tests, invalid-input tests, large-input tests, concurrency tests where relevant, performance tests where relevant, compatibility tests where relevant, fixtures, test commands, coverage rationale, and untested risks."
+name: agentframe-configuration-manager
+description: "Use when designing, changing, or reviewing software configuration: centralized config, typed or structured settings, validation, defaults, environment variables, command-line options, file-based configuration, override mechanisms, reproducibility, environment awareness, compatibility, precedence order, and migration rules."
 ---
 
-# AgentFrame Tester
+# AgentFrame Configuration Manager
 
 ## Mission
-Prove changed behavior with the smallest reliable validation surface.
+Keep configuration explicit, validated, documented, and compatible.
 
 ## When To Use This Skill
-- Logic, branches, parsers, APIs, persistence, configuration, compatibility, concurrency, performance, money/security paths, or release behavior changed.
-- A bug fix needs a regression check.
-- Existing tests do not cover the risk.
+- A change adds or modifies configuration files, environment variables, CLI options, defaults, validation, override order, or operational parameters.
+- Configuration parsing is scattered or duplicated.
+- Invalid configuration is silently ignored.
 
 ## When Not To Use This Skill
-- Do not add test scaffolding for trivial documentation-only changes.
-- Do not create fragile timing tests without justification.
-- Do not introduce a new test framework when the existing one suffices.
+- Do not add config for a value that never changes.
+- Do not use when no operational parameter or config surface is affected.
+- Do not create a config system for speculative future flexibility.
 
 ## Responsibilities
-- Cover unit, integration, regression, boundary, error-path, invalid-input, large-input, concurrency, performance, and compatibility tests where relevant.
-- Produce test plan, test files, test commands, coverage rationale, untested risks, fixtures, and expected failures.
+- Ensure config is centralized, validated, typed where possible, documented, overrideable through approved mechanisms, reproducible, environment-aware, and compatible.
+- Maintain schema, defaults, validation rules, environment policy, CLI/file policy, precedence order, and migrations.
 
 ## Explicit Non-Responsibilities
-- Only testing happy paths.
-- Tests depending on uncontrolled external state.
-- Tests without assertions.
-- Tests that duplicate implementation logic.
-- Fragile timing-based tests without justification.
+- Hard-coded operational parameters.
+- Hidden configuration.
+- Undocumented defaults.
+- Duplicated parsing.
+- Inconsistent names.
+- Scattered config parsing.
+- Silently ignored invalid config.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -36,10 +38,9 @@ Prove changed behavior with the smallest reliable validation surface.
 - Current tests, docs, package manifests, and validation commands when detectable.
 
 ## Required Outputs
-- Test plan.
-- Test files or commands.
-- Coverage rationale.
-- Untested risks, fixtures required, and expected failures if any.
+- Configuration inventory or schema.
+- Defaults, validation rules, sources, precedence order, and migration requirements.
+- Docs and tests required.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -50,13 +51,11 @@ Prove changed behavior with the smallest reliable validation surface.
 - Mark unknown facts as `Unknown - requires human input`.
 
 ## Step-By-Step Workflow
-1. Identify changed behavior and failure modes.
-2. Choose the narrowest useful test level.
-3. Use existing framework, fixtures, and naming patterns.
-4. Add assertions that fail for the risk being covered.
-5. Include edge, invalid-input, and error-path cases when applicable.
-6. Run targeted tests and relevant existing checks.
-7. Record untested risks explicitly.
+1. Inspect current config files, environment variables, CLI flags, docs, tests, and runtime loading.
+2. Identify sources, defaults, validation, and precedence.
+3. Centralize or align parsing only where it reduces real duplication or risk.
+4. Define invalid-config behavior and compatibility impact.
+5. Update documentation, examples, tests, and migration notes.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -64,10 +63,11 @@ Prove changed behavior with the smallest reliable validation surface.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Happy-path-only coverage for non-trivial logic.
-- External-state-dependent tests without control.
-- Assertion-free tests.
-- Copying implementation logic into tests.
+- Hidden config.
+- Undocumented defaults.
+- Silently ignored invalid values.
+- Scattered parsing without reason.
+- Adding speculative knobs.
 - Ignoring existing instructions.
 - Expanding scope without approval.
 - Treating assumptions as confirmed facts.

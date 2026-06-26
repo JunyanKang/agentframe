@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Configuration Manager"
+  short_description: "Govern configuration safely"
+  default_prompt: "Use $agentframe-configuration-manager for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

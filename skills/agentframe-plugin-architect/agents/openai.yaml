@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Plugin Architect"
+  short_description: "Design plugin boundaries"
+  default_prompt: "Use $agentframe-plugin-architect for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

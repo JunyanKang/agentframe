@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Design Guardian"
+  short_description: "Block architecture drift"
+  default_prompt: "Use $agentframe-design-guardian for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

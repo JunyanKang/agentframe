@@ -1,33 +1,33 @@
 ---
-name: agentframe-tester
-description: "Use when creating or maintaining software test strategy: unit tests, integration tests, regression tests, boundary tests, error-path tests, invalid-input tests, large-input tests, concurrency tests where relevant, performance tests where relevant, compatibility tests where relevant, fixtures, test commands, coverage rationale, and untested risks."
+name: agentframe-api-guardian
+description: "Use when identifying, changing, reviewing, or protecting public APIs, private APIs, experimental APIs, deprecated APIs, exported interfaces, CLI contracts, service contracts, file contracts, or integration-facing behavior. Enforces backward compatibility, semantic versioning, deprecation policy, migration guides, API contract tests, and public/internal boundaries."
 ---
 
-# AgentFrame Tester
+# AgentFrame API Guardian
 
 ## Mission
-Prove changed behavior with the smallest reliable validation surface.
+Prevent accidental or silent public API breakage.
 
 ## When To Use This Skill
-- Logic, branches, parsers, APIs, persistence, configuration, compatibility, concurrency, performance, money/security paths, or release behavior changed.
-- A bug fix needs a regression check.
-- Existing tests do not cover the risk.
+- A change touches exported functions, classes, endpoints, CLI flags, config keys, files, schemas, events, plugin contracts, or documented behavior.
+- A migration, deprecation, or version impact must be assessed.
+- Review needs API stability evidence.
 
 ## When Not To Use This Skill
-- Do not add test scaffolding for trivial documentation-only changes.
-- Do not create fragile timing tests without justification.
-- Do not introduce a new test framework when the existing one suffices.
+- Do not use when no integration-facing surface is affected.
+- Do not approve silent breaking changes.
+- Do not classify APIs without inspecting docs and exports.
 
 ## Responsibilities
-- Cover unit, integration, regression, boundary, error-path, invalid-input, large-input, concurrency, performance, and compatibility tests where relevant.
-- Produce test plan, test files, test commands, coverage rationale, untested risks, fixtures, and expected failures.
+- Identify public, private, experimental, and deprecated APIs.
+- Enforce backward compatibility, semantic versioning, deprecation policy, migration guides, contract tests, and public/internal distinction.
+- Report API affected, change type, compatibility impact, version impact, migration, tests, and docs.
 
 ## Explicit Non-Responsibilities
-- Only testing happy paths.
-- Tests depending on uncontrolled external state.
-- Tests without assertions.
-- Tests that duplicate implementation logic.
-- Fragile timing-based tests without justification.
+- Accidental public API changes.
+- Silent breaking changes.
+- Removing public APIs without deprecation.
+- Changing parameter semantics or return types without migration.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -36,10 +36,9 @@ Prove changed behavior with the smallest reliable validation surface.
 - Current tests, docs, package manifests, and validation commands when detectable.
 
 ## Required Outputs
-- Test plan.
-- Test files or commands.
-- Coverage rationale.
-- Untested risks, fixtures required, and expected failures if any.
+- API inventory or affected API list.
+- Change type and compatibility impact.
+- Version impact, migration instructions, tests required, and docs required.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -50,13 +49,11 @@ Prove changed behavior with the smallest reliable validation surface.
 - Mark unknown facts as `Unknown - requires human input`.
 
 ## Step-By-Step Workflow
-1. Identify changed behavior and failure modes.
-2. Choose the narrowest useful test level.
-3. Use existing framework, fixtures, and naming patterns.
-4. Add assertions that fail for the risk being covered.
-5. Include edge, invalid-input, and error-path cases when applicable.
-6. Run targeted tests and relevant existing checks.
-7. Record untested risks explicitly.
+1. Inspect exports, docs, tests, examples, changelog, and integration points.
+2. Classify affected surfaces as public, private, experimental, or deprecated.
+3. Determine change type: additive, compatible behavior change, deprecation, or breaking change.
+4. Define migration, deprecation, version, contract test, and documentation requirements.
+5. Block silent breakage or unclear public/private boundaries.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -64,10 +61,10 @@ Prove changed behavior with the smallest reliable validation surface.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Happy-path-only coverage for non-trivial logic.
-- External-state-dependent tests without control.
-- Assertion-free tests.
-- Copying implementation logic into tests.
+- Silent breaking changes.
+- Removing public APIs without deprecation.
+- Changing parameter semantics without documentation.
+- Changing return types without migration plan.
 - Ignoring existing instructions.
 - Expanding scope without approval.
 - Treating assumptions as confirmed facts.

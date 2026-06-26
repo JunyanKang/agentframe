@@ -48,7 +48,26 @@ for (const dir of installableSkillDirs) {
   if (!frontmatter[1].includes(`name: ${dir}`)) errors.push(`${rel} frontmatter name must match directory`);
   const desc = frontmatter[1].match(/^description:\s*(.+)$/m);
   if (!desc || desc[1].trim().length < 80) errors.push(`${rel} needs a trigger-rich description`);
-  requireHeadings(rel, ['Mission','Trigger Checks','Do Not Use For','Operating Rules','Workflow','Required Output','Completion Gate']);
+  requireHeadings(rel, [
+    'Mission',
+    'When To Use This Skill',
+    'When Not To Use This Skill',
+    'Responsibilities',
+    'Explicit Non-Responsibilities',
+    'Required Inputs',
+    'Required Outputs',
+    'Operating Principles',
+    'Step-By-Step Workflow',
+    'Constraints',
+    'Forbidden Behaviors',
+    'Review Criteria',
+    'Handoff Rules',
+    'Failure Handling',
+    'Interaction With Other Skills',
+    'File Update Obligations',
+    'Quality Bar',
+    'Completion Criteria',
+  ]);
   const agentFile = path.join('skills', dir, 'agents', 'openai.yaml');
   const agentText = read(agentFile);
   for (const key of ['display_name:', 'short_description:', 'default_prompt:']) {

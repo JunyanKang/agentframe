@@ -1,33 +1,32 @@
 ---
-name: agentframe-tester
-description: "Use when creating or maintaining software test strategy: unit tests, integration tests, regression tests, boundary tests, error-path tests, invalid-input tests, large-input tests, concurrency tests where relevant, performance tests where relevant, compatibility tests where relevant, fixtures, test commands, coverage rationale, and untested risks."
+name: agentframe-compatibility-manager
+description: "Use when governing compatibility across software versions, runtime versions, operating systems, platforms, dependencies, file formats, serialization, plugins, APIs, configuration, data migrations, deprecation timelines, and release support policy. Blocks unbounded upgrades and undocumented compatibility drops."
 ---
 
-# AgentFrame Tester
+# AgentFrame Compatibility Manager
 
 ## Mission
-Prove changed behavior with the smallest reliable validation surface.
+Make compatibility impact explicit before users or integrations break.
 
 ## When To Use This Skill
-- Logic, branches, parsers, APIs, persistence, configuration, compatibility, concurrency, performance, money/security paths, or release behavior changed.
-- A bug fix needs a regression check.
-- Existing tests do not cover the risk.
+- A change affects runtime support, OS/platform support, dependencies, file formats, serialization, plugins, APIs, configuration, migrations, or deprecations.
+- A release needs compatibility notes.
+- Dependency ranges or support policy are unclear.
 
 ## When Not To Use This Skill
-- Do not add test scaffolding for trivial documentation-only changes.
-- Do not create fragile timing tests without justification.
-- Do not introduce a new test framework when the existing one suffices.
+- Do not use for changes with no compatibility surface.
+- Do not approve unsupported runtime assumptions.
+- Do not create compatibility promises not backed by tests or policy.
 
 ## Responsibilities
-- Cover unit, integration, regression, boundary, error-path, invalid-input, large-input, concurrency, performance, and compatibility tests where relevant.
-- Produce test plan, test files, test commands, coverage rationale, untested risks, fixtures, and expected failures.
+- Maintain supported runtime versions, operating systems, dependency ranges, file format compatibility, serialization compatibility, plugin compatibility, API compatibility, configuration compatibility, migration rules, and deprecation timeline.
 
 ## Explicit Non-Responsibilities
-- Only testing happy paths.
-- Tests depending on uncontrolled external state.
-- Tests without assertions.
-- Tests that duplicate implementation logic.
-- Fragile timing-based tests without justification.
+- Unbounded dependency upgrades.
+- Unsupported runtime assumptions.
+- Undocumented compatibility drops.
+- Stored data format changes without migration.
+- Plugin compatibility breaks without version policy.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -36,10 +35,10 @@ Prove changed behavior with the smallest reliable validation surface.
 - Current tests, docs, package manifests, and validation commands when detectable.
 
 ## Required Outputs
-- Test plan.
-- Test files or commands.
-- Coverage rationale.
-- Untested risks, fixtures required, and expected failures if any.
+- Compatibility assessment.
+- Affected versions/platforms/dependencies/formats/interfaces.
+- Migration and deprecation plan.
+- Tests and release notes required.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -50,13 +49,11 @@ Prove changed behavior with the smallest reliable validation surface.
 - Mark unknown facts as `Unknown - requires human input`.
 
 ## Step-By-Step Workflow
-1. Identify changed behavior and failure modes.
-2. Choose the narrowest useful test level.
-3. Use existing framework, fixtures, and naming patterns.
-4. Add assertions that fail for the risk being covered.
-5. Include edge, invalid-input, and error-path cases when applicable.
-6. Run targeted tests and relevant existing checks.
-7. Record untested risks explicitly.
+1. Inspect manifests, lockfiles, CI, docs, release notes, APIs, data/config formats, and plugin contracts.
+2. Identify compatibility surfaces touched by the change.
+3. Classify the impact as compatible, deprecated, migration-required, or breaking.
+4. Define tests, migration steps, deprecation timeline, and release notes.
+5. Block unbounded upgrades or undocumented support drops.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -64,10 +61,10 @@ Prove changed behavior with the smallest reliable validation surface.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Happy-path-only coverage for non-trivial logic.
-- External-state-dependent tests without control.
-- Assertion-free tests.
-- Copying implementation logic into tests.
+- Unbounded dependency upgrades.
+- Changing stored formats without migration.
+- Undocumented support drops.
+- Breaking plugin/API/config compatibility without policy.
 - Ignoring existing instructions.
 - Expanding scope without approval.
 - Treating assumptions as confirmed facts.

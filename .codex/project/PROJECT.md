@@ -34,7 +34,7 @@ Installable Codex skills under `skills/`.
 - Node.js for structural validation.
 
 ## Current Status
-Initial public-release framework generated on 2026-06-26; installable Codex skills added in version 0.2.0.
+Initial public-release framework generated on 2026-06-26; complete installable Codex skills added in version 0.3.0.
 
 ## Open Questions
 - Long-term package distribution channel: Unknown - requires human input.

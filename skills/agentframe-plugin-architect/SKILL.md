@@ -1,33 +1,33 @@
 ---
-name: agentframe-tester
-description: "Use when creating or maintaining software test strategy: unit tests, integration tests, regression tests, boundary tests, error-path tests, invalid-input tests, large-input tests, concurrency tests where relevant, performance tests where relevant, compatibility tests where relevant, fixtures, test commands, coverage rationale, and untested risks."
+name: agentframe-plugin-architect
+description: "Use when designing or maintaining software extension mechanisms: plugin boundaries, plugin discovery, registration, lifecycle, contracts, configuration, version compatibility, isolation, error handling, documentation, core system separation, extension interfaces, plugin implementations, plugin runtime context, and plugin testability."
 ---
 
-# AgentFrame Tester
+# AgentFrame Plugin Architect
 
 ## Mission
-Prove changed behavior with the smallest reliable validation surface.
+Keep plugin systems extensible without coupling core logic to individual plugins.
 
 ## When To Use This Skill
-- Logic, branches, parsers, APIs, persistence, configuration, compatibility, concurrency, performance, money/security paths, or release behavior changed.
-- A bug fix needs a regression check.
-- Existing tests do not cover the risk.
+- The project adds or changes plugin discovery, registration, lifecycle, contracts, configuration, compatibility, isolation, or errors.
+- Core and extension boundaries are unclear.
+- Plugin APIs or documentation need design review.
 
 ## When Not To Use This Skill
-- Do not add test scaffolding for trivial documentation-only changes.
-- Do not create fragile timing tests without justification.
-- Do not introduce a new test framework when the existing one suffices.
+- Do not introduce plugins when simple direct code is enough.
+- Do not hard-code plugin-specific branches into core.
+- Do not design plugin systems for hypothetical needs.
 
 ## Responsibilities
-- Cover unit, integration, regression, boundary, error-path, invalid-input, large-input, concurrency, performance, and compatibility tests where relevant.
-- Produce test plan, test files, test commands, coverage rationale, untested risks, fixtures, and expected failures.
+- Design and maintain plugin boundaries, discovery, registration, lifecycle, contracts, configuration, compatibility, isolation, errors, and docs.
+- Separate core system, extension interface, plugin implementation, plugin configuration, and plugin runtime context.
 
 ## Explicit Non-Responsibilities
-- Only testing happy paths.
-- Tests depending on uncontrolled external state.
-- Tests without assertions.
-- Tests that duplicate implementation logic.
-- Fragile timing-based tests without justification.
+- Hard-coded plugin branches in core logic.
+- Plugins depending on private internals.
+- Core depending on individual plugins.
+- Undocumented plugin APIs.
+- Unstable plugin contracts.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -36,10 +36,9 @@ Prove changed behavior with the smallest reliable validation surface.
 - Current tests, docs, package manifests, and validation commands when detectable.
 
 ## Required Outputs
-- Test plan.
-- Test files or commands.
-- Coverage rationale.
-- Untested risks, fixtures required, and expected failures if any.
+- Plugin boundary design.
+- Discovery, registration, lifecycle, and runtime context rules.
+- Plugin contract, configuration, compatibility, error-handling, docs, and test requirements.
 
 ## Operating Principles
 - Inspect before editing or recommending changes.
@@ -50,13 +49,11 @@ Prove changed behavior with the smallest reliable validation surface.
 - Mark unknown facts as `Unknown - requires human input`.
 
 ## Step-By-Step Workflow
-1. Identify changed behavior and failure modes.
-2. Choose the narrowest useful test level.
-3. Use existing framework, fixtures, and naming patterns.
-4. Add assertions that fail for the risk being covered.
-5. Include edge, invalid-input, and error-path cases when applicable.
-6. Run targeted tests and relevant existing checks.
-7. Record untested risks explicitly.
+1. Inspect existing extension points, core logic, plugin code, config, tests, and docs.
+2. Separate core responsibilities from extension contracts and plugin implementations.
+3. Define discovery, registration, lifecycle, runtime context, isolation, errors, and compatibility.
+4. Specify documentation and independent plugin test requirements.
+5. Reject hard-coded branches or private-internal dependencies.
 
 ## Constraints
 - Keep the output actionable and bounded.
@@ -64,10 +61,10 @@ Prove changed behavior with the smallest reliable validation surface.
 - Stop on unresolved instruction or policy conflicts.
 
 ## Forbidden Behaviors
-- Happy-path-only coverage for non-trivial logic.
-- External-state-dependent tests without control.
-- Assertion-free tests.
-- Copying implementation logic into tests.
+- Hard-coded plugin-specific branches in core.
+- Private-internal plugin dependencies.
+- Core dependencies on individual plugins.
+- Undocumented or untestable plugin APIs.
 - Ignoring existing instructions.
 - Expanding scope without approval.
 - Treating assumptions as confirmed facts.

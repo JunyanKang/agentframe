@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.3.0 - 2026-06-26
+### Added
+- Complete installable Codex skill set matching the original AgentFrame specification:
+  - `agentframe-architect`
+  - `agentframe-planner`
+  - `agentframe-specification`
+  - `agentframe-implementer`
+  - `agentframe-reviewer`
+  - `agentframe-tester`
+  - `agentframe-refactor`
+  - `agentframe-documenter`
+  - `agentframe-project-memory`
+  - `agentframe-design-guardian`
+  - `agentframe-plugin-architect`
+  - `agentframe-api-guardian`
+  - `agentframe-configuration-manager`
+  - `agentframe-compatibility-manager`
+  - `agentframe-data-model-guardian`
+  - `agentframe-reproducibility-guardian`
+- Full required skill sections in each installable `SKILL.md`.
+- Correct all-skill install command using one `--path` argument followed by all skill paths.
+
+### Changed
+- Renamed installable skill surfaces to match the original specification:
+  - `agentframe-spec-writer` -> `agentframe-specification`
+  - `agentframe-project-steward` -> `agentframe-project-memory`
+- Validation now checks installable skills for the same required section set as framework skills.
+
+### Fixed
+- Replaced the partial 8-skill installable layer with the complete 16-skill software development suite.
+- Fixed README install command shape for Codex's GitHub skill installer.
+
+### Migration
+- Prefer `v0.3.0` or `main` for installation.
+- If `agentframe-spec-writer` or `agentframe-project-steward` were installed from `v0.2.0`, remove those local skill folders and install `agentframe-specification` and `agentframe-project-memory`.
+
 ## 0.2.0 - 2026-06-26
 ### Added
 - Installable Codex skills under `skills/`:

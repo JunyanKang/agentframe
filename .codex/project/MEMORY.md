@@ -5,10 +5,10 @@ AgentFrame provides installable Codex software engineering skills under `skills/
 
 ## Recent Changes
 - Created framework policies, templates, skills, project-local documents, public docs, validation script, GitHub templates, and CI workflow.
-- Added version 0.2.0 installable Codex skills with standard `SKILL.md` frontmatter and `agents/openai.yaml` metadata.
+- Added version 0.3.0 complete installable Codex skill set with all 16 original AgentFrame skills, standard `SKILL.md` frontmatter, full required sections, and `agents/openai.yaml` metadata.
 
 ## Active Tasks
-- Publish version 0.2.0 with installable skills to GitHub.
+- Publish version 0.3.0 with the complete installable skills set to GitHub.
 
 ## Open Questions
 - Whether to add real adopter examples later.
@@ -22,4 +22,4 @@ AgentFrame provides installable Codex software engineering skills under `skills/
 
 ## Next Actions
 - Run validation.
-- Tag and publish `v0.2.0`.
+- Tag and publish `v0.3.0`.

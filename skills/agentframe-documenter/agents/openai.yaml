@@ -1,6 +1,6 @@
 interface:
   display_name: "AgentFrame Documenter"
-  short_description: "Keep docs aligned with behavior"
+  short_description: "Keep docs aligned with code"
   default_prompt: "Use $agentframe-documenter for this software engineering task."
 
 policy:

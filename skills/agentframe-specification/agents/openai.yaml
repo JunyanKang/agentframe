@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame Specification"
+  short_description: "Write implementation specs"
+  default_prompt: "Use $agentframe-specification for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true

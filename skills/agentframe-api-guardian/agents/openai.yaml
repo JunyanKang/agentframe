@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentFrame API Guardian"
+  short_description: "Protect public API stability"
+  default_prompt: "Use $agentframe-api-guardian for this software engineering task."
+
+policy:
+  allow_implicit_invocation: true
