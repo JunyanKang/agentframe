@@ -36,6 +36,24 @@ const skillHeadings = ['Mission','When To Use This Skill','When Not To Use This 
 const checklistHeadings = ['Pre-Flight Checklist','Execution Checklist','Output Checklist','Safety Checklist','Review Checklist','Handoff Checklist','Stop Conditions'];
 const templateHeadings = ['Purpose','Metadata','Required Sections','Optional Sections','Review Checklist','Completion Criteria'];
 const validInstallableSkills = new Set(Object.values(skillMap));
+const implicitInvocationPolicy = {
+  'agentframe-governance-guardian': false,
+  'agentframe-ci-guardian': false,
+  'agentframe-release-manager': false,
+  'agentframe-migration-guardian': false,
+  'agentframe-observability-guardian': false,
+  'agentframe-frontend-experience-guardian': false,
+};
+const requiredGoldenScenarios = [
+  'tiny_bugfix.md',
+  'small_feature.md',
+  'api_change.md',
+  'config_change.md',
+  'architecture_change.md',
+  'release_task.md',
+  'doc_only.md',
+  'dependency_upgrade.md',
+];
 
 function full(file) { return path.join(root, file); }
 
@@ -88,6 +106,18 @@ function splitSectionLines(text, heading) {
 
 function extractSkillRefs(text) {
   return Array.from(text.matchAll(/\bagentframe-[a-z0-9-]+\b/g)).map(match => match[0]);
+}
+
+function tokenize(text) {
+  return new Set(text.toLowerCase().replace(/`[^`]+`/g, '').match(/[a-z0-9]+/g) || []);
+}
+
+function jaccard(a, b) {
+  const left = tokenize(a);
+  const right = tokenize(b);
+  const intersection = Array.from(left).filter(token => right.has(token)).length;
+  const union = new Set([...left, ...right]).size;
+  return union ? intersection / union : 0;
 }
 
 function validateSkillRefs(file, text) {
@@ -198,6 +228,10 @@ function validateOpenAiYaml(file, skillName) {
       errors.push(`${file}: default_prompt references invalid skill ${ref}`);
     }
   }
+  const expectedImplicit = implicitInvocationPolicy[skillName] ?? true;
+  if (!text.includes(`allow_implicit_invocation: ${expectedImplicit}`)) {
+    errors.push(`${file}: allow_implicit_invocation must be ${expectedImplicit} according to AgentFrame triggering policy`);
+  }
 }
 
 function validateTemplate(file) {
@@ -254,6 +288,61 @@ function validateSkillPairDrift(installableFile, frameworkFile, installableText,
   errors.push(`${installableFile} <-> ${frameworkFile}: drift in sections: ${drift.length ? drift.join(', ') : 'unknown whole-file difference outside required sections'}`);
 }
 
+function validateDescriptionQuality(descriptions) {
+  const normalized = new Map();
+  for (const [file, description] of descriptions) {
+    const norm = description.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+    if (normalized.has(norm)) {
+      errors.push(`${file}: frontmatter description duplicates ${normalized.get(norm)}`);
+    }
+    normalized.set(norm, file);
+    if (!/^"?Use when\b/i.test(description.trim())) {
+      errors.push(`${file}: frontmatter description should begin with "Use when" for trigger clarity`);
+    }
+  }
+  for (let i = 0; i < descriptions.length; i++) {
+    for (let j = i + 1; j < descriptions.length; j++) {
+      const [fileA, descA] = descriptions[i];
+      const [fileB, descB] = descriptions[j];
+      const score = jaccard(descA, descB);
+      if (score > 0.88) {
+        errors.push(`${fileA} and ${fileB}: frontmatter descriptions are too similar (${score.toFixed(2)}); add stronger trigger disambiguation`);
+      }
+    }
+  }
+}
+
+function parseGoldenScenario(file) {
+  const text = requireHeadings(file, ['User Prompt','Expected Primary Skill','Allowed Secondary Skills','Forbidden Skills','Expected Stop Condition','Expected Artifact']);
+  const primary = section(text, 'Expected Primary Skill').split(/\r?\n/).map(line => line.trim()).filter(Boolean)[0] || '';
+  const allowed = splitSectionLines(text, 'Allowed Secondary Skills').map(line => line.replace(/^[-*]\s+/, ''));
+  const forbidden = splitSectionLines(text, 'Forbidden Skills').map(line => line.replace(/^[-*]\s+/, ''));
+  return { text, primary, allowed, forbidden };
+}
+
+function validateGoldenScenarios() {
+  for (const name of requiredGoldenScenarios) {
+    const file = path.join('tests/golden', name);
+    const scenario = parseGoldenScenario(file);
+    const refs = [scenario.primary, ...scenario.allowed, ...scenario.forbidden].filter(Boolean);
+    for (const ref of refs) {
+      if (!validInstallableSkills.has(ref)) {
+        errors.push(`${file}: invalid golden scenario skill reference ${ref}`);
+      }
+    }
+    if (scenario.forbidden.includes(scenario.primary)) {
+      errors.push(`${file}: expected primary skill is also forbidden`);
+    }
+    for (const ref of scenario.allowed) {
+      if (scenario.forbidden.includes(ref)) {
+        errors.push(`${file}: skill ${ref} appears in both allowed and forbidden lists`);
+      }
+    }
+    if (!section(scenario.text, 'Expected Stop Condition')) errors.push(`${file}: missing expected stop condition body`);
+    if (!section(scenario.text, 'Expected Artifact')) errors.push(`${file}: missing expected artifact body`);
+  }
+}
+
 for (const file of [
   'AGENTS.md',
   '.codex/AGENTS.md',
@@ -261,6 +350,7 @@ for (const file of [
   '.codex/framework/SKILL_ROUTING.md',
   'CHANGELOG.md',
   'docs/ADOPTION.md',
+  'docs/USAGE_PATTERNS.md',
   '.github/workflows/validate.yml',
   'scripts/update-agentframe-skills.py',
 ]) read(file);
@@ -275,12 +365,17 @@ for (const file of ['README.md', 'docs/ADOPTION.md']) {
   if (!text.includes('scripts/update-agentframe-skills.py')) {
     errors.push(`${file}: missing AgentFrame update script documentation`);
   }
+  if (!text.includes('USAGE_PATTERNS.md')) {
+    errors.push(`${file}: missing link to docs/USAGE_PATTERNS.md`);
+  }
 }
+validateGoldenScenarios();
 
 for (const file of ['FRAMEWORK.md','FRAMEWORK_VERSION.md','GOVERNANCE.md','EXTENSION_POLICY.md','COMPATIBILITY_POLICY.md','MEMORY_POLICY.md','VERSIONING_POLICY.md','SKILL_AUTHORING_GUIDE.md','WORKFLOW.md','SOURCE_OF_TRUTH.md','SKILL_ROUTING.md']) {
   requireHeadings(path.join('.codex/framework', file), frameworkHeadings);
 }
 
+const skillDescriptions = [];
 for (const [localName, installableName] of Object.entries(skillMap)) {
   const frameworkSkill = path.join('.codex/framework/skills', localName, 'SKILL.md');
   const frameworkChecklist = path.join('.codex/framework/skills', localName, 'CHECKLIST.md');
@@ -300,6 +395,7 @@ for (const [localName, installableName] of Object.entries(skillMap)) {
     if (!frontmatter[1].includes(`name: ${installableName}`)) errors.push(`${installableSkill}: frontmatter name must match directory`);
     const desc = frontmatter[1].match(/^description:\s*(.+)$/m);
     if (!desc || desc[1].trim().length < 80) errors.push(`${installableSkill}: needs trigger-rich description`);
+    else skillDescriptions.push([installableSkill, desc[1].trim()]);
   }
 
   validateExplicitNonResponsibilities(installableSkill, installableText);
@@ -311,6 +407,7 @@ for (const [localName, installableName] of Object.entries(skillMap)) {
 
   validateSkillPairDrift(installableSkill, frameworkSkill, installableText, frameworkText);
 }
+validateDescriptionQuality(skillDescriptions);
 
 for (const file of listFiles('.codex/framework/templates').filter(file => file.endsWith('.md'))) validateTemplate(file);
 

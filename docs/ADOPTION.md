@@ -3,6 +3,15 @@
 ## Purpose
 Explain how to adopt AgentFrame skills and optional project governance in a generic software repository.
 
+For concrete prompts, see [USAGE_PATTERNS.md](USAGE_PATTERNS.md).
+
+## Adoption Profiles
+- Core: install `agentframe-implementer`, `agentframe-tester`, `agentframe-reviewer`, and `agentframe-project-memory` for small projects and focused daily work.
+- Standard: Core plus `agentframe-architect`, `agentframe-planner`, `agentframe-specification`, and `agentframe-documenter` for normal product development.
+- Full: the complete suite, including all guardian skills, for long-lived repositories with API, config, data, CI, release, security, dependency, migration, observability, frontend, or governance surfaces.
+
+Install the smallest profile that covers the repository's real workflow. Use the Full profile when you want AgentFrame to govern the entire software development lifecycle.
+
 ## Install Individual Skills
 Install only the skills the repository needs. Example:
 
@@ -18,7 +27,7 @@ Restart Codex after installing skills.
 Codex's stock skill installer aborts when a destination skill directory already exists. Use AgentFrame's update script when replacing an older local AgentFrame installation:
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.5.3
+python3 scripts/update-agentframe-skills.py --ref v0.5.4
 ```
 
 The script:
@@ -32,10 +41,20 @@ The script:
 Use `--dry-run` to preview changes without modifying local skills:
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.5.3 --dry-run
+python3 scripts/update-agentframe-skills.py --ref v0.5.4 --dry-run
 ```
 
 Restart Codex after updating skills.
+
+## Triggering Policy
+- Core delivery skills allow implicit invocation because their user intents are common and direct.
+- Narrow guardian skills are intended primarily for explicit `$agentframe-*` prompts or routed handoffs from another AgentFrame skill.
+- When routing certainty matters, prefer explicit invocation from [USAGE_PATTERNS.md](USAGE_PATTERNS.md).
+
+## Native Codex Fast Paths
+- Use Codex-native `/review` for quick local diff review when AgentFrame governance, handoffs, and project memory are not needed.
+- Use Codex-native `/plan` for quick planning before deciding whether a governed AgentFrame workflow is necessary.
+- Use AgentFrame skills when source-of-truth rules, validation gates, compatibility checks, release discipline, or project memory should apply.
 
 ## Canonical Skill Source
 `skills/agentframe-*` are the canonical installable skill definitions. `.codex/framework/skills/*` are framework-local reference copies for repositories that adopt the optional governance framework. Substantive skill edits must update both sides unless intentional drift is documented in `.codex/framework/SOURCE_OF_TRUTH.md` or the final maintenance report.

@@ -16,6 +16,30 @@
 ### Migration Notes
 - None.
 
+## 0.5.4 - 2026-06-27
+### Added
+- `docs/USAGE_PATTERNS.md` with explicit `$agentframe-*` prompt templates and native Codex fast-path guidance.
+- Golden task scenario contracts under `tests/golden/` for routing and stop-condition expectations.
+- Validator coverage for golden scenarios, implicit invocation policy, description uniqueness, and description disambiguation.
+
+### Changed
+- Framework workflow now defines Lite, Standard, and Extended operating lanes with explicit escalation triggers.
+- Skill routing now maps each operating lane to concrete skill routes.
+- README and adoption docs now present Core, Standard, and Full adoption profiles.
+- Narrow guardian skills now disable implicit invocation where explicit prompting or routed handoff is safer.
+
+### Fixed
+- Specification skill frontmatter now follows the same `Use when` trigger pattern as the rest of the installable skill suite.
+
+### Validation
+- `npm run validate`
+- Codex `quick_validate.py` for all 24 installable skills
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+
+### Migration Notes
+- Existing users can update local AgentFrame skills with `python3 scripts/update-agentframe-skills.py --ref v0.5.4`.
+
 ## 0.5.3 - 2026-06-27
 ### Added
 - Product-oriented README structure covering value proposition, capabilities, install/update flow, optional framework adoption, validation, and maintenance workflow.

@@ -1,6 +1,6 @@
 ---
 name: agentframe-specification
-description: "Use before coding non-trivial software changes to write precise implementation specifications covering purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, documentation, and rollback."
+description: "Use when non-trivial software changes need a precise implementation specification before coding: purpose, background, requirements, non-requirements, inputs, outputs, public API impact, data model impact, configuration impact, compatibility impact, error handling, edge cases, performance, security, observability, acceptance criteria, tests, documentation, and rollback."
 ---
 
 # AgentFrame Specification

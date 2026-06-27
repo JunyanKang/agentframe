@@ -36,6 +36,13 @@ Applies to installable skills under `skills/agentframe-*` and framework-local re
 - Use workflow order when a task requires multiple phases.
 - Stop instead of routing when human review is required.
 
+## Operating Lanes
+| Lane | Use when | Default route | Escalate when |
+| --- | --- | --- | --- |
+| Lite | Tiny bug fix, narrow code edit, single test, documentation-only update, or quick review | implementer -> tester when behavior changed -> reviewer | Public contract, architecture, config, data, migration, release, security, dependency, CI, governance, or compatibility surface appears |
+| Standard | Normal feature work inside existing architecture | specification -> implementer -> tester -> reviewer -> documenter or project_memory as needed | The work crosses ownership boundaries or changes a guarded surface |
+| Extended | Architecture, API, config, data, migration, release, CI, security, dependency, observability, governance, plugin, frontend, or compatibility work | relevant guardian skill -> specification or planner -> implementer -> tester -> reviewer -> documenter -> project_memory | Human approval is required or validation cannot prove the change |
+
 ## Human Review Requirements
 - Required for architecture exceptions, public API breaks, compatibility drops, data or configuration migrations, plugin contract changes, and intentional source-of-truth drift.
 - Required when existing repository instructions conflict with AgentFrame routing.
@@ -70,8 +77,10 @@ Applies to installable skills under `skills/agentframe-*` and framework-local re
 | frontend_experience_guardian | UI screens, frontend flows, forms, dashboards, charts, visual artifacts, accessibility, responsive behavior, or user-facing error recovery change | Backend-only changes with no user-facing surface | Frontend state, accessibility, and visual QA plan |
 
 ## Common Workflow Orders
-- New feature or behavior change: architect when design is affected -> planner -> specification -> relevant guardian skills -> implementer -> tester -> reviewer -> documenter -> project_memory.
-- Bug fix: reviewer or implementer for root cause -> specification when behavior is ambiguous -> implementer -> tester -> reviewer -> documenter or project_memory if state changes.
+- Lite bug fix: implementer -> tester when behavior changed -> reviewer -> documenter or project_memory only if durable state changed.
+- New feature or behavior change: specification -> implementer -> tester -> reviewer -> documenter -> project_memory when durable state changed; add architect or guardians only when escalation triggers apply.
+- Bug fix: reviewer or implementer for root cause -> specification when behavior is ambiguous or non-trivial -> implementer -> tester -> reviewer -> documenter or project_memory if state changes.
+- Architecture-affecting feature: architect -> planner when task splitting is needed -> specification -> relevant guardian skills -> implementer -> tester -> reviewer -> documenter -> project_memory.
 - Refactor: refactor -> tester -> reviewer -> design_guardian if boundaries or dependencies changed -> project_memory if technical debt state changed.
 - API change: api_guardian -> compatibility_manager when version impact exists -> specification -> implementer -> tester -> documenter -> reviewer -> project_memory.
 - Configuration change: configuration_manager -> compatibility_manager if config format or defaults change -> specification -> implementer -> tester -> documenter -> reviewer.

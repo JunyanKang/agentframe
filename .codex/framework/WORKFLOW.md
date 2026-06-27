@@ -12,29 +12,45 @@ This document applies to AgentFrame governance assets and to repositories that a
 - Work one task at a time with a clear acceptance check.
 - Separate reusable framework guidance from project-local facts.
 - Record conflicts instead of resolving them silently.
-- No implementation starts before repository inspection, instruction review, and specification exist.
+- No implementation starts before repository inspection and instruction review.
+- Specification is required for non-trivial behavior, contract, data, configuration, compatibility, release, migration, or architecture changes.
+- Tiny, low-risk work may use the Lite lane when no escalation trigger is present.
 - Refactoring requires explicit approval unless it is the smallest safe fix for the current task.
 
 ## Required Workflow
 1. Read applicable instructions, current project state, and target files.
 2. Classify the work as framework-level, project-local, or mixed.
-3. Define required outputs, review gates, and stop conditions.
-4. Make the smallest durable change that satisfies the requirement.
-5. Run validation and report created, modified, skipped, and review-required files.
-6. User Requirement: capture request, constraints, and done condition; stop if safety rules conflict.
-7. Repository Inspection: list relevant files, tools, tests, docs, and instructions; exit with an inventory.
-8. Existing Instruction Review: read applicable instructions; stop on unresolved conflict.
-9. Clarifying Questions if Needed: ask only when safe assumptions would create material risk.
-10. Architecture Review: identify boundaries, dependencies, interfaces, and risks.
-11. Planning: split work into independently reviewable tasks.
-12. Specification: define requirements, non-requirements, impacts, tests, docs, and rollback.
-13. Implementation: change one approved task using existing patterns first.
-14. Review: check correctness, scope, architecture, compatibility, tests, security, and docs.
-15. Testing: run the smallest meaningful checks.
-16. Refactor only if approved: preserve behavior and prove preservation.
-17. Documentation: update affected docs.
-18. Memory Update: record current state, decisions, risks, and next actions.
-19. Final Report: list created, modified, skipped, review-required files, conflicts, and validation.
+3. Select an operating lane: Lite, Standard, or Extended.
+4. Define required outputs, review gates, and stop conditions for that lane.
+5. Make the smallest durable change that satisfies the requirement.
+6. Run validation and report created, modified, skipped, and review-required files.
+7. User Requirement: capture request, constraints, and done condition; stop if safety rules conflict.
+8. Repository Inspection: list relevant files, tools, tests, docs, and instructions; exit with an inventory.
+9. Existing Instruction Review: read applicable instructions; stop on unresolved conflict.
+10. Clarifying Questions if Needed: ask only when safe assumptions would create material risk.
+11. Architecture Review when the lane or escalation triggers require it.
+12. Planning when the work spans multiple independently reviewable tasks.
+13. Specification when the work is non-trivial or changes a public, persistent, compatibility, release, or security surface.
+14. Implementation: change one approved task using existing patterns first.
+15. Review: check correctness, scope, architecture, compatibility, tests, security, and docs.
+16. Testing: run the smallest meaningful checks.
+17. Refactor only if approved: preserve behavior and prove preservation.
+18. Documentation: update affected docs.
+19. Memory Update when durable project state, decisions, risks, or next actions changed.
+20. Final Report: list created, modified, skipped, review-required files, conflicts, and validation.
+
+## Operating Lanes
+- Lite: tiny bug fixes, narrow code edits, one focused test, documentation-only updates, and quick reviews. Use repository inspection, instruction review, implementer or reviewer, tester when behavior changes, and final reporting. Escalate if any public contract, architecture, migration, release, security, dependency, or governance surface appears.
+- Standard: normal feature work inside existing architecture. Use specification, implementer, tester, reviewer, and documenter or project_memory when outputs or durable state change.
+- Extended: architecture changes, public API or config changes, data model changes, migrations, releases, CI/security/dependency/governance work, or cross-package ownership changes. Use the relevant guardian skills before implementation and require explicit validation evidence.
+
+## Escalation Triggers
+- Public API, CLI, file format, plugin contract, or integration-facing behavior changes.
+- Configuration sources, defaults, validation, precedence, or secret handling changes.
+- Data model, persistence, serialization, migration, or compatibility changes.
+- Runtime, dependency, package manager, CI, release, security, observability, or governance surfaces change.
+- The task requires deleting, renaming, overwriting, or replacing maintained content.
+- The requested outcome cannot be validated with the current repository tools.
 
 ## Inputs
 - User request and explicit constraints.

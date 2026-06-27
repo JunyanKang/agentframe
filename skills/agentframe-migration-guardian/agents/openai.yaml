@@ -4,4 +4,4 @@ interface:
   default_prompt: "Use $agentframe-migration-guardian. First inspect repository instructions, source-of-truth files, and affected validation surfaces. Produce the required governance or engineering artifact with explicit gates and evidence. Do not change unrelated files or bypass human-review requirements. Hand off or Stop when this surface is blocked or complete."
 
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

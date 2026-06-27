@@ -32,14 +32,22 @@ The installable skills cover the full software development lifecycle:
 
 See [docs/ADOPTION.md](docs/ADOPTION.md) for individual skill paths and adoption details.
 
+Use [docs/USAGE_PATTERNS.md](docs/USAGE_PATTERNS.md) when you want concrete prompts for feature work, bug fixes, reviews, release checks, and project memory updates.
+
 ## Install Or Update
 
-Recommended path for most users: run the update script. It installs AgentFrame if no local AgentFrame skills exist, and updates them safely if they already do.
+Choose an adoption profile:
+
+- **Core**: focused implementation, testing, review, and project memory for small projects.
+- **Standard**: Core plus architecture, planning, specification, and documentation for normal product development.
+- **Full**: the complete governance suite, including CI, release, security, dependency, migration, observability, frontend experience, and source-of-truth guardians.
+
+For Full installation or update, run the update script. It installs AgentFrame if no local AgentFrame skills exist, and updates them safely if they already do.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.5.3/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.5.4/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.5.3
+python3 /tmp/update-agentframe-skills.py --ref v0.5.4
 ```
 
 Restart Codex after installing or updating skills.
@@ -52,6 +60,10 @@ Useful options:
 - `--ref <tag-or-branch>`: install from a release tag or from `main`.
 
 For selective installs, use Codex's skill installer with the paths documented in [docs/ADOPTION.md](docs/ADOPTION.md).
+
+## Triggering Policy
+
+Core delivery skills are available for implicit invocation because users naturally ask for implementation, review, testing, specification, and documentation work in plain language. Narrow guardian skills are intended primarily for explicit `$agentframe-*` prompts or routed handoffs when a guarded surface is affected.
 
 ## Adopt The Optional Framework
 
@@ -110,7 +122,7 @@ For AgentFrame itself:
 
 ## Version
 
-Current release: 0.5.3.
+Current release: 0.5.4.
 
 ## License
 
