@@ -131,7 +131,7 @@ python3 /tmp/update-agentframe-skills.py --uninstall
 - 可复用模板
 - 项目 memory、风险、发布记录和测试策略
 
-复制可复用的 `.codex/framework/` 资产，然后用 `.codex/framework/project-template/` 初始化目标项目状态。不要把 AgentFrame 自己的 `.codex/project/` 文件当成另一个仓库的项目事实复制过去。
+复制可复用的 `.codex/framework/` 资产，然后用 `starter-kit/.codex/project/` 初始化目标项目状态。不要把 AgentFrame 自己的 `.codex/project/` 文件当成另一个仓库的项目事实复制过去。
 
 ## Canonical Skill Source
 

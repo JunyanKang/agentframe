@@ -34,7 +34,7 @@ Installable Codex skills under `skills/`.
 - Node.js for structural validation.
 
 ## Current Status
-Public AgentFrame releases are active. Version 0.6.4 removed hardcoded release refs from user-facing install/update docs. Version 0.6.5 prepares adoption-safe project-state templates so adopters do not copy AgentFrame's own `.codex/project/` facts into target repositories.
+Public AgentFrame releases are active. Version 0.6.4 removed hardcoded release refs from user-facing install/update docs. Version 0.6.5 added adoption-safe project-state templates. Version 0.6.6 moves those templates to a standalone top-level starter kit for a clearer adopter entrypoint.
 
 ## Open Questions
 - Long-term package distribution channel: Unknown - requires human input.

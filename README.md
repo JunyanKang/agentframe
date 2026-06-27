@@ -133,7 +133,7 @@ Adopt the optional framework only when the project needs durable governance:
 - reusable templates
 - project memory, risks, release notes, and testing policy
 
-Copy reusable framework assets from `.codex/framework/`, then initialize target project state from `.codex/framework/project-template/`. Do not copy AgentFrame's own `.codex/project/` files as facts for another repository.
+Copy reusable framework assets from `.codex/framework/`, then initialize target project state from `starter-kit/.codex/project/`. Do not copy AgentFrame's own `.codex/project/` files as facts for another repository.
 
 ## Canonical Skill Source
 

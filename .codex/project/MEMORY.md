@@ -1,15 +1,15 @@
 # Memory
 
 ## Current State
-AgentFrame provides installable Codex software engineering skills under `skills/` and optional repository governance under `.codex/`. The repository keeps AgentFrame's own project state in `.codex/project/` and provides neutral adopter templates in `.codex/framework/project-template/`.
+AgentFrame provides installable Codex software engineering skills under `skills/` and optional repository governance under `.codex/`. The repository keeps AgentFrame's own project state in `.codex/project/` and provides neutral adopter templates in `starter-kit/.codex/project/`.
 
 ## Recent Changes
 - Released installable AgentFrame skills, synchronized framework-local copies, validator coverage, golden scenarios, Chinese README and prompt templates, dynamic latest-release update flow, and uninstall support.
 - Added `.codex/project/README.md` to warn that AgentFrame's own project facts must not be copied into adopter repositories.
-- Added `.codex/framework/project-template/` as the neutral project-state starting point for adopters.
+- Moved neutral adopter project-state templates to top-level `starter-kit/.codex/project/` so adopters have a direct starter-kit entrypoint.
 
 ## Active Tasks
-- Publish version 0.6.5 with adoption-safe project-state guidance.
+- Publish version 0.6.6 with the standalone starter-kit entrypoint.
 
 ## Open Questions
 - Whether to add real adopter examples later.
@@ -24,4 +24,4 @@ AgentFrame provides installable Codex software engineering skills under `skills/
 
 ## Next Actions
 - Run validation.
-- Tag and publish `v0.6.5`.
+- Tag and publish `v0.6.6`.

@@ -1,7 +1,7 @@
 # Framework Version
 
 ## Purpose
-Track AgentFrame version 0.6.5, semantic versioning policy, compatibility expectations, upgrade procedure, migration note requirements, and breaking change policy.
+Track AgentFrame version 0.6.6, semantic versioning policy, compatibility expectations, upgrade procedure, migration note requirements, and breaking change policy.
 
 ## Scope
 This document applies to AgentFrame governance assets and to repositories that adopt them. It does not define product features or domain-specific behavior.
@@ -14,7 +14,7 @@ This document applies to AgentFrame governance assets and to repositories that a
 - Record conflicts instead of resolving them silently.
 - Use semantic versioning.
 - Treat required skill section changes as compatibility-relevant.
-- Current version: `0.6.5`.
+- Current version: `0.6.6`.
 - Record unreleased framework-hardening work in root `CHANGELOG.md`.
 - Do not claim a release has happened unless version files, changelog, tag, and release notes are explicitly updated.
 - Changelog entries must include migration notes for compatibility-relevant changes.

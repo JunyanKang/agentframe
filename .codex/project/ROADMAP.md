@@ -6,7 +6,7 @@
 - 0.3.0: complete all 16 installable skills from the original AgentFrame specification.
 - 0.4.0: harden source-of-truth policy, routing, templates, validator, and synchronized skill copies.
 - 0.5.x: add lifecycle update/uninstall tooling, reference-audit improvements, and publication hardening.
-- 0.6.x: strengthen golden scenarios, operating lanes, Chinese docs, dynamic latest-release updates, and adoption-safe project-state templates.
+- 0.6.x: strengthen golden scenarios, operating lanes, Chinese docs, dynamic latest-release updates, adoption-safe project-state templates, and standalone starter-kit onboarding.
 - 1.0.0: stable skill contract and compatibility policy.
 
 ## Goals

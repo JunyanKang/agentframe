@@ -16,6 +16,26 @@
 ### Migration Notes
 - None.
 
+## 0.6.6 - 2026-06-27
+### Added
+- Top-level `starter-kit/README.md` as the direct adopter entrypoint for optional project-state initialization.
+
+### Changed
+- Moved neutral adopter project-state templates from `.codex/framework/project-template/` to `starter-kit/.codex/project/`.
+- README, Chinese README, adoption guide, `.codex/README.md`, and validator checks now point adopters to the standalone starter kit instead of an internal framework subdirectory.
+
+### Fixed
+- Improved adopter usability by separating reusable starter content from AgentFrame's internal `.codex/framework/` implementation details.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+
+### Migration Notes
+- Users following v0.6.5 docs should use `starter-kit/.codex/project/` instead of `.codex/framework/project-template/`.
+- No public skill names changed.
+
 ## 0.6.5 - 2026-06-27
 ### Added
 - Neutral `.codex/framework/project-template/` files for initializing adopter project state without AgentFrame-specific facts.

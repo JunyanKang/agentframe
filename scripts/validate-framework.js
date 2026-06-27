@@ -418,7 +418,7 @@ function validateProjectAdoptionSafety() {
   for (const required of [
     'project-local facts for the AgentFrame repository itself',
     'Do not copy these files as target-project facts',
-    '.codex/framework/project-template/',
+    'starter-kit/.codex/project/',
   ]) {
     if (!projectReadme.includes(required)) {
       errors.push(`.codex/project/README.md: missing adoption safety warning "${required}"`);
@@ -428,12 +428,12 @@ function validateProjectAdoptionSafety() {
   const adoptionDocs = ['README.md', 'README.zh-CN.md', 'docs/ADOPTION.md', '.codex/README.md'];
   for (const file of adoptionDocs) {
     const text = read(file);
-    if (!text.includes('.codex/framework/project-template/')) {
-      errors.push(`${file}: must direct adopters to .codex/framework/project-template/ for project state`);
+    if (!text.includes('starter-kit/.codex/project/')) {
+      errors.push(`${file}: must direct adopters to starter-kit/.codex/project/ for project state`);
     }
   }
 
-  const templateRoot = '.codex/framework/project-template';
+  const templateRoot = 'starter-kit/.codex/project';
   for (const fileName of projectTemplateFiles) {
     const file = path.join(templateRoot, fileName);
     const text = read(file);
@@ -640,7 +640,8 @@ for (const file of [
   'CHANGELOG.md',
   'README.zh-CN.md',
   '.codex/project/README.md',
-  '.codex/framework/project-template/README.md',
+  'starter-kit/README.md',
+  'starter-kit/.codex/project/README.md',
   'docs/ADOPTION.md',
   'docs/DEMO.md',
   'docs/FEEDBACK_LOOP.md',

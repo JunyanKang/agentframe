@@ -129,7 +129,7 @@ Adopt `.codex/` governance when the project needs durable local governance: arch
 Do not copy AgentFrame's own `.codex/project/` directory as target-project state. It contains facts about the AgentFrame repository itself. Instead:
 
 1. Copy reusable framework assets from `.codex/framework/`.
-2. Create the target repository's `.codex/project/` from `.codex/framework/project-template/`.
+2. Create the target repository's `.codex/project/` from `starter-kit/.codex/project/`.
 3. Replace every `Unknown - requires human input` entry with confirmed facts from the target repository.
 4. Preserve existing target-repository instructions and record unresolved conflicts for human review.
 
