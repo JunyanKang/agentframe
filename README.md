@@ -125,7 +125,7 @@ Core delivery skills are available for implicit invocation because users natural
 
 Do not copy `.codex/` just to use AgentFrame skills. Install the skills first.
 
-Copy `.codex/` into a repository only when the project needs durable governance:
+Adopt the optional framework only when the project needs durable governance:
 
 - architecture decisions and ADRs
 - source-of-truth policy
@@ -133,7 +133,7 @@ Copy `.codex/` into a repository only when the project needs durable governance:
 - reusable templates
 - project memory, risks, release notes, and testing policy
 
-After copying `.codex/`, replace project-local unknowns in `.codex/project/` with confirmed facts from the target repository.
+Copy reusable framework assets from `.codex/framework/`, then initialize target project state from `.codex/framework/project-template/`. Do not copy AgentFrame's own `.codex/project/` files as facts for another repository.
 
 ## Canonical Skill Source
 

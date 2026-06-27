@@ -16,6 +16,27 @@
 ### Migration Notes
 - None.
 
+## 0.6.5 - 2026-06-27
+### Added
+- Neutral `.codex/framework/project-template/` files for initializing adopter project state without AgentFrame-specific facts.
+- `.codex/project/README.md` warning that AgentFrame's own project state must not be copied as facts for another repository.
+- Validator checks for adoption-safe project-state guidance and neutral project templates.
+
+### Changed
+- README, Chinese README, adoption guide, and `.codex/README.md` now direct adopters to copy reusable framework assets and initialize `.codex/project/` from the template directory.
+
+### Fixed
+- Reduced the risk that adopter repositories copy AgentFrame's own `.codex/project/` facts and mislead future Codex sessions.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+
+### Migration Notes
+- Existing AgentFrame adopters should review whether their `.codex/project/` files contain AgentFrame repository facts; if so, replace them with confirmed target-project facts or reinitialize from `.codex/framework/project-template/`.
+- No public skill names changed.
+
 ## 0.6.4 - 2026-06-27
 ### Added
 - `scripts/update-agentframe-skills.py --ref latest` support for resolving the latest GitHub release tag before installing skills.

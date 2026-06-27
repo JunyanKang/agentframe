@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Repository State
-Repository started empty. Framework files are being created for initial release.
+AgentFrame is a public Codex skills and optional governance framework repository. Current work prepares version 0.6.5 with adoption-safe project-state templates and guidance.
 
 ## Detected Languages/Tools
 - Markdown: high confidence.
@@ -21,6 +21,8 @@ Repository started empty. Framework files are being created for initial release.
 - `.codex/AGENTS.md`: high confidence.
 - `.codex/framework/WORKFLOW.md`: high confidence.
 - `skills/*/SKILL.md`: high confidence.
+- `.codex/project/README.md`: high confidence; marks AgentFrame's own project state as non-template adopter data.
+- `.codex/framework/project-template/`: high confidence; neutral adopter project-state templates.
 
 ## Confidence Level For Each Detection
 Confidence values are listed inline above. Unknown external distribution plans require human input.

@@ -17,7 +17,7 @@ Install the smallest profile that covers the repository's real workflow. Use the
 - Use [USAGE_PATTERNS.md](USAGE_PATTERNS.md) for first prompts.
 - Use [DEMO.md](DEMO.md) to understand expected before/after behavior.
 - Use [FEEDBACK_LOOP.md](FEEDBACK_LOOP.md) when Codex behaves incorrectly or AgentFrame feels too heavy.
-- Do not copy `.codex/` into short-lived projects unless durable governance is needed.
+- Do not adopt `.codex/framework/` and `.codex/project/` in short-lived projects unless durable governance is needed.
 
 ## Install Individual Skills
 Install only the skills the repository needs. Example:
@@ -123,8 +123,15 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   skills/agentframe-frontend-experience-guardian
 ```
 
-## When To Copy `.codex/`
-Copy `.codex/` into a repository when the project needs durable local governance: architecture notes, decisions, roadmap, memory, risk tracking, testing policy, release policy, or compatibility policy.
+## When To Adopt `.codex/`
+Adopt `.codex/` governance when the project needs durable local governance: architecture notes, decisions, roadmap, memory, risk tracking, testing policy, release policy, or compatibility policy.
+
+Do not copy AgentFrame's own `.codex/project/` directory as target-project state. It contains facts about the AgentFrame repository itself. Instead:
+
+1. Copy reusable framework assets from `.codex/framework/`.
+2. Create the target repository's `.codex/project/` from `.codex/framework/project-template/`.
+3. Replace every `Unknown - requires human input` entry with confirmed facts from the target repository.
+4. Preserve existing target-repository instructions and record unresolved conflicts for human review.
 
 ## When Not To Copy `.codex/`
 Do not copy `.codex/` just to use the skills. Small or short-lived repositories can install only the needed skills and keep local governance minimal.
@@ -155,6 +162,6 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py ~/.codex
 1. Read the newer `CHANGELOG.md` and migration notes.
 2. Inspect local customizations before replacing files.
 3. Update installable skills with `scripts/update-agentframe-skills.py --ref latest` when skill content changed.
-4. Update `.codex/` files only after preserving local project state.
+4. Update `.codex/framework/` files only after preserving local project state.
 5. Run validation.
 6. Record changed files, skipped files, conflicts, and human-review items.

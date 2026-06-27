@@ -149,6 +149,25 @@ const feedbackFieldNoteFields = [
   'Proposed validator change:',
   'Human review needed:',
 ];
+const projectTemplateFiles = [
+  'API.md',
+  'ARCHITECTURE.md',
+  'COMPATIBILITY.md',
+  'CONFIGURATION.md',
+  'CURRENT_STATE.md',
+  'DATA_MODEL.md',
+  'DECISIONS.md',
+  'DOCUMENTATION.md',
+  'INVENTORY.md',
+  'MEMORY.md',
+  'PROJECT.md',
+  'README.md',
+  'RELEASES.md',
+  'RISKS.md',
+  'ROADMAP.md',
+  'TESTING.md',
+  'TODO.md',
+];
 
 function full(file) { return path.join(root, file); }
 
@@ -394,6 +413,39 @@ function validateNoHardcodedReleaseInstallRefs() {
   }
 }
 
+function validateProjectAdoptionSafety() {
+  const projectReadme = read('.codex/project/README.md');
+  for (const required of [
+    'project-local facts for the AgentFrame repository itself',
+    'Do not copy these files as target-project facts',
+    '.codex/framework/project-template/',
+  ]) {
+    if (!projectReadme.includes(required)) {
+      errors.push(`.codex/project/README.md: missing adoption safety warning "${required}"`);
+    }
+  }
+
+  const adoptionDocs = ['README.md', 'README.zh-CN.md', 'docs/ADOPTION.md', '.codex/README.md'];
+  for (const file of adoptionDocs) {
+    const text = read(file);
+    if (!text.includes('.codex/framework/project-template/')) {
+      errors.push(`${file}: must direct adopters to .codex/framework/project-template/ for project state`);
+    }
+  }
+
+  const templateRoot = '.codex/framework/project-template';
+  for (const fileName of projectTemplateFiles) {
+    const file = path.join(templateRoot, fileName);
+    const text = read(file);
+    if (fileName !== 'README.md' && text.includes('AgentFrame')) {
+      errors.push(`${file}: project-state template must not contain AgentFrame-specific facts`);
+    }
+    if (fileName !== 'TODO.md' && !text.includes('Unknown - requires human input')) {
+      errors.push(`${file}: project-state template must keep unknown facts explicit`);
+    }
+  }
+}
+
 function validateSkillPairDrift(installableFile, frameworkFile, installableText, frameworkText) {
   const normalizedInstallable = normalizeSkillText(installableText);
   const normalizedFramework = normalizeSkillText(frameworkText);
@@ -587,6 +639,8 @@ for (const file of [
   '.codex/framework/SKILL_ROUTING.md',
   'CHANGELOG.md',
   'README.zh-CN.md',
+  '.codex/project/README.md',
+  '.codex/framework/project-template/README.md',
   'docs/ADOPTION.md',
   'docs/DEMO.md',
   'docs/FEEDBACK_LOOP.md',
@@ -603,6 +657,7 @@ if (!packageJson.scripts || packageJson.scripts['update-skills'] !== 'python3 sc
 }
 validateVersionCoherence();
 validateNoHardcodedReleaseInstallRefs();
+validateProjectAdoptionSafety();
 for (const file of ['README.md', 'docs/ADOPTION.md']) {
   const text = read(file);
   if (!text.includes('scripts/update-agentframe-skills.py')) {

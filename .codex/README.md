@@ -6,6 +6,9 @@ This directory contains reusable AI-assisted engineering governance for AgentFra
 ## Framework vs Project Files
 - `.codex/framework/` contains reusable policies, templates, and skills that stay generic across software domains.
 - `.codex/project/` contains facts about this repository: current state, decisions, risks, testing, releases, and open questions.
+- `.codex/framework/project-template/` contains neutral project-state templates for adopter repositories.
+
+Do not copy AgentFrame's own `.codex/project/` files as facts for another repository. They describe AgentFrame itself. Adopter repositories should initialize their own `.codex/project/` from `.codex/framework/project-template/` and replace unknowns with confirmed local facts.
 
 ## How Future Agents Should Use These Files
 1. Inspect the repository before editing.

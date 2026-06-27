@@ -123,7 +123,7 @@ python3 /tmp/update-agentframe-skills.py --uninstall
 
 不要为了使用 AgentFrame skills 就复制 `.codex/`。先安装 skills。
 
-只有当项目需要持久治理时，才把 `.codex/` 复制进仓库：
+只有当项目需要持久治理时，才采用可选框架：
 
 - 架构决策和 ADR
 - source-of-truth policy
@@ -131,7 +131,7 @@ python3 /tmp/update-agentframe-skills.py --uninstall
 - 可复用模板
 - 项目 memory、风险、发布记录和测试策略
 
-复制后，应把 `.codex/project/` 里的未知项替换为目标仓库的真实信息。
+复制可复用的 `.codex/framework/` 资产，然后用 `.codex/framework/project-template/` 初始化目标项目状态。不要把 AgentFrame 自己的 `.codex/project/` 文件当成另一个仓库的项目事实复制过去。
 
 ## Canonical Skill Source
 

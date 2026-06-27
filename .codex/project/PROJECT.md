@@ -34,7 +34,7 @@ Installable Codex skills under `skills/`.
 - Node.js for structural validation.
 
 ## Current Status
-Initial public-release framework generated on 2026-06-26; complete installable Codex skills added in version 0.3.0; source-of-truth framework hardening prepared for version 0.4.0.
+Public AgentFrame releases are active. Version 0.6.4 removed hardcoded release refs from user-facing install/update docs. Version 0.6.5 prepares adoption-safe project-state templates so adopters do not copy AgentFrame's own `.codex/project/` facts into target repositories.
 
 ## Open Questions
 - Long-term package distribution channel: Unknown - requires human input.
