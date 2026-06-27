@@ -16,6 +16,24 @@
 ### Migration Notes
 - None.
 
+## 0.6.7 - 2026-06-27
+### Added
+- None.
+
+### Changed
+- README and Chinese README were streamlined for first-time users while preserving install, update, uninstall, starter-kit, validation, and maintainer guidance.
+
+### Fixed
+- None.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+
+### Migration Notes
+- None.
+
 ## 0.6.6 - 2026-06-27
 ### Added
 - Top-level `starter-kit/README.md` as the direct adopter entrypoint for optional project-state initialization.

@@ -690,8 +690,7 @@ for (const required of [
   '为什么不用普通 AGENTS.md 就够了',
   '触发策略',
   '采用可选框架',
-  'Canonical Skill Source',
-  '维护工作流',
+  '维护者',
 ]) {
   if (!chineseReadmeText.includes(required)) errors.push(`README.zh-CN.md: missing Chinese README section ${required}`);
 }
