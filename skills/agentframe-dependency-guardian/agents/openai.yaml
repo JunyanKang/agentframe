@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Dependency Guardian"
   short_description: "Govern dependencies, package managers, lockfiles, upgrades, supply-chain risk, licensing, and runtime floors"
-  default_prompt: "Use $agentframe-dependency-guardian. First inspect repository instructions, source-of-truth files, and affected validation surfaces. Produce the required governance or engineering artifact with explicit gates and evidence. Do not change unrelated files or bypass human-review requirements. Hand off or Stop when this surface is blocked or complete."
+  default_prompt: "Use $agentframe-dependency-guardian. First inspect package manager files, manifests, lockfiles, version ranges, runtime floor, transitive impact, license terms, vulnerability context, and compatibility requirements. Produce a dependency decision with package-manager commands, lockfile expectations, validation plan, rollback path, and documentation impact. Do not bundle unrelated upgrades, ignore license or vulnerability risk, or change unrelated files. Hand off or Stop when dependency risk is blocked or complete."
 
 policy:
   allow_implicit_invocation: true

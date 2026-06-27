@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Observability Guardian"
   short_description: "Design logs, telemetry, diagnostics, error reporting, run metadata, and supportability evidence"
-  default_prompt: "Use $agentframe-observability-guardian. First inspect repository instructions, source-of-truth files, and affected validation surfaces. Produce the required governance or engineering artifact with explicit gates and evidence. Do not change unrelated files or bypass human-review requirements. Hand off or Stop when this surface is blocked or complete."
+  default_prompt: "Use $agentframe-observability-guardian. First inspect logs, metrics, traces, diagnostics, error reporting, health checks, run metadata, support evidence, and sensitive data exposure risk. Produce an observability or performance investigation with evidence, instrumentation requirements, validation steps, and supportability gaps. Do not add noisy telemetry, log secrets, guess causes without evidence, or change unrelated files. Hand off or Stop when diagnostic evidence is blocked or complete."
 
 policy:
   allow_implicit_invocation: false

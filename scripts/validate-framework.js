@@ -36,6 +36,31 @@ const skillHeadings = ['Mission','When To Use This Skill','When Not To Use This 
 const checklistHeadings = ['Pre-Flight Checklist','Execution Checklist','Output Checklist','Safety Checklist','Review Checklist','Handoff Checklist','Stop Conditions'];
 const templateHeadings = ['Purpose','Metadata','Required Sections','Optional Sections','Review Checklist','Completion Criteria'];
 const validInstallableSkills = new Set(Object.values(skillMap));
+const validOperatingLanes = new Set(['Lite', 'Standard', 'Extended', 'Governance']);
+const guardedSurfaceSkills = new Set([
+  'agentframe-design-guardian',
+  'agentframe-plugin-architect',
+  'agentframe-api-guardian',
+  'agentframe-configuration-manager',
+  'agentframe-compatibility-manager',
+  'agentframe-data-model-guardian',
+  'agentframe-reproducibility-guardian',
+  'agentframe-governance-guardian',
+  'agentframe-ci-guardian',
+  'agentframe-release-manager',
+  'agentframe-security-guardian',
+  'agentframe-dependency-guardian',
+  'agentframe-observability-guardian',
+  'agentframe-migration-guardian',
+  'agentframe-frontend-experience-guardian',
+]);
+const liteDefaultForbiddenSkills = new Set([
+  'agentframe-architect',
+  'agentframe-planner',
+  'agentframe-release-manager',
+  'agentframe-governance-guardian',
+  ...guardedSurfaceSkills,
+]);
 const implicitInvocationPolicy = {
   'agentframe-governance-guardian': false,
   'agentframe-ci-guardian': false,
@@ -53,6 +78,26 @@ const requiredGoldenScenarios = [
   'release_task.md',
   'doc_only.md',
   'dependency_upgrade.md',
+  'review_task.md',
+  'migration_task.md',
+  'security_review.md',
+  'performance_investigation.md',
+  'governance_update.md',
+  'no_unrelated_files.md',
+  'project_memory_refresh.md',
+];
+const goldenScenarioHeadings = [
+  'User Prompt',
+  'Expected Operating Lane',
+  'Expected Primary Skill',
+  'Allowed Secondary Skills',
+  'Forbidden Skills',
+  'Escalation Triggers',
+  'Expected Stop Condition',
+  'Expected Artifact',
+  'Forbidden Behaviors',
+  'Over-Governance Risks',
+  'Under-Governance Risks',
 ];
 
 function full(file) { return path.join(root, file); }
@@ -223,6 +268,9 @@ function validateOpenAiYaml(file, skillName) {
   if (/Use \$agentframe-[^.]+ for this software engineering task\.?/.test(prompt)) {
     errors.push(`${file}: default_prompt is still generic`);
   }
+  if (prompt.includes('required governance or engineering artifact')) {
+    errors.push(`${file}: default_prompt uses generic artifact wording instead of a role-specific artifact`);
+  }
   for (const ref of extractSkillRefs(prompt)) {
     if (!validInstallableSkills.has(ref)) {
       errors.push(`${file}: default_prompt references invalid skill ${ref}`);
@@ -313,11 +361,12 @@ function validateDescriptionQuality(descriptions) {
 }
 
 function parseGoldenScenario(file) {
-  const text = requireHeadings(file, ['User Prompt','Expected Primary Skill','Allowed Secondary Skills','Forbidden Skills','Expected Stop Condition','Expected Artifact']);
+  const text = requireHeadings(file, goldenScenarioHeadings);
+  const lane = section(text, 'Expected Operating Lane').split(/\r?\n/).map(line => line.trim()).filter(Boolean)[0] || '';
   const primary = section(text, 'Expected Primary Skill').split(/\r?\n/).map(line => line.trim()).filter(Boolean)[0] || '';
   const allowed = splitSectionLines(text, 'Allowed Secondary Skills').map(line => line.replace(/^[-*]\s+/, ''));
   const forbidden = splitSectionLines(text, 'Forbidden Skills').map(line => line.replace(/^[-*]\s+/, ''));
-  return { text, primary, allowed, forbidden };
+  return { text, lane, primary, allowed, forbidden };
 }
 
 function validateGoldenScenarios() {
@@ -325,10 +374,14 @@ function validateGoldenScenarios() {
     const file = path.join('tests/golden', name);
     const scenario = parseGoldenScenario(file);
     const refs = [scenario.primary, ...scenario.allowed, ...scenario.forbidden].filter(Boolean);
+    const invoked = [scenario.primary, ...scenario.allowed].filter(Boolean);
     for (const ref of refs) {
       if (!validInstallableSkills.has(ref)) {
         errors.push(`${file}: invalid golden scenario skill reference ${ref}`);
       }
+    }
+    if (!validOperatingLanes.has(scenario.lane)) {
+      errors.push(`${file}: Expected Operating Lane must be one of ${Array.from(validOperatingLanes).join(', ')}`);
     }
     if (scenario.forbidden.includes(scenario.primary)) {
       errors.push(`${file}: expected primary skill is also forbidden`);
@@ -338,8 +391,48 @@ function validateGoldenScenarios() {
         errors.push(`${file}: skill ${ref} appears in both allowed and forbidden lists`);
       }
     }
-    if (!section(scenario.text, 'Expected Stop Condition')) errors.push(`${file}: missing expected stop condition body`);
-    if (!section(scenario.text, 'Expected Artifact')) errors.push(`${file}: missing expected artifact body`);
+    for (const heading of goldenScenarioHeadings) {
+      if (!section(scenario.text, heading)) errors.push(`${file}: missing ${heading} body`);
+    }
+    if (scenario.lane === 'Lite') {
+      for (const ref of invoked) {
+        if (liteDefaultForbiddenSkills.has(ref)) {
+          errors.push(`${file}: Lite scenario invokes ${ref}; justify escalation by changing the operating lane or removing the default-forbidden skill`);
+        }
+      }
+    }
+    if (scenario.lane === 'Standard') {
+      const guardedCount = invoked.filter(ref => guardedSurfaceSkills.has(ref)).length;
+      if (guardedCount > 1) {
+        errors.push(`${file}: Standard scenario invokes too many guarded-surface skills by default (${guardedCount})`);
+      }
+    }
+    if (scenario.lane === 'Extended' && !section(scenario.text, 'Escalation Triggers').includes('Guarded surface:')) {
+      errors.push(`${file}: Extended scenario must name the specific guarded surface in Escalation Triggers`);
+    }
+    if (scenario.lane === 'Governance' && !invoked.includes('agentframe-governance-guardian')) {
+      errors.push(`${file}: Governance scenario must include agentframe-governance-guardian`);
+    }
+  }
+}
+
+function validateUsagePatterns() {
+  const text = read('docs/USAGE_PATTERNS.md').toLowerCase();
+  const requiredPatterns = {
+    dependency: ['dependency'],
+    migration: ['migration'],
+    security: ['security'],
+    performance_or_observability: ['performance', 'observability'],
+    no_unrelated_files: ['no-unrelated-files', 'unrelated files'],
+    adoption_assessment: ['adoption assessment'],
+    plan_only: ['plan only'],
+    memory_refresh: ['memory refresh', 'refresh project memory'],
+    chinese_templates: ['中文提示词模板'],
+  };
+  for (const [name, terms] of Object.entries(requiredPatterns)) {
+    if (!terms.some(term => text.includes(term))) {
+      errors.push(`docs/USAGE_PATTERNS.md: missing ${name} usage template coverage`);
+    }
   }
 }
 
@@ -349,6 +442,7 @@ for (const file of [
   '.codex/framework/SOURCE_OF_TRUTH.md',
   '.codex/framework/SKILL_ROUTING.md',
   'CHANGELOG.md',
+  'README.zh-CN.md',
   'docs/ADOPTION.md',
   'docs/USAGE_PATTERNS.md',
   '.github/workflows/validate.yml',
@@ -372,6 +466,15 @@ for (const file of ['README.md', 'docs/ADOPTION.md']) {
     errors.push(`${file}: missing link to docs/USAGE_PATTERNS.md`);
   }
 }
+const readmeText = read('README.md');
+if (!readmeText.includes('README.zh-CN.md')) {
+  errors.push('README.md: missing link to Chinese README');
+}
+const chineseReadmeText = read('README.zh-CN.md');
+for (const required of ['60 秒开始', '安装、更新或卸载', '为什么不用普通 AGENTS.md 就够了']) {
+  if (!chineseReadmeText.includes(required)) errors.push(`README.zh-CN.md: missing Chinese README section ${required}`);
+}
+validateUsagePatterns();
 validateGoldenScenarios();
 
 for (const file of ['FRAMEWORK.md','FRAMEWORK_VERSION.md','GOVERNANCE.md','EXTENSION_POLICY.md','COMPATIBILITY_POLICY.md','MEMORY_POLICY.md','VERSIONING_POLICY.md','SKILL_AUTHORING_GUIDE.md','WORKFLOW.md','SOURCE_OF_TRUTH.md','SKILL_ROUTING.md']) {

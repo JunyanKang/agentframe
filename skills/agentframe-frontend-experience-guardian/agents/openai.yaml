@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Frontend Experience Guardian"
   short_description: "Review frontend UX states, accessibility, responsive behavior, visual QA, interactions, and user-facing error recovery"
-  default_prompt: "Use $agentframe-frontend-experience-guardian. First inspect repository instructions, source-of-truth files, and affected validation surfaces. Produce the required governance or engineering artifact with explicit gates and evidence. Do not change unrelated files or bypass human-review requirements. Hand off or Stop when this surface is blocked or complete."
+  default_prompt: "Use $agentframe-frontend-experience-guardian. First inspect affected screens, user states, loading and empty states, error recovery, accessibility, keyboard behavior, responsive behavior, visual QA needs, and user-facing copy. Produce a frontend experience assessment with state coverage, accessibility checks, responsive validation, screenshots or visual evidence needed, and recovery gaps. Do not change backend-only files, skip accessibility, or change unrelated files. Hand off or Stop when frontend evidence is blocked or complete."
 
 policy:
   allow_implicit_invocation: false

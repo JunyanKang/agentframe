@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Migration Guardian"
   short_description: "Plan and verify data, config, API, runtime, and repository migrations with rollback and compatibility windows"
-  default_prompt: "Use $agentframe-migration-guardian. First inspect repository instructions, source-of-truth files, and affected validation surfaces. Produce the required governance or engineering artifact with explicit gates and evidence. Do not change unrelated files or bypass human-review requirements. Hand off or Stop when this surface is blocked or complete."
+  default_prompt: "Use $agentframe-migration-guardian. First inspect source state, target state, old-state detection, migration path, rollback path, validation commands, compatibility window, and user or operator impact. Produce a migration plan with steps, prechecks, postchecks, rollback, docs, and stop conditions. Do not implement migration code, drop compatibility, mutate data, or change unrelated files until the migration contract is clear. Hand off or Stop when migration safety is blocked or complete."
 
 policy:
   allow_implicit_invocation: false

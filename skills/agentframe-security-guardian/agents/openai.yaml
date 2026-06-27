@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Security Guardian"
   short_description: "Review auth, secrets, permissions, trust boundaries, sandboxing, input validation, and security-sensitive workflows"
-  default_prompt: "Use $agentframe-security-guardian. First inspect repository instructions, source-of-truth files, and affected validation surfaces. Produce the required governance or engineering artifact with explicit gates and evidence. Do not change unrelated files or bypass human-review requirements. Hand off or Stop when this surface is blocked or complete."
+  default_prompt: "Use $agentframe-security-guardian. First inspect trust boundaries, permissions, secrets, sensitive data paths, input validation, shell or network execution, sandboxing, and authentication or authorization impact. Produce a security risk assessment with concrete mitigations, tests, residual risks, and human-review gates. Do not broaden permissions, expose secrets, trust unvalidated input, or change unrelated files. Hand off or Stop when security risk is blocked or complete."
 
 policy:
   allow_implicit_invocation: true

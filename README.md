@@ -1,5 +1,7 @@
 # AgentFrame
 
+[中文说明](README.zh-CN.md)
+
 AgentFrame is a Codex-native software engineering framework for turning an AI coding assistant into a disciplined project collaborator. It packages installable Codex skills plus an optional repository governance layer so Codex can plan, implement, review, test, document, and release software with consistent engineering gates.
 
 Use AgentFrame when you want Codex to behave less like a one-off code generator and more like a software team member that respects architecture, source-of-truth policy, validation, compatibility, release process, and long-lived project memory.
@@ -34,6 +36,23 @@ See [docs/ADOPTION.md](docs/ADOPTION.md) for individual skill paths and adoption
 
 Use [docs/USAGE_PATTERNS.md](docs/USAGE_PATTERNS.md) when you want concrete prompts for feature work, bug fixes, reviews, release checks, and project memory updates.
 
+## 60-Second Start
+
+Install the Core profile:
+
+```sh
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo JunyanKang/agentframe \
+  --path skills/agentframe-implementer skills/agentframe-tester skills/agentframe-reviewer skills/agentframe-project-memory
+```
+
+Restart Codex, then ask:
+
+```text
+$agentframe-implementer
+Fix one small issue only. Inspect instructions, affected callers, and tests first. Change the smallest set of files. Add the narrowest meaningful test. Stop if the fix requires API, architecture, dependency, config, data-model, migration, release, security, or unrelated-file changes.
+```
+
 ## Install, Update, Or Uninstall
 
 Choose an adoption profile:
@@ -45,9 +64,9 @@ Choose an adoption profile:
 For Full installation or update, run the update script. It installs AgentFrame if no local AgentFrame skills exist, and updates them safely if they already do.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.5.5/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.0/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.5.5
+python3 /tmp/update-agentframe-skills.py --ref v0.6.0
 ```
 
 Restart Codex after installing or updating skills.
@@ -69,6 +88,12 @@ python3 /tmp/update-agentframe-skills.py --uninstall
 ```
 
 The uninstall command removes only local `agentframe-*` skill directories. It does not delete project-local `.codex/` governance files.
+
+## FAQ
+
+### Why not just use AGENTS.md?
+
+`AGENTS.md` provides static repository instructions. AgentFrame provides installable role-specific skills, routing, validators, golden scenarios, source-of-truth synchronization, update tooling, and optional project memory.
 
 ## Triggering Policy
 
@@ -131,7 +156,7 @@ For AgentFrame itself:
 
 ## Version
 
-Current release: 0.5.5.
+Current release: 0.6.0.
 
 ## License
 

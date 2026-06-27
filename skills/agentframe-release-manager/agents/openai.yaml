@@ -1,7 +1,7 @@
 interface:
   display_name: "AgentFrame Release Manager"
   short_description: "Plan, validate, publish, and document releases with versions, tags, assets, changelogs, and rollback paths"
-  default_prompt: "Use $agentframe-release-manager. First inspect repository instructions, source-of-truth files, and affected validation surfaces. Produce the required governance or engineering artifact with explicit gates and evidence. Do not change unrelated files or bypass human-review requirements. Hand off or Stop when this surface is blocked or complete."
+  default_prompt: "Use $agentframe-release-manager. First inspect version metadata, changelog, release notes, packaging, tags, artifacts, installer or update channels, and validation results. Produce a release-readiness assessment with version impact, artifact plan, publish/no-publish gate, rollback path, migration notes, and required evidence. Do not publish, tag, overwrite artifacts, or change unrelated files without explicit approval. Hand off or Stop when release readiness is blocked or complete."
 
 policy:
   allow_implicit_invocation: false

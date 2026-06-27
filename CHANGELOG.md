@@ -16,6 +16,30 @@
 ### Migration Notes
 - None.
 
+## 0.6.0 - 2026-06-27
+### Added
+- Expanded `docs/USAGE_PATTERNS.md` with dependency, migration, security, performance/observability, strict no-unrelated-files, adoption assessment, quick plan-only, project memory refresh, and Chinese prompt templates.
+- Added `README.zh-CN.md` for Chinese users.
+- Added 7 golden scenarios for review, migration, security, performance investigation, governance update, no-unrelated-files implementation, and project memory refresh.
+
+### Changed
+- Strengthened `.codex/framework/SKILL_ROUTING.md` operating lanes with must-use, may-use, default-skip, escalation, final-report, and documentation-burden rules.
+- Expanded existing golden scenarios with operating lane, escalation, forbidden behavior, over-governance, and under-governance expectations.
+- Improved narrow guardian default prompts with role-specific artifacts and review surfaces.
+- README now includes a 60-second start and FAQ explaining why AgentFrame is more than static `AGENTS.md` instructions.
+
+### Fixed
+- Validator now rejects missing golden operating lanes, missing behavioral-risk sections, vague guardian default prompts, and missing usage-pattern coverage.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+- Codex `quick_validate.py` for all 24 installable skills
+
+### Migration Notes
+- No migration required. No public skill names changed.
+
 ## 0.5.5 - 2026-06-27
 ### Added
 - `scripts/update-agentframe-skills.py --uninstall` for safe removal of installed local AgentFrame skills.
