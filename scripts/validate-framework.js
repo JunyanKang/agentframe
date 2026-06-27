@@ -572,9 +572,10 @@ for (const file of ['README.md', 'docs/ADOPTION.md']) {
     errors.push(`${file}: missing link to docs/USAGE_PATTERNS.md`);
   }
 }
-for (const file of ['README.md', 'README.zh-CN.md', 'docs/ADOPTION.md']) {
+for (const file of ['README.md', 'README.zh-CN.md']) {
   requireLinks(file, ['docs/DEMO.md', 'docs/USAGE_PATTERNS.md', 'docs/FEEDBACK_LOOP.md']);
 }
+requireLinks('docs/ADOPTION.md', ['DEMO.md', 'USAGE_PATTERNS.md', 'FEEDBACK_LOOP.md']);
 const readmeText = read('README.md');
 if (!readmeText.includes('README.zh-CN.md')) {
   errors.push('README.md: missing link to Chinese README');

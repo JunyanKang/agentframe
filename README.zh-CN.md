@@ -65,9 +65,9 @@ $agentframe-implementer
 完整安装或更新：
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.1/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.2/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.6.1
+python3 /tmp/update-agentframe-skills.py --ref v0.6.2
 ```
 
 安装或更新后重启 Codex。
@@ -124,7 +124,7 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py ~/.codex
 
 ## 版本
 
-当前 release：0.6.1。
+当前 release：0.6.2。
 
 ## License
 

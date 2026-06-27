@@ -16,6 +16,28 @@
 ### Migration Notes
 - None.
 
+## 0.6.2 - 2026-06-27
+### Added
+- README badges, one-sentence tagline, and Before/After summary table.
+- README adoption profile comparison table.
+
+### Changed
+- Adoption guide now uses link text that matches its local document context.
+- Validator now accepts local `docs/ADOPTION.md` links while preserving README checks for public doc links.
+
+### Fixed
+- None.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+- Codex `quick_validate.py` for all 24 installable skills
+
+### Migration Notes
+- No migration required.
+- No public skill names changed.
+
 ## 0.6.1 - 2026-06-27
 ### Added
 - `docs/DEMO.md` before/after behavior demo.

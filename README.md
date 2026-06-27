@@ -2,9 +2,23 @@
 
 [中文说明](README.zh-CN.md)
 
+![validate](https://github.com/JunyanKang/agentframe/actions/workflows/validate.yml/badge.svg)
+![license](https://img.shields.io/badge/license-MIT-blue.svg)
+![version](https://img.shields.io/badge/release-v0.6.2-brightgreen.svg)
+
+Engineering guardrails for Codex-driven software development.
+
 AgentFrame is a Codex-native software engineering framework for turning an AI coding assistant into a disciplined project collaborator. It packages installable Codex skills plus an optional repository governance layer so Codex can plan, implement, review, test, document, and release software with consistent engineering gates.
 
 Use AgentFrame when you want Codex to behave less like a one-off code generator and more like a software team member that respects architecture, source-of-truth policy, validation, compatibility, release process, and long-lived project memory.
+
+## Before / After
+
+| Without AgentFrame | With AgentFrame |
+| --- | --- |
+| Vague requests can expand into unrelated edits. | Skills ask Codex to inspect first and keep scope narrow. |
+| Tests, docs, and stop conditions are easy to miss. | Golden scenarios and prompts make validation and stop behavior explicit. |
+| Project rules live mostly in static instructions. | Role-specific skills, routing, validators, and optional memory reinforce the workflow. |
 
 ## Why AgentFrame
 
@@ -63,16 +77,18 @@ Fix one small issue only. Inspect instructions, affected callers, and tests firs
 
 Choose an adoption profile:
 
-- **Core**: focused implementation, testing, review, and project memory for small projects.
-- **Standard**: Core plus architecture, planning, specification, and documentation for normal product development.
-- **Full**: the complete governance suite, including CI, release, security, dependency, migration, observability, frontend experience, and source-of-truth guardians.
+| Profile | Best For | Includes |
+| --- | --- | --- |
+| Core | Small projects and narrow daily work | implementation, testing, review, project memory |
+| Standard | Normal product development | Core plus architecture, planning, specification, documentation |
+| Full | Long-lived repositories with guarded surfaces | Standard plus CI, release, security, dependency, migration, observability, frontend experience, source-of-truth guardians |
 
 For Full installation or update, run the update script. It installs AgentFrame if no local AgentFrame skills exist, and updates them safely if they already do.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.1/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.2/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.6.1
+python3 /tmp/update-agentframe-skills.py --ref v0.6.2
 ```
 
 Restart Codex after installing or updating skills.
@@ -162,7 +178,7 @@ For AgentFrame itself:
 
 ## Version
 
-Current release: 0.6.1.
+Current release: 0.6.2.
 
 ## License
 

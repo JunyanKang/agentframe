@@ -14,9 +14,9 @@ Install the smallest profile that covers the repository's real workflow. Use the
 
 ## After Adoption
 - Start with Core or Standard unless Full governance is actually needed.
-- Use [docs/USAGE_PATTERNS.md](USAGE_PATTERNS.md) for first prompts.
-- Use [docs/DEMO.md](DEMO.md) to understand expected before/after behavior.
-- Use [docs/FEEDBACK_LOOP.md](FEEDBACK_LOOP.md) when Codex behaves incorrectly or AgentFrame feels too heavy.
+- Use [USAGE_PATTERNS.md](USAGE_PATTERNS.md) for first prompts.
+- Use [DEMO.md](DEMO.md) to understand expected before/after behavior.
+- Use [FEEDBACK_LOOP.md](FEEDBACK_LOOP.md) when Codex behaves incorrectly or AgentFrame feels too heavy.
 - Do not copy `.codex/` into short-lived projects unless durable governance is needed.
 
 ## Install Individual Skills
@@ -34,7 +34,7 @@ Restart Codex after installing skills.
 Codex's stock skill installer aborts when a destination skill directory already exists. Use AgentFrame's update script when replacing an older local AgentFrame installation:
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.6.1
+python3 scripts/update-agentframe-skills.py --ref v0.6.2
 ```
 
 The script:
@@ -48,7 +48,7 @@ The script:
 Use `--dry-run` to preview changes without modifying local skills:
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.6.1 --dry-run
+python3 scripts/update-agentframe-skills.py --ref v0.6.2 --dry-run
 ```
 
 Restart Codex after updating skills.
