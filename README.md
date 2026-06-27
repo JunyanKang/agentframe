@@ -4,7 +4,7 @@
 
 ![validate](https://github.com/JunyanKang/agentframe/actions/workflows/validate.yml/badge.svg)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
-![version](https://img.shields.io/badge/release-v0.6.3-brightgreen.svg)
+![release](https://img.shields.io/github/v/release/JunyanKang/agentframe?label=release)
 
 Engineering guardrails for Codex-driven software development.
 
@@ -86,9 +86,9 @@ Choose an adoption profile:
 For Full installation or update, run the update script. It installs AgentFrame if no local AgentFrame skills exist, and updates them safely if they already do.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.3/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/main/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.6.3
+python3 /tmp/update-agentframe-skills.py --ref latest
 ```
 
 Restart Codex after installing or updating skills.
@@ -98,7 +98,7 @@ Useful options:
 - `--dry-run`: preview the install/update/remove plan.
 - `--dest <path>`: update a non-default skills directory.
 - `--keep-backups`: keep the backup after a successful update.
-- `--ref <tag-or-branch>`: install from a release tag or from `main`.
+- `--ref <latest|tag-or-branch>`: install the latest release, a fixed release tag, or a branch such as `main`.
 - `--uninstall`: remove installed `agentframe-*` skills from the selected skills directory.
 
 For selective installs, use Codex's skill installer with the paths documented in [docs/ADOPTION.md](docs/ADOPTION.md).
@@ -178,7 +178,7 @@ For AgentFrame itself:
 
 ## Version
 
-Current release: 0.6.3.
+Latest release: see [GitHub Releases](https://github.com/JunyanKang/agentframe/releases). The install/update command above resolves it with `--ref latest`.
 
 ## License
 

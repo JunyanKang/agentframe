@@ -344,11 +344,6 @@ function validateTemplate(file) {
   }
 }
 
-function extractReadmeVersion(text) {
-  const match = text.match(/Current release:\s*([0-9]+\.[0-9]+\.[0-9]+)\./);
-  return match ? match[1] : '';
-}
-
 function extractFrameworkVersion(text) {
   const match = text.match(/Current version:\s*`?([0-9]+\.[0-9]+\.[0-9]+)`?/);
   return match ? match[1] : '';
@@ -361,16 +356,41 @@ function extractLatestChangelogVersion(text) {
 
 function validateVersionCoherence() {
   const pkg = packageJson.version || '';
-  const readme = extractReadmeVersion(read('README.md'));
   const framework = extractFrameworkVersion(read('.codex/framework/FRAMEWORK_VERSION.md'));
   const changelog = extractLatestChangelogVersion(read('CHANGELOG.md'));
-  const values = { 'package.json': pkg, 'README.md': readme, '.codex/framework/FRAMEWORK_VERSION.md': framework, 'CHANGELOG.md': changelog };
+  const values = { 'package.json': pkg, '.codex/framework/FRAMEWORK_VERSION.md': framework, 'CHANGELOG.md': changelog };
   for (const [file, version] of Object.entries(values)) {
     if (!version) errors.push(`${file}: could not extract current AgentFrame version`);
   }
   const unique = new Set(Object.values(values).filter(Boolean));
   if (unique.size > 1) {
-    errors.push(`version mismatch: package.json=${pkg}, README.md=${readme}, FRAMEWORK_VERSION.md=${framework}, CHANGELOG.md=${changelog}`);
+    errors.push(`version mismatch: package.json=${pkg}, FRAMEWORK_VERSION.md=${framework}, CHANGELOG.md=${changelog}`);
+  }
+}
+
+function validateNoHardcodedReleaseInstallRefs() {
+  const docs = ['README.md', 'README.zh-CN.md', 'docs/ADOPTION.md'];
+  const forbidden = [
+    /raw\.githubusercontent\.com\/JunyanKang\/agentframe\/v\d+\.\d+\.\d+\//,
+    /--ref\s+v\d+\.\d+\.\d+/,
+    /img\.shields\.io\/badge\/release-v\d+\.\d+\.\d+/,
+  ];
+  for (const file of docs) {
+    const text = read(file);
+    for (const pattern of forbidden) {
+      if (pattern.test(text)) {
+        errors.push(`${file}: user-facing install/update docs must not hardcode release versions; use main for the script URL and --ref latest for stable installs`);
+      }
+    }
+  }
+  for (const file of ['README.md', 'README.zh-CN.md']) {
+    const text = read(file);
+    if (!text.includes('img.shields.io/github/v/release/JunyanKang/agentframe')) {
+      errors.push(`${file}: release badge should use the dynamic GitHub release badge`);
+    }
+    if (!text.includes('--ref latest')) {
+      errors.push(`${file}: install/update command should use --ref latest`);
+    }
   }
 }
 
@@ -582,6 +602,7 @@ if (!packageJson.scripts || packageJson.scripts['update-skills'] !== 'python3 sc
   errors.push('package.json: missing update-skills script for AgentFrame skill updates');
 }
 validateVersionCoherence();
+validateNoHardcodedReleaseInstallRefs();
 for (const file of ['README.md', 'docs/ADOPTION.md']) {
   const text = read(file);
   if (!text.includes('scripts/update-agentframe-skills.py')) {

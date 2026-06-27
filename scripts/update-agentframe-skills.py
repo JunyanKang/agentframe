@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass
+import json
 import os
 from pathlib import Path
 import shutil
@@ -33,7 +34,7 @@ import zipfile
 
 
 DEFAULT_REPO = "JunyanKang/agentframe"
-DEFAULT_REF = "main"
+DEFAULT_REF = "latest"
 SKILL_PREFIX = "agentframe-"
 
 
@@ -66,7 +67,7 @@ def parse_args(argv: list[str]) -> Args:
         description="Install, update, or uninstall local AgentFrame Codex skills."
     )
     parser.add_argument("--repo", default=DEFAULT_REPO, help="GitHub owner/repo")
-    parser.add_argument("--ref", default=DEFAULT_REF, help="Git ref, tag, or branch")
+    parser.add_argument("--ref", default=DEFAULT_REF, help="Git ref, tag, branch, or 'latest' release")
     parser.add_argument(
         "--dest",
         type=Path,
@@ -164,6 +165,23 @@ def parse_repo(repo: str) -> tuple[str, str]:
     return parts[0], parts[1].removesuffix(".git")
 
 
+def latest_release_ref(owner: str, repo: str) -> str:
+    url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+    data = json.loads(request_bytes(url).decode("utf-8"))
+    tag = data.get("tag_name")
+    if not isinstance(tag, str) or not tag:
+        raise UpdateError("latest release response did not include a tag_name")
+    return tag
+
+
+def resolve_ref(owner: str, repo: str, ref: str) -> str:
+    if ref.lower() == "latest":
+        latest = latest_release_ref(owner, repo)
+        print(f"Resolved latest release: {latest}")
+        return latest
+    return ref
+
+
 def fetch_by_download(owner: str, repo: str, ref: str, tmp: Path) -> Path:
     url = f"https://codeload.github.com/{owner}/{repo}/zip/{ref}"
     archive = tmp / "repo.zip"
@@ -216,6 +234,7 @@ def fetch_by_git(owner: str, repo: str, ref: str, tmp: Path) -> Path:
 
 def fetch_repo(args: Args, tmp: Path) -> Path:
     owner, repo = parse_repo(args.repo)
+    args.ref = resolve_ref(owner, repo, args.ref)
     if args.method in ("auto", "download"):
         try:
             return fetch_by_download(owner, repo, args.ref, tmp)

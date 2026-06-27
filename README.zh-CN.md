@@ -4,7 +4,7 @@
 
 ![validate](https://github.com/JunyanKang/agentframe/actions/workflows/validate.yml/badge.svg)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
-![version](https://img.shields.io/badge/release-v0.6.3-brightgreen.svg)
+![release](https://img.shields.io/github/v/release/JunyanKang/agentframe?label=release)
 
 给 Codex 软件开发加上工程护栏。
 
@@ -86,9 +86,9 @@ $agentframe-implementer
 完整安装或更新：
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.3/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/main/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.6.3
+python3 /tmp/update-agentframe-skills.py --ref latest
 ```
 
 安装或更新后重启 Codex。
@@ -98,7 +98,7 @@ python3 /tmp/update-agentframe-skills.py --ref v0.6.3
 - `--dry-run`：预览安装、更新或删除计划。
 - `--dest <path>`：指定非默认 skills 目录。
 - `--keep-backups`：成功后保留备份。
-- `--ref <tag-or-branch>`：从指定 tag 或分支安装。
+- `--ref <latest|tag-or-branch>`：安装最新 release、固定 release tag，或 `main` 等分支。
 - `--uninstall`：从所选 skills 目录删除本地 `agentframe-*` skills。
 
 卸载 AgentFrame skills：
@@ -165,7 +165,7 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py ~/.codex
 
 ## 版本
 
-当前 release：0.6.3。
+最新 release：见 [GitHub Releases](https://github.com/JunyanKang/agentframe/releases)。上面的安装/更新命令会通过 `--ref latest` 自动解析。
 
 ## License
 

@@ -16,6 +16,28 @@
 ### Migration Notes
 - None.
 
+## 0.6.4 - 2026-06-27
+### Added
+- `scripts/update-agentframe-skills.py --ref latest` support for resolving the latest GitHub release tag before installing skills.
+- Validator checks that user-facing install/update docs do not hardcode release tags in script URLs, release badges, or `--ref` examples.
+
+### Changed
+- README, Chinese README, and adoption docs now use the dynamic GitHub release badge, `main` for fetching the updater script, and `--ref latest` for stable installs.
+- README version coherence validation now treats `package.json`, `.codex/framework/FRAMEWORK_VERSION.md`, and `CHANGELOG.md` as release metadata while keeping README version references dynamic.
+
+### Fixed
+- Removed stale hardcoded update examples from adoption docs.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `python3 scripts/update-agentframe-skills.py --ref latest --dry-run --no-validate --dest /tmp/agentframe-latest-smoke-skills`
+- `git diff --check`
+
+### Migration Notes
+- Existing users can continue using fixed tags such as `--ref v0.6.3`; new docs recommend `--ref latest` to avoid stale release instructions.
+- No public skill names changed.
+
 ## 0.6.3 - 2026-06-27
 ### Added
 - Chinese usage-pattern prompts now cover the same core skill surfaces as the English prompt templates.
