@@ -16,6 +16,26 @@
 ### Migration Notes
 - None.
 
+## 0.6.8 - 2026-06-27
+### Added
+- None.
+
+### Changed
+- None.
+
+### Fixed
+- Removed release badges from README and Chinese README to avoid stale rendered version displays.
+- Validator now forbids release badges and literal release versions in user-facing entry documentation.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+- `rg -n "v?[0-9]+\\.[0-9]+\\.[0-9]+|github/v/release|release-v|raw\\.githubusercontent\\.com/JunyanKang/agentframe/v[0-9]+|--ref v[0-9]+\\.[0-9]+\\.[0-9]+" README.md README.zh-CN.md docs/ADOPTION.md docs/DEMO.md docs/FEEDBACK_LOOP.md docs/USAGE_PATTERNS.md starter-kit/README.md starter-kit/.codex/project/README.md`
+
+### Migration Notes
+- None.
+
 ## 0.6.7 - 2026-06-27
 ### Added
 - None.

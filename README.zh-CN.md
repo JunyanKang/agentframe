@@ -4,7 +4,6 @@
 
 ![validate](https://github.com/JunyanKang/agentframe/actions/workflows/validate.yml/badge.svg)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
-![release](https://img.shields.io/github/v/release/JunyanKang/agentframe?label=release)
 
 给 Codex 软件开发加上工程护栏。
 
@@ -139,7 +138,7 @@ python3 /tmp/update-agentframe-skills.py --uninstall
 npm run validate
 ```
 
-最新 release：见 [GitHub Releases](https://github.com/JunyanKang/agentframe/releases)。安装/更新命令会通过 `--ref latest` 自动解析。
+Releases：见 [GitHub Releases](https://github.com/JunyanKang/agentframe/releases)。安装/更新命令会通过 `--ref latest` 自动解析最新稳定 release。
 
 ## License
 

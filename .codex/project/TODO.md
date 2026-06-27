@@ -3,7 +3,7 @@
 ## Structured Task List
 | Priority | Status | Owner | Task | Dependency | Acceptance Criteria |
 | --- | --- | --- | --- | --- | --- |
-| High | In progress | Agent | Publish standalone starter-kit release | Validation passes | GitHub release `v0.6.6` exists and starter-kit validation passes |
+| High | Complete | Agent | Harden README version-display policy | Validation passes | User-facing docs contain no literal release versions, release badges, or fixed install tags |
 | Medium | Open | Human | Confirm long-term release cadence | Initial release | Release cadence documented |
 | Low | Open | Human | Decide whether adopter examples are needed | Real adopter feedback | Examples are based on real usage, not invented scenarios |
 

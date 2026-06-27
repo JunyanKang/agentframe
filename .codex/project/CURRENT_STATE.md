@@ -1,7 +1,7 @@
 # Current State
 
 ## Current Repository State
-AgentFrame is a public Codex skills and optional governance framework repository. Current work prepares version 0.6.5 with adoption-safe project-state templates and guidance.
+AgentFrame is a public Codex skills and optional governance framework repository. User-facing documentation avoids displayed or hardcoded release versions outside release metadata.
 
 ## Detected Languages/Tools
 - Markdown: high confidence.

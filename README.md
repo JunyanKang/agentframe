@@ -4,7 +4,6 @@
 
 ![validate](https://github.com/JunyanKang/agentframe/actions/workflows/validate.yml/badge.svg)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
-![release](https://img.shields.io/github/v/release/JunyanKang/agentframe?label=release)
 
 Engineering guardrails for Codex-driven software development.
 
@@ -139,7 +138,7 @@ Usually no. Start with installed skills. Add `.codex/framework/` and `starter-ki
 npm run validate
 ```
 
-Current release: see [GitHub Releases](https://github.com/JunyanKang/agentframe/releases). The install/update command resolves it with `--ref latest`.
+Releases: see [GitHub Releases](https://github.com/JunyanKang/agentframe/releases). The install/update command resolves the latest stable release with `--ref latest`.
 
 ## License
 

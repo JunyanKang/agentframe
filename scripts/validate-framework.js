@@ -389,23 +389,41 @@ function validateVersionCoherence() {
 
 function validateNoHardcodedReleaseInstallRefs() {
   const docs = ['README.md', 'README.zh-CN.md', 'docs/ADOPTION.md'];
+  const userFacingNoVersionDocs = [
+    'README.md',
+    'README.zh-CN.md',
+    'docs/ADOPTION.md',
+    'docs/DEMO.md',
+    'docs/FEEDBACK_LOOP.md',
+    'docs/USAGE_PATTERNS.md',
+    'starter-kit/README.md',
+    'starter-kit/.codex/project/README.md',
+  ];
   const forbidden = [
     /raw\.githubusercontent\.com\/JunyanKang\/agentframe\/v\d+\.\d+\.\d+\//,
     /--ref\s+v\d+\.\d+\.\d+/,
     /img\.shields\.io\/badge\/release-v\d+\.\d+\.\d+/,
+    /img\.shields\.io\/github\/v\/release\/JunyanKang\/agentframe/,
   ];
   for (const file of docs) {
     const text = read(file);
     for (const pattern of forbidden) {
       if (pattern.test(text)) {
-        errors.push(`${file}: user-facing install/update docs must not hardcode release versions; use main for the script URL and --ref latest for stable installs`);
+        errors.push(`${file}: user-facing install/update docs must not display release versions; use the GitHub Releases link, main for the script URL, and --ref latest for stable installs`);
       }
+    }
+  }
+  for (const file of userFacingNoVersionDocs) {
+    const text = read(file);
+    const withoutUrls = text.replace(/https?:\/\/\S+/g, '');
+    if (/\bv?\d+\.\d+\.\d+\b/.test(withoutUrls)) {
+      errors.push(`${file}: user-facing documentation must not contain literal AgentFrame release versions; link to GitHub Releases or use --ref latest`);
     }
   }
   for (const file of ['README.md', 'README.zh-CN.md']) {
     const text = read(file);
-    if (!text.includes('img.shields.io/github/v/release/JunyanKang/agentframe')) {
-      errors.push(`${file}: release badge should use the dynamic GitHub release badge`);
+    if (/release\]\(https:\/\/img\.shields\.io\//.test(text)) {
+      errors.push(`${file}: release badges are not allowed because rendered badge versions can be stale`);
     }
     if (!text.includes('--ref latest')) {
       errors.push(`${file}: install/update command should use --ref latest`);
