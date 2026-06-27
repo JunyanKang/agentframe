@@ -4,7 +4,7 @@
 
 ![validate](https://github.com/JunyanKang/agentframe/actions/workflows/validate.yml/badge.svg)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
-![version](https://img.shields.io/badge/release-v0.6.2-brightgreen.svg)
+![version](https://img.shields.io/badge/release-v0.6.3-brightgreen.svg)
 
 Engineering guardrails for Codex-driven software development.
 
@@ -86,9 +86,9 @@ Choose an adoption profile:
 For Full installation or update, run the update script. It installs AgentFrame if no local AgentFrame skills exist, and updates them safely if they already do.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.2/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.3/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.6.2
+python3 /tmp/update-agentframe-skills.py --ref v0.6.3
 ```
 
 Restart Codex after installing or updating skills.
@@ -178,7 +178,7 @@ For AgentFrame itself:
 
 ## Version
 
-Current release: 0.6.2.
+Current release: 0.6.3.
 
 ## License
 

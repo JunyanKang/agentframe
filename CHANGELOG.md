@@ -16,6 +16,24 @@
 ### Migration Notes
 - None.
 
+## 0.6.3 - 2026-06-27
+### Added
+- Chinese usage-pattern prompts now cover the same core skill surfaces as the English prompt templates.
+
+### Changed
+- Chinese README structure now mirrors the English README landing-page structure.
+
+### Fixed
+- Validator now checks Chinese README section coverage and Chinese prompt-template skill coverage.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+
+### Migration Notes
+- None.
+
 ## 0.6.2 - 2026-06-27
 ### Added
 - README badges, one-sentence tagline, and Before/After summary table.

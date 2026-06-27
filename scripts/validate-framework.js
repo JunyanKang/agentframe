@@ -467,7 +467,8 @@ function validateGoldenScenarios() {
 }
 
 function validateUsagePatterns() {
-  const text = read('docs/USAGE_PATTERNS.md').toLowerCase();
+  const raw = read('docs/USAGE_PATTERNS.md');
+  const text = raw.toLowerCase();
   const requiredPatterns = {
     dependency: ['dependency'],
     migration: ['migration'],
@@ -482,6 +483,27 @@ function validateUsagePatterns() {
   for (const [name, terms] of Object.entries(requiredPatterns)) {
     if (!terms.some(term => text.includes(term))) {
       errors.push(`docs/USAGE_PATTERNS.md: missing ${name} usage template coverage`);
+    }
+  }
+  const chineseSection = section(raw, '中文提示词模板');
+  for (const skill of [
+    'agentframe-architect',
+    'agentframe-specification',
+    'agentframe-implementer',
+    'agentframe-reviewer',
+    'agentframe-configuration-manager',
+    'agentframe-api-guardian',
+    'agentframe-release-manager',
+    'agentframe-dependency-guardian',
+    'agentframe-migration-guardian',
+    'agentframe-security-guardian',
+    'agentframe-observability-guardian',
+    'agentframe-planner',
+    'agentframe-governance-guardian',
+    'agentframe-project-memory',
+  ]) {
+    if (!chineseSection.includes(`$${skill}`)) {
+      errors.push(`docs/USAGE_PATTERNS.md: Chinese prompt templates missing $${skill}`);
     }
   }
 }
@@ -581,7 +603,19 @@ if (!readmeText.includes('README.zh-CN.md')) {
   errors.push('README.md: missing link to Chinese README');
 }
 const chineseReadmeText = read('README.zh-CN.md');
-for (const required of ['60 秒开始', '安装、更新或卸载', '为什么不用普通 AGENTS.md 就够了']) {
+for (const required of [
+  '使用前 / 使用后',
+  '为什么用 AgentFrame',
+  '它提供什么',
+  '60 秒开始',
+  '看它如何工作',
+  '安装、更新或卸载',
+  '为什么不用普通 AGENTS.md 就够了',
+  '触发策略',
+  '采用可选框架',
+  'Canonical Skill Source',
+  '维护工作流',
+]) {
   if (!chineseReadmeText.includes(required)) errors.push(`README.zh-CN.md: missing Chinese README section ${required}`);
 }
 validateUsagePatterns();

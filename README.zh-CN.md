@@ -2,9 +2,23 @@
 
 [English](README.md)
 
+![validate](https://github.com/JunyanKang/agentframe/actions/workflows/validate.yml/badge.svg)
+![license](https://img.shields.io/badge/license-MIT-blue.svg)
+![version](https://img.shields.io/badge/release-v0.6.3-brightgreen.svg)
+
+给 Codex 软件开发加上工程护栏。
+
 AgentFrame 是一个面向 Codex 的软件工程框架。它把可安装的 Codex skills 和可选的仓库治理层结合起来，让 Codex 在软件项目里更像一个有工程纪律的协作者，而不是一次性的代码生成器。
 
 当你希望 Codex 遵守架构边界、source-of-truth、验证要求、兼容性、发布流程和长期项目记忆时，可以使用 AgentFrame。
+
+## 使用前 / 使用后
+
+| 不使用 AgentFrame | 使用 AgentFrame |
+| --- | --- |
+| 模糊请求容易扩大成无关改动。 | Skills 要求 Codex 先检查，再保持最小范围。 |
+| 测试、文档和停止条件容易遗漏。 | Golden scenarios 和提示词把验证与停止行为显式化。 |
+| 项目规则主要依赖静态指令。 | 角色化 skills、路由、validators 和可选 memory 共同约束工作流。 |
 
 ## 为什么用 AgentFrame
 
@@ -26,10 +40,15 @@ skills/agentframe-*          可安装的 Codex skills
 scripts/                     验证和 skills 更新工具
 ```
 
-常规使用时，先安装 skills。只有项目需要长期治理、团队协作规则、架构决策、发布策略或项目记忆时，才考虑复制 `.codex/`。
+可安装 skills 覆盖完整软件开发生命周期：
 
-更多采用细节见 [docs/ADOPTION.md](docs/ADOPTION.md)。  
-可直接复制的英文和中文提示词见 [docs/USAGE_PATTERNS.md](docs/USAGE_PATTERNS.md)。
+- **交付流程**：架构、计划、规格、实现、审查、测试、重构、文档和项目记忆。
+- **工程 guardians**：API、配置、数据模型、兼容性、可复现性、source-of-truth 治理、CI、发布、安全、依赖、可观测性、迁移、插件架构和前端体验。
+- **运行安全**：每个 skill 都定义适用场景、不适用场景、必需输出、交接规则、失败处理、质量门槛和完成标准。
+
+更多 skill 路径和采用细节见 [docs/ADOPTION.md](docs/ADOPTION.md)。
+
+需要功能开发、bug 修复、审查、发布检查和项目记忆更新的可直接复制提示词时，见 [docs/USAGE_PATTERNS.md](docs/USAGE_PATTERNS.md)。
 
 ## 60 秒开始
 
@@ -58,16 +77,18 @@ $agentframe-implementer
 
 选择采用档位：
 
-- **Core**：实现、测试、审查和项目记忆，适合小项目和日常窄范围任务。
-- **Standard**：Core 加架构、计划、规格和文档，适合常规产品开发。
-- **Full**：完整治理套件，适合有 API、配置、数据、CI、发布、安全、依赖、迁移、可观测性、前端体验或 source-of-truth 要求的长期项目。
+| 档位 | 适用场景 | 包含内容 |
+| --- | --- | --- |
+| Core | 小项目和日常窄范围任务 | 实现、测试、审查、项目记忆 |
+| Standard | 常规产品开发 | Core 加架构、计划、规格、文档 |
+| Full | 有受保护工程表面的长期仓库 | Standard 加 CI、发布、安全、依赖、迁移、可观测性、前端体验、source-of-truth guardians |
 
 完整安装或更新：
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.2/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.3/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.6.2
+python3 /tmp/update-agentframe-skills.py --ref v0.6.3
 ```
 
 安装或更新后重启 Codex。
@@ -88,11 +109,21 @@ python3 /tmp/update-agentframe-skills.py --uninstall
 
 卸载命令只删除本地 `agentframe-*` skill 目录，不会删除项目里的 `.codex/` 治理文件。
 
-## 什么时候复制 `.codex/`
+## FAQ
 
-不要为了使用 skills 就复制 `.codex/`。先安装 skills。
+### 为什么不用普通 AGENTS.md 就够了？
 
-当项目需要这些长期治理资产时，再复制 `.codex/`：
+`AGENTS.md` 提供静态仓库指令。AgentFrame 额外提供可安装的角色化 skills、路由规则、validators、golden scenarios、source-of-truth 同步、更新工具和可选项目记忆。
+
+## 触发策略
+
+核心交付 skills 支持隐式触发，因为用户通常会用自然语言提出实现、审查、测试、规格和文档任务。窄范围 guardian skills 更适合通过显式 `$agentframe-*` 提示词触发，或由其他 AgentFrame skill 在受保护表面出现时交接。
+
+## 采用可选框架
+
+不要为了使用 AgentFrame skills 就复制 `.codex/`。先安装 skills。
+
+只有当项目需要持久治理时，才把 `.codex/` 复制进仓库：
 
 - 架构决策和 ADR
 - source-of-truth policy
@@ -102,11 +133,11 @@ python3 /tmp/update-agentframe-skills.py --uninstall
 
 复制后，应把 `.codex/project/` 里的未知项替换为目标仓库的真实信息。
 
-## FAQ
+## Canonical Skill Source
 
-### 为什么不用普通 AGENTS.md 就够了？
+`skills/agentframe-*` 是规范的可安装 skill 定义。`.codex/framework/skills/*` 是采用可选治理框架时使用的框架内参考副本。
 
-`AGENTS.md` 提供静态仓库指令。AgentFrame 额外提供可安装的角色化 skills、路由规则、validators、golden scenarios、source-of-truth 同步、更新工具和可选项目记忆。
+除非在 `.codex/framework/SOURCE_OF_TRUTH.md` 或最终维护报告中明确记录有意漂移，否则实质性 skill 修改必须同步更新两边。
 
 ## 验证
 
@@ -122,9 +153,19 @@ npm run validate
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py ~/.codex/skills/<skill-name>
 ```
 
+## 维护工作流
+
+维护 AgentFrame 本身时：
+
+1. 更新 `skills/agentframe-*` 下的规范可安装 skill。
+2. 更新 `.codex/framework/skills/*` 下对应的框架内参考副本。
+3. 当公开表面变化时，同步更新路由、采用文档、changelog 和版本元数据。
+4. 运行 `npm run validate`。
+5. 当改动影响公开安装、更新或使用行为时，提交、打 tag 并发布 release。
+
 ## 版本
 
-当前 release：0.6.2。
+当前 release：0.6.3。
 
 ## License
 
