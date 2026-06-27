@@ -167,7 +167,19 @@ for (const file of [
   'CHANGELOG.md',
   'docs/ADOPTION.md',
   '.github/workflows/validate.yml',
+  'scripts/update-agentframe-skills.py',
 ]) read(file);
+
+const packageJson = JSON.parse(read('package.json'));
+if (!packageJson.scripts || packageJson.scripts['update-skills'] !== 'python3 scripts/update-agentframe-skills.py') {
+  errors.push('package.json: missing update-skills script for AgentFrame skill updates');
+}
+for (const file of ['README.md', 'docs/ADOPTION.md']) {
+  const text = read(file);
+  if (!text.includes('scripts/update-agentframe-skills.py')) {
+    errors.push(`${file}: missing AgentFrame update script documentation`);
+  }
+}
 
 for (const file of ['FRAMEWORK.md','FRAMEWORK_VERSION.md','GOVERNANCE.md','EXTENSION_POLICY.md','COMPATIBILITY_POLICY.md','MEMORY_POLICY.md','VERSIONING_POLICY.md','SKILL_AUTHORING_GUIDE.md','WORKFLOW.md','SOURCE_OF_TRUTH.md','SKILL_ROUTING.md']) {
   requireHeadings(path.join('.codex/framework', file), frameworkHeadings);

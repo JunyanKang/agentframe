@@ -39,6 +39,27 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 
 Restart Codex after installing.
 
+## Update Installed Skills
+Use the update script when AgentFrame skills are already installed locally. It backs up existing `agentframe-*` skills, replaces the full suite from GitHub, validates the result, and rolls back on failure.
+
+```sh
+python3 scripts/update-agentframe-skills.py --ref v0.5.1
+```
+
+To update directly from the latest `main`:
+
+```sh
+python3 scripts/update-agentframe-skills.py
+```
+
+Useful options:
+
+- `--dry-run`: show the install/update/remove plan without changing local skills.
+- `--dest <path>`: update a non-default skills directory.
+- `--keep-backups`: keep the backup directory after a successful update.
+
+Restart Codex after updating.
+
 Direct GitHub skill links:
 
 - [`agentframe-architect`](https://github.com/JunyanKang/agentframe/tree/main/skills/agentframe-architect): architecture, module boundaries, interfaces, and tradeoffs before coding.
@@ -113,7 +134,7 @@ npm run validate
 ```
 
 ## Version
-Current release: 0.5.0.
+Current release: 0.5.1.
 
 ## License
 MIT.

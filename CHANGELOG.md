@@ -16,6 +16,25 @@
 ### Migration Notes
 - None.
 
+## 0.5.1 - 2026-06-27
+### Added
+- `scripts/update-agentframe-skills.py` for safe full-suite updates of locally installed `agentframe-*` Codex skills.
+- `npm run update-skills` wrapper for the AgentFrame skill update script.
+
+### Changed
+- README and adoption docs now distinguish first-time install from existing-skill updates.
+
+### Fixed
+- Existing AgentFrame skill installations no longer require manual deletion before refreshing the full suite.
+
+### Validation
+- `npm run validate` now checks that the update script and documentation are present.
+- Verified the update script with `--dry-run` against `v0.5.0`.
+- Verified install and replacement update flows against a temporary skills directory.
+
+### Migration Notes
+- Existing users can update local AgentFrame skills with `python3 scripts/update-agentframe-skills.py --ref <tag-or-branch>` instead of manually deleting installed skill directories.
+
 ## 0.5.0 - 2026-06-27
 ### Added
 - Full reference audit documentation in `docs/REFERENCE_SKILL_AUDIT.md`, covering 598 reference `SKILL.md` files, 30 command workflows, 17 `AGENTS.md` files, and 246 validation-related files from the compared repositories.

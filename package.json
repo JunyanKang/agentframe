@@ -1,12 +1,13 @@
 {
   "name": "agentframe",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Installable Codex software engineering skills plus optional project governance framework.",
   "private": false,
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "validate": "node scripts/validate-framework.js"
+    "validate": "node scripts/validate-framework.js",
+    "update-skills": "python3 scripts/update-agentframe-skills.py"
   },
   "engines": {
     "node": ">=18"
