@@ -16,6 +16,28 @@
 ### Migration Notes
 - None.
 
+## 0.5.5 - 2026-06-27
+### Added
+- `scripts/update-agentframe-skills.py --uninstall` for safe removal of installed local AgentFrame skills.
+- Public uninstall instructions in README and the adoption guide.
+- Validator coverage requiring uninstall documentation in public docs.
+
+### Changed
+- AgentFrame lifecycle documentation now covers install, update, and uninstall paths.
+
+### Fixed
+- Users no longer need to rely on manual `rm -rf ~/.codex/skills/agentframe-*` cleanup guidance.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- Temporary-destination uninstall dry-run and uninstall smoke tests
+- `git diff --check`
+
+### Migration Notes
+- Existing users can update local AgentFrame skills with `python3 scripts/update-agentframe-skills.py --ref v0.5.5`.
+- To uninstall local AgentFrame skills, run `python3 scripts/update-agentframe-skills.py --uninstall`.
+
 ## 0.5.4 - 2026-06-27
 ### Added
 - `docs/USAGE_PATTERNS.md` with explicit `$agentframe-*` prompt templates and native Codex fast-path guidance.

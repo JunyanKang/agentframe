@@ -27,7 +27,7 @@ Restart Codex after installing skills.
 Codex's stock skill installer aborts when a destination skill directory already exists. Use AgentFrame's update script when replacing an older local AgentFrame installation:
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.5.4
+python3 scripts/update-agentframe-skills.py --ref v0.5.5
 ```
 
 The script:
@@ -41,10 +41,34 @@ The script:
 Use `--dry-run` to preview changes without modifying local skills:
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.5.4 --dry-run
+python3 scripts/update-agentframe-skills.py --ref v0.5.5 --dry-run
 ```
 
 Restart Codex after updating skills.
+
+## Uninstall AgentFrame Skills
+Use the update script's uninstall mode when removing local AgentFrame skills:
+
+```sh
+python3 scripts/update-agentframe-skills.py --uninstall
+```
+
+Preview the uninstall plan first:
+
+```sh
+python3 scripts/update-agentframe-skills.py --uninstall --dry-run
+```
+
+The uninstall command:
+
+- removes only local `agentframe-*` directories from the selected skills directory.
+- leaves non-AgentFrame skills untouched.
+- backs up removed AgentFrame skills before deletion unless `--dry-run` is used.
+- does not delete project-local `.codex/` governance files.
+
+Use `--dest <path>` to uninstall from a non-default skills directory. Use `--keep-backups` when you want to preserve the generated backup after uninstalling.
+
+Restart Codex after uninstalling skills.
 
 ## Triggering Policy
 - Core delivery skills allow implicit invocation because their user intents are common and direct.

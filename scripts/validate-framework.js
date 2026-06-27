@@ -365,6 +365,9 @@ for (const file of ['README.md', 'docs/ADOPTION.md']) {
   if (!text.includes('scripts/update-agentframe-skills.py')) {
     errors.push(`${file}: missing AgentFrame update script documentation`);
   }
+  if (!text.includes('--uninstall')) {
+    errors.push(`${file}: missing AgentFrame uninstall documentation`);
+  }
   if (!text.includes('USAGE_PATTERNS.md')) {
     errors.push(`${file}: missing link to docs/USAGE_PATTERNS.md`);
   }

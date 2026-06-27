@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Update all AgentFrame Codex skills in a local Codex skills directory.
+"""Install, update, or uninstall AgentFrame Codex skills.
 
 The stock Codex skill installer aborts when a destination directory already
-exists. This script provides the update surface AgentFrame needs:
+exists. This script provides the lifecycle surface AgentFrame needs:
 
 1. Fetch AgentFrame from GitHub.
 2. Discover every skills/agentframe-* folder with a SKILL.md.
@@ -10,6 +10,9 @@ exists. This script provides the update surface AgentFrame needs:
 4. Back up existing local agentframe-* skills.
 5. Replace the full local AgentFrame skill set.
 6. Validate the installed result and roll back on failure.
+
+For uninstall, the script backs up and removes only local agentframe-* skills
+from the selected destination. It does not delete project-local .codex files.
 """
 
 from __future__ import annotations
@@ -47,6 +50,7 @@ class Args:
     dry_run: bool
     keep_backups: bool
     no_validate: bool
+    uninstall: bool
 
 
 def codex_home() -> Path:
@@ -59,7 +63,7 @@ def default_dest() -> Path:
 
 def parse_args(argv: list[str]) -> Args:
     parser = argparse.ArgumentParser(
-        description="Update all local AgentFrame Codex skills from GitHub."
+        description="Install, update, or uninstall local AgentFrame Codex skills."
     )
     parser.add_argument("--repo", default=DEFAULT_REPO, help="GitHub owner/repo")
     parser.add_argument("--ref", default=DEFAULT_REF, help="Git ref, tag, or branch")
@@ -90,6 +94,11 @@ def parse_args(argv: list[str]) -> Args:
         action="store_true",
         help="Skip quick_validate.py; basic SKILL.md checks still run.",
     )
+    parser.add_argument(
+        "--uninstall",
+        action="store_true",
+        help="Remove installed agentframe-* skills from --dest; does not remove project .codex files.",
+    )
     ns = parser.parse_args(argv)
     return Args(
         repo=ns.repo,
@@ -99,6 +108,7 @@ def parse_args(argv: list[str]) -> Args:
         dry_run=ns.dry_run,
         keep_backups=ns.keep_backups,
         no_validate=ns.no_validate,
+        uninstall=ns.uninstall,
     )
 
 
@@ -327,6 +337,29 @@ def install_staged(dest: Path, staged: list[Path], backup_root: Path, dry_run: b
         raise UpdateError(f"install failed and backup was restored: {exc}") from exc
 
 
+def uninstall_agentframe_skills(dest: Path, backup_root: Path, dry_run: bool) -> int:
+    existing = installed_agentframe_skills(dest)
+    print(f"Destination: {dest}")
+    print(f"Installed AgentFrame skills: {len(existing)}")
+    if not existing:
+        print("No installed AgentFrame skills found.")
+        return 0
+
+    if dry_run:
+        for skill in existing:
+            print(f"DRY-RUN uninstall: {skill.name}")
+        return len(existing)
+
+    copy_existing_to_backup(existing, backup_root)
+    try:
+        for skill in existing:
+            shutil.rmtree(skill)
+    except Exception as exc:
+        restore_backup(dest, backup_root, [])
+        raise UpdateError(f"uninstall failed and backup was restored: {exc}") from exc
+    return len(existing)
+
+
 def validate_installed(dest: Path, names: list[str], no_validate: bool, backup_root: Path) -> None:
     try:
         for name in names:
@@ -341,6 +374,16 @@ def main(argv: list[str]) -> int:
     tmp = Path(tempfile.mkdtemp(prefix="agentframe-update-"))
     backup_root = args.dest / ".agentframe-backups" / time.strftime("%Y%m%d-%H%M%S")
     try:
+        if args.uninstall:
+            removed = uninstall_agentframe_skills(args.dest, backup_root, args.dry_run)
+            if not args.dry_run and not args.keep_backups and backup_root.exists():
+                shutil.rmtree(backup_root)
+            if not args.dry_run:
+                print(f"Uninstalled {removed} AgentFrame skills.")
+                if removed:
+                    print("Restart Codex to remove AgentFrame skills from the active session.")
+            return 0
+
         repo_root = fetch_repo(args, tmp)
         skill_sources = discover_agentframe_skills(repo_root)
         stage_root = tmp / "staged"

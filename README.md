@@ -34,7 +34,7 @@ See [docs/ADOPTION.md](docs/ADOPTION.md) for individual skill paths and adoption
 
 Use [docs/USAGE_PATTERNS.md](docs/USAGE_PATTERNS.md) when you want concrete prompts for feature work, bug fixes, reviews, release checks, and project memory updates.
 
-## Install Or Update
+## Install, Update, Or Uninstall
 
 Choose an adoption profile:
 
@@ -45,9 +45,9 @@ Choose an adoption profile:
 For Full installation or update, run the update script. It installs AgentFrame if no local AgentFrame skills exist, and updates them safely if they already do.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.5.4/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.5.5/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.5.4
+python3 /tmp/update-agentframe-skills.py --ref v0.5.5
 ```
 
 Restart Codex after installing or updating skills.
@@ -58,8 +58,17 @@ Useful options:
 - `--dest <path>`: update a non-default skills directory.
 - `--keep-backups`: keep the backup after a successful update.
 - `--ref <tag-or-branch>`: install from a release tag or from `main`.
+- `--uninstall`: remove installed `agentframe-*` skills from the selected skills directory.
 
 For selective installs, use Codex's skill installer with the paths documented in [docs/ADOPTION.md](docs/ADOPTION.md).
+
+To uninstall AgentFrame skills:
+
+```sh
+python3 /tmp/update-agentframe-skills.py --uninstall
+```
+
+The uninstall command removes only local `agentframe-*` skill directories. It does not delete project-local `.codex/` governance files.
 
 ## Triggering Policy
 
@@ -122,7 +131,7 @@ For AgentFrame itself:
 
 ## Version
 
-Current release: 0.5.4.
+Current release: 0.5.5.
 
 ## License
 
