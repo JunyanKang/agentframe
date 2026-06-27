@@ -16,6 +16,29 @@
 ### Migration Notes
 - None.
 
+## 0.6.1 - 2026-06-27
+### Added
+- `docs/DEMO.md` before/after behavior demo.
+- `docs/FEEDBACK_LOOP.md` field-feedback process.
+- `tests/golden/README.md` and `tests/golden/SCHEMA.md`.
+
+### Changed
+- README, Chinese README, and adoption docs now link demo, usage patterns, and feedback loop.
+- Validator now checks demo, feedback-loop, and golden scenario documentation coverage.
+
+### Fixed
+- None.
+
+### Validation
+- `npm run validate`
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+- Codex `quick_validate.py` for all 24 installable skills
+
+### Migration Notes
+- No migration required.
+- No public skill names changed.
+
 ## 0.6.0 - 2026-06-27
 ### Added
 - Expanded `docs/USAGE_PATTERNS.md` with dependency, migration, security, performance/observability, strict no-unrelated-files, adoption assessment, quick plan-only, project memory refresh, and Chinese prompt templates.

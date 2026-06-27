@@ -53,6 +53,12 @@ $agentframe-implementer
 Fix one small issue only. Inspect instructions, affected callers, and tests first. Change the smallest set of files. Add the narrowest meaningful test. Stop if the fix requires API, architecture, dependency, config, data-model, migration, release, security, or unrelated-file changes.
 ```
 
+## See It In Action
+
+- Use [docs/DEMO.md](docs/DEMO.md) to understand the intended before/after behavior.
+- Use [docs/USAGE_PATTERNS.md](docs/USAGE_PATTERNS.md) to copy ready-to-use prompts.
+- Use [docs/FEEDBACK_LOOP.md](docs/FEEDBACK_LOOP.md) to improve AgentFrame after real failures.
+
 ## Install, Update, Or Uninstall
 
 Choose an adoption profile:
@@ -64,9 +70,9 @@ Choose an adoption profile:
 For Full installation or update, run the update script. It installs AgentFrame if no local AgentFrame skills exist, and updates them safely if they already do.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.0/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.1/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.6.0
+python3 /tmp/update-agentframe-skills.py --ref v0.6.1
 ```
 
 Restart Codex after installing or updating skills.
@@ -156,7 +162,7 @@ For AgentFrame itself:
 
 ## Version
 
-Current release: 0.6.0.
+Current release: 0.6.1.
 
 ## License
 

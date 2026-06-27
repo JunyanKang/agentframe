@@ -48,6 +48,12 @@ $agentframe-implementer
 只修一个小问题。先检查项目指令、受影响调用方和测试。只修改最小必要文件。添加最小有意义的测试。若修复需要 API、架构、依赖、配置、数据模型、迁移、发布、安全或无关文件变更，立即停止并说明。
 ```
 
+## 看它如何工作
+
+- 用 [docs/DEMO.md](docs/DEMO.md) 理解使用前后的行为差异。
+- 用 [docs/USAGE_PATTERNS.md](docs/USAGE_PATTERNS.md) 复制可直接使用的提示词。
+- 用 [docs/FEEDBACK_LOOP.md](docs/FEEDBACK_LOOP.md) 在真实失败后改进 AgentFrame。
+
 ## 安装、更新或卸载
 
 选择采用档位：
@@ -59,9 +65,9 @@ $agentframe-implementer
 完整安装或更新：
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.0/scripts/update-agentframe-skills.py \
+curl -fsSL https://raw.githubusercontent.com/JunyanKang/agentframe/v0.6.1/scripts/update-agentframe-skills.py \
   -o /tmp/update-agentframe-skills.py
-python3 /tmp/update-agentframe-skills.py --ref v0.6.0
+python3 /tmp/update-agentframe-skills.py --ref v0.6.1
 ```
 
 安装或更新后重启 Codex。
@@ -118,7 +124,7 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py ~/.codex
 
 ## 版本
 
-当前 release：0.6.0。
+当前 release：0.6.1。
 
 ## License
 

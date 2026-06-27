@@ -99,6 +99,56 @@ const goldenScenarioHeadings = [
   'Over-Governance Risks',
   'Under-Governance Risks',
 ];
+const demoHeadings = [
+  'Purpose',
+  'What This Demo Shows',
+  'Before AgentFrame',
+  'After AgentFrame: Lite Lane',
+  'Escalation Example',
+  'Standard Lane Example',
+  'Extended Lane Example',
+  'Final Report Shape',
+  'What To Try Next',
+];
+const feedbackLoopHeadings = [
+  'Purpose',
+  'What Counts As A Framework Failure',
+  'Failure Categories',
+  'Triage Workflow',
+  'Convert A Failure Into A Golden Scenario',
+  'Convert A Failure Into A Skill Prompt Change',
+  'Convert A Failure Into A Routing Change',
+  'Convert A Failure Into A Validator Check',
+  'When Not To Change The Framework',
+  'Field Note Template',
+  'Maintenance Checklist',
+];
+const goldenReadmeHeadings = [
+  'Purpose',
+  'What Golden Scenarios Validate',
+  'What Golden Scenarios Do Not Validate',
+  'Scenario Fields',
+  'Operating Lane Expectations',
+  'Over-Governance And Under-Governance',
+  'Adding A New Scenario',
+  'Updating A Scenario',
+  'Validator Expectations',
+];
+const feedbackFieldNoteFields = [
+  'Date:',
+  'Repository context:',
+  'User prompt:',
+  'Expected lane:',
+  'Actual behavior:',
+  'Failure category:',
+  'Files affected:',
+  'What should have happened:',
+  'Proposed golden scenario change:',
+  'Proposed skill/default_prompt change:',
+  'Proposed routing change:',
+  'Proposed validator change:',
+  'Human review needed:',
+];
 
 function full(file) { return path.join(root, file); }
 
@@ -436,6 +486,58 @@ function validateUsagePatterns() {
   }
 }
 
+function requireLinks(file, links) {
+  const text = read(file);
+  for (const link of links) {
+    if (!text.includes(link)) errors.push(`${file}: missing link to ${link}`);
+  }
+}
+
+function validateDemoDocs() {
+  const demoText = requireHeadings('docs/DEMO.md', demoHeadings);
+  if (!demoText.includes('# AgentFrame Demo')) errors.push('docs/DEMO.md: missing title # AgentFrame Demo');
+  for (const required of ['$agentframe-implementer', 'Lite', 'Standard', 'Extended', 'changed files', 'validation']) {
+    if (!demoText.toLowerCase().includes(required.toLowerCase())) errors.push(`docs/DEMO.md: missing demo key term ${required}`);
+  }
+
+  const feedbackText = requireHeadings('docs/FEEDBACK_LOOP.md', feedbackLoopHeadings);
+  if (!feedbackText.includes('# AgentFrame Feedback Loop')) errors.push('docs/FEEDBACK_LOOP.md: missing title # AgentFrame Feedback Loop');
+  for (const field of feedbackFieldNoteFields) {
+    if (!feedbackText.includes(field)) errors.push(`docs/FEEDBACK_LOOP.md: missing Field Note Template field ${field}`);
+  }
+  for (const category of [
+    'wrong skill selected',
+    'too many skills selected',
+    'too few skills selected',
+    'Lite lane over-governed',
+    'Standard lane under-specified',
+    'Extended lane missing guarded-surface assessment',
+    'Codex changed unrelated files',
+    'Codex failed to stop on public API/config/data/dependency/security/migration/release risk',
+    'Codex skipped tests',
+    'Codex skipped documentation',
+    'Codex failed to update project memory',
+    'default_prompt too weak',
+    'validator failed to catch a regression',
+    'documentation too heavy or unclear',
+  ]) {
+    if (!feedbackText.includes(category)) errors.push(`docs/FEEDBACK_LOOP.md: missing failure category ${category}`);
+  }
+
+  const goldenReadmeText = requireHeadings('tests/golden/README.md', goldenReadmeHeadings);
+  if (!goldenReadmeText.includes('# Golden Scenario Contracts')) errors.push('tests/golden/README.md: missing title # Golden Scenario Contracts');
+  if (!goldenReadmeText.includes('not live Codex execution tests')) errors.push('tests/golden/README.md: must state golden scenarios are not live Codex execution tests');
+
+  const schemaText = read('tests/golden/SCHEMA.md');
+  if (!schemaText.includes('# Golden Scenario Schema')) errors.push('tests/golden/SCHEMA.md: missing title # Golden Scenario Schema');
+  for (const heading of goldenScenarioHeadings) {
+    if (!schemaText.includes(`## ${heading}`)) errors.push(`tests/golden/SCHEMA.md: missing schema field ## ${heading}`);
+  }
+  for (const required of ['Purpose:', 'Required content:', 'Allowed values:', 'Common mistakes:', 'Validator expectations:']) {
+    if (!schemaText.includes(required)) errors.push(`tests/golden/SCHEMA.md: missing schema explanation label ${required}`);
+  }
+}
+
 for (const file of [
   'AGENTS.md',
   '.codex/AGENTS.md',
@@ -444,9 +546,13 @@ for (const file of [
   'CHANGELOG.md',
   'README.zh-CN.md',
   'docs/ADOPTION.md',
+  'docs/DEMO.md',
+  'docs/FEEDBACK_LOOP.md',
   'docs/USAGE_PATTERNS.md',
   '.github/workflows/validate.yml',
   'scripts/update-agentframe-skills.py',
+  'tests/golden/README.md',
+  'tests/golden/SCHEMA.md',
 ]) read(file);
 
 const packageJson = JSON.parse(read('package.json'));
@@ -466,6 +572,9 @@ for (const file of ['README.md', 'docs/ADOPTION.md']) {
     errors.push(`${file}: missing link to docs/USAGE_PATTERNS.md`);
   }
 }
+for (const file of ['README.md', 'README.zh-CN.md', 'docs/ADOPTION.md']) {
+  requireLinks(file, ['docs/DEMO.md', 'docs/USAGE_PATTERNS.md', 'docs/FEEDBACK_LOOP.md']);
+}
 const readmeText = read('README.md');
 if (!readmeText.includes('README.zh-CN.md')) {
   errors.push('README.md: missing link to Chinese README');
@@ -475,6 +584,7 @@ for (const required of ['60 秒开始', '安装、更新或卸载', '为什么�
   if (!chineseReadmeText.includes(required)) errors.push(`README.zh-CN.md: missing Chinese README section ${required}`);
 }
 validateUsagePatterns();
+validateDemoDocs();
 validateGoldenScenarios();
 
 for (const file of ['FRAMEWORK.md','FRAMEWORK_VERSION.md','GOVERNANCE.md','EXTENSION_POLICY.md','COMPATIBILITY_POLICY.md','MEMORY_POLICY.md','VERSIONING_POLICY.md','SKILL_AUTHORING_GUIDE.md','WORKFLOW.md','SOURCE_OF_TRUTH.md','SKILL_ROUTING.md']) {
