@@ -22,10 +22,7 @@ Define the implementation contract for a non-trivial software change before codi
 - Non-requirements:
 - Inputs:
 - Outputs:
-- Public API impact:
-- Data model impact:
-- Configuration impact:
-- Compatibility impact:
+- Cross-surface impacts: reference `Interfaces` and `Data And Configuration` sections below.
 - Error behavior:
 - Edge case:
 - Acceptance check:

@@ -28,7 +28,7 @@ This skill must not:
 - allow hard-coded operational parameters when configuration is required.
 - leave defaults undocumented.
 - duplicate configuration parsing.
-- silently ignore invalid configuration.
+- ignore invalid configuration silently.
 
 ## Required Inputs
 - User request and explicit constraints.

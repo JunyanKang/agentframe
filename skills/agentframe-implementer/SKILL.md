@@ -30,7 +30,7 @@ This skill must not:
 - change public APIs without approval.
 - add dependencies without approval.
 - change architecture without approval.
-- silently ignore failing tests.
+- ignore failing tests silently.
 
 ## Required Inputs
 - User request and explicit constraints.
@@ -112,7 +112,13 @@ Implementation notes should be reportable in this shape:
 - Handoff to agentframe-reviewer after meaningful implementation changes.
 - Handoff to agentframe-documenter when behavior, API, config, workflow, or release process changed.
 - Handoff to agentframe-project-memory when durable project state changed.
-- Handoff to relevant guardian skills if implementation exposes API, configuration, data, compatibility, plugin, reproducibility, or architecture issues.
+- Handoff to agentframe-api-guardian when public or integration-facing behavior changed.
+- Handoff to agentframe-configuration-manager when configuration sources, defaults, precedence, or validation changed.
+- Handoff to agentframe-data-model-guardian when data structures, schemas, validation, serialization, persistence, or migrations changed.
+- Handoff to agentframe-compatibility-manager when runtime, platform, dependency, file format, API, config, plugin, or version support changed.
+- Handoff to agentframe-plugin-architect when extension mechanisms, plugin contracts, discovery, lifecycle, or isolation changed.
+- Handoff to agentframe-reproducibility-guardian when generated outputs, commands, environment, parameters, or provenance need repeatability.
+- Handoff to agentframe-design-guardian when implementation changes dependency direction, module boundaries, data flow, or architecture ownership.
 
 ## Failure Handling
 - If required inputs are missing and a safe assumption would be risky, stop and ask for the missing input.

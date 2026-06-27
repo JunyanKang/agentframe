@@ -122,7 +122,7 @@ Use this API review artifact:
 
 ## Interaction With Other Skills
 - Coordinate with agentframe-compatibility-manager for semantic versioning and deprecation.
-- Coordinate with plugin_agentframe-architect for plugin APIs.
+- Coordinate with agentframe-plugin-architect for plugin APIs.
 - Coordinate with agentframe-data-model-guardian for schema-shaped APIs.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
 - Use documentation and testing skills when docs or validation must change.

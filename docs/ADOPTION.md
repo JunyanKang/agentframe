@@ -18,7 +18,7 @@ Restart Codex after installing skills.
 Codex's stock skill installer aborts when a destination skill directory already exists. Use AgentFrame's update script when replacing an older local AgentFrame installation:
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.5.1
+python3 scripts/update-agentframe-skills.py --ref v0.5.2
 ```
 
 The script:
@@ -32,10 +32,13 @@ The script:
 Use `--dry-run` to preview changes without modifying local skills:
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.5.1 --dry-run
+python3 scripts/update-agentframe-skills.py --ref v0.5.2 --dry-run
 ```
 
 Restart Codex after updating skills.
+
+## Canonical Skill Source
+`skills/agentframe-*` are the canonical installable skill definitions. `.codex/framework/skills/*` are framework-local reference copies for repositories that adopt the optional governance framework. Substantive skill edits must update both sides unless intentional drift is documented in `.codex/framework/SOURCE_OF_TRUTH.md` or the final maintenance report.
 
 ## Install All Skills
 Use one `--path` argument followed by all selected paths:

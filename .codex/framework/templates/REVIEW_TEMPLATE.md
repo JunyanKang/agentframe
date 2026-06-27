@@ -48,7 +48,7 @@ Structure a review of a diff, design, specification, release candidate, or docum
 
 ## Optional Sections
 - Alternatives considered:
-- Open questions:
+- Additional review questions:
 - Related risks:
 - Follow-up tasks:
 

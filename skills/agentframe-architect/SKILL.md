@@ -122,7 +122,7 @@ Produce architecture output in this shape when the user needs a design artifact:
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
-- Coordinate with agentframe-design-guardian for agentframe-architecture drift checks.
+- Coordinate with agentframe-design-guardian for architecture drift checks.
 - Coordinate with agentframe-api-guardian for public interface changes.
 - Coordinate with agentframe-compatibility-manager when runtime, platform, dependency, or version support changes.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.

@@ -16,6 +16,35 @@
 ### Migration Notes
 - None.
 
+## 0.5.2 - 2026-06-27
+### Added
+- Validator checks for valid `agentframe-*` skill references in `Handoff Rules` and `Interaction With Other Skills`.
+- Validator checks for version coherence across `package.json`, `README.md`, `.codex/framework/FRAMEWORK_VERSION.md`, and `CHANGELOG.md`.
+- Section-level drift diagnostics for installable/framework-local skill pairs.
+- Section body quality checks for skills, checklists, templates, handoff rules, and non-responsibility action wording.
+- Prompt target validation for `agents/openai.yaml`.
+
+### Changed
+- Implementer handoff rules now name each guardian skill explicitly instead of using catch-all wording.
+- CI validation now runs on Node 18 and 22, includes `workflow_dispatch`, uses least-privilege `contents: read`, and logs Node/npm versions.
+- README and adoption docs now surface the canonical skill source mapping.
+- Specification and review templates now avoid duplicated fields.
+
+### Fixed
+- Corrected malformed `plugin_agentframe-architect` skill references.
+- Removed false `agentframe-architecture` skill-name references from prose.
+- Reworded non-responsibility bullets that began with adverbs instead of action verbs.
+
+### Validation
+- `npm run validate`
+- Codex `quick_validate.py` for all 24 installable skills
+- `python3 -m py_compile scripts/update-agentframe-skills.py`
+- `git diff --check`
+
+### Migration Notes
+- Existing users can update local AgentFrame skills with `python3 scripts/update-agentframe-skills.py --ref v0.5.2`.
+- Projects with customized CI workflows should merge the Node matrix and explicit permissions manually if they adopted AgentFrame workflow files.
+
 ## 0.5.1 - 2026-06-27
 ### Added
 - `scripts/update-agentframe-skills.py` for safe full-suite updates of locally installed `agentframe-*` Codex skills.

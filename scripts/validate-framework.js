@@ -35,6 +35,7 @@ const frameworkHeadings = ['Purpose','Scope','Rules','Required Workflow','Inputs
 const skillHeadings = ['Mission','When To Use This Skill','When Not To Use This Skill','Responsibilities','Explicit Non-Responsibilities','Required Inputs','Required Outputs','Operating Principles','Step-By-Step Workflow','Constraints','Forbidden Behaviors','Review Criteria','Handoff Rules','Failure Handling','Interaction With Other Skills','File Update Obligations','Quality Bar','Completion Criteria'];
 const checklistHeadings = ['Pre-Flight Checklist','Execution Checklist','Output Checklist','Safety Checklist','Review Checklist','Handoff Checklist','Stop Conditions'];
 const templateHeadings = ['Purpose','Metadata','Required Sections','Optional Sections','Review Checklist','Completion Criteria'];
+const validInstallableSkills = new Set(Object.values(skillMap));
 
 function full(file) { return path.join(root, file); }
 
@@ -81,6 +82,45 @@ function section(text, heading) {
   return (next === -1 ? rest : rest.slice(0, next)).trim();
 }
 
+function splitSectionLines(text, heading) {
+  return section(text, heading).split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+}
+
+function extractSkillRefs(text) {
+  return Array.from(text.matchAll(/\bagentframe-[a-z0-9-]+\b/g)).map(match => match[0]);
+}
+
+function validateSkillRefs(file, text) {
+  for (const heading of ['Handoff Rules', 'Interaction With Other Skills']) {
+    const body = section(text, heading);
+    for (const ref of extractSkillRefs(body)) {
+      if (!validInstallableSkills.has(ref)) {
+        errors.push(`${file}: invalid skill reference ${ref} in section "${heading}"; allowed targets: ${Array.from(validInstallableSkills).sort().join(', ')}`);
+      }
+    }
+  }
+}
+
+function validateSectionBody(file, text, heading, options = {}) {
+  const lines = splitSectionLines(text, heading);
+  if (!lines.length) {
+    errors.push(`${file}: section "${heading}" has no body`);
+    return;
+  }
+  const items = lines.filter(line => /^[-*]\s+/.test(line) || /^\d+\.\s+/.test(line));
+  if (options.minItems && items.length < options.minItems) {
+    errors.push(`${file}: section "${heading}" needs at least ${options.minItems} bullets/items`);
+  }
+}
+
+function validateRequiredSectionBodies(file, text, headings) {
+  for (const heading of headings) validateSectionBody(file, text, heading);
+}
+
+function validateChecklistBodies(file, text) {
+  for (const heading of checklistHeadings) validateSectionBody(file, text, heading, { minItems: 1 });
+}
+
 function stripFrontmatter(text) {
   return text.replace(/^---\n[\s\S]*?\n---\n\n?/, '');
 }
@@ -100,11 +140,15 @@ function validateExplicitNonResponsibilities(file, text) {
   }
   const bullets = body.split(/\r?\n/).filter(line => line.trim().startsWith('- '));
   if (!bullets.length) errors.push(`${file}: Explicit Non-Responsibilities has no bullet list`);
+  const actionVerbs = /^(add|allow|approve|assume|bundle|bypass|change|claim|collect|commit|copy|create|delete|depend|document|drop|duplicate|execute|expand|hide|hand-roll|ignore|implement|introduce|leave|log|lose|make|merge|mix|modify|overwrite|perform|print|publish|raise|rely|remove|rename|replace|reuse|rubber-stamp|ship|skip|store|test|treat|use|weaken|write)\b/;
   for (const bullet of bullets) {
     const normalized = bullet.trim().toLowerCase();
     const words = normalized.replace(/^- /, '').split(/\s+/).filter(Boolean);
     if (words.length < 2 || /^(hidden|silent|accidental|undocumented|unbounded)\b/.test(words[0])) {
       errors.push(`${file}: non-responsibility bullet should be an action prohibition, not a fragment: ${bullet.trim()}`);
+    }
+    if (!actionVerbs.test(words.join(' '))) {
+      errors.push(`${file}: non-responsibility bullet should start with an action verb: ${bullet.trim()}`);
     }
   }
 }
@@ -124,6 +168,7 @@ function validateHandoff(file, text, selfName) {
   if (body.includes('Handoff to `planner` when work must be split into executable tasks.')) {
     errors.push(`${file}: Handoff Rules still contain the old generic block`);
   }
+  validateSectionBody(file, text, 'Handoff Rules', { minItems: 2 });
 }
 
 function validateOpenAiYaml(file, skillName) {
@@ -148,15 +193,65 @@ function validateOpenAiYaml(file, skillName) {
   if (/Use \$agentframe-[^.]+ for this software engineering task\.?/.test(prompt)) {
     errors.push(`${file}: default_prompt is still generic`);
   }
+  for (const ref of extractSkillRefs(prompt)) {
+    if (!validInstallableSkills.has(ref)) {
+      errors.push(`${file}: default_prompt references invalid skill ${ref}`);
+    }
+  }
 }
 
 function validateTemplate(file) {
   const text = requireHeadings(file, templateHeadings);
+  validateRequiredSectionBodies(file, text, templateHeadings);
   if (text.includes('Required content: describe')) errors.push(`${file}: contains repeated placeholder phrase "Required content: describe"`);
+  const openQuestions = text.match(/\bOpen questions\b/g) || [];
+  if (openQuestions.length > 1) errors.push(`${file}: duplicate "Open questions" fields; consolidate or clarify`);
   const generatedDates = text.match(/\b20\d{2}-\d{2}-\d{2}\b/g) || [];
   for (const found of generatedDates) {
     if (found !== 'YYYY-MM-DD') errors.push(`${file}: contains hard-coded generated date ${found}`);
   }
+}
+
+function extractReadmeVersion(text) {
+  const match = text.match(/Current release:\s*([0-9]+\.[0-9]+\.[0-9]+)\./);
+  return match ? match[1] : '';
+}
+
+function extractFrameworkVersion(text) {
+  const match = text.match(/Current version:\s*`?([0-9]+\.[0-9]+\.[0-9]+)`?/);
+  return match ? match[1] : '';
+}
+
+function extractLatestChangelogVersion(text) {
+  const match = text.match(/^##\s+([0-9]+\.[0-9]+\.[0-9]+)\s+-\s+\d{4}-\d{2}-\d{2}/m);
+  return match ? match[1] : '';
+}
+
+function validateVersionCoherence() {
+  const pkg = packageJson.version || '';
+  const readme = extractReadmeVersion(read('README.md'));
+  const framework = extractFrameworkVersion(read('.codex/framework/FRAMEWORK_VERSION.md'));
+  const changelog = extractLatestChangelogVersion(read('CHANGELOG.md'));
+  const values = { 'package.json': pkg, 'README.md': readme, '.codex/framework/FRAMEWORK_VERSION.md': framework, 'CHANGELOG.md': changelog };
+  for (const [file, version] of Object.entries(values)) {
+    if (!version) errors.push(`${file}: could not extract current AgentFrame version`);
+  }
+  const unique = new Set(Object.values(values).filter(Boolean));
+  if (unique.size > 1) {
+    errors.push(`version mismatch: package.json=${pkg}, README.md=${readme}, FRAMEWORK_VERSION.md=${framework}, CHANGELOG.md=${changelog}`);
+  }
+}
+
+function validateSkillPairDrift(installableFile, frameworkFile, installableText, frameworkText) {
+  const normalizedInstallable = normalizeSkillText(installableText);
+  const normalizedFramework = normalizeSkillText(frameworkText);
+  if (normalizedInstallable === normalizedFramework) return;
+  const drift = [];
+  for (const heading of skillHeadings) {
+    if (section(normalizedInstallable, heading) !== section(normalizedFramework, heading)) drift.push(heading);
+  }
+  errors.push(`${installableFile} <-> ${frameworkFile}: substantive drift detected after normalizing installable metadata and skill names`);
+  errors.push(`${installableFile} <-> ${frameworkFile}: drift in sections: ${drift.length ? drift.join(', ') : 'unknown whole-file difference outside required sections'}`);
 }
 
 for (const file of [
@@ -174,6 +269,7 @@ const packageJson = JSON.parse(read('package.json'));
 if (!packageJson.scripts || packageJson.scripts['update-skills'] !== 'python3 scripts/update-agentframe-skills.py') {
   errors.push('package.json: missing update-skills script for AgentFrame skill updates');
 }
+validateVersionCoherence();
 for (const file of ['README.md', 'docs/ADOPTION.md']) {
   const text = read(file);
   if (!text.includes('scripts/update-agentframe-skills.py')) {
@@ -192,8 +288,11 @@ for (const [localName, installableName] of Object.entries(skillMap)) {
   const agentFile = path.join('skills', installableName, 'agents', 'openai.yaml');
 
   const frameworkText = requireHeadings(frameworkSkill, skillHeadings);
-  requireHeadings(frameworkChecklist, checklistHeadings);
+  const frameworkChecklistText = requireHeadings(frameworkChecklist, checklistHeadings);
   const installableText = requireHeadings(installableSkill, skillHeadings);
+  validateRequiredSectionBodies(frameworkSkill, frameworkText, skillHeadings);
+  validateRequiredSectionBodies(installableSkill, installableText, skillHeadings);
+  validateChecklistBodies(frameworkChecklist, frameworkChecklistText);
 
   const frontmatter = installableText.match(/^---\n([\s\S]*?)\n---/);
   if (!frontmatter) errors.push(`${installableSkill}: missing YAML frontmatter`);
@@ -207,13 +306,10 @@ for (const [localName, installableName] of Object.entries(skillMap)) {
   validateExplicitNonResponsibilities(frameworkSkill, frameworkText);
   validateHandoff(installableSkill, installableText, installableName);
   validateHandoff(frameworkSkill, frameworkText, localName);
+  validateSkillRefs(installableSkill, installableText);
   validateOpenAiYaml(agentFile, installableName);
 
-  const normalizedInstallable = normalizeSkillText(installableText);
-  const normalizedFramework = normalizeSkillText(frameworkText);
-  if (normalizedInstallable !== normalizedFramework) {
-    errors.push(`${installableSkill} <-> ${frameworkSkill}: substantive drift detected after normalizing installable metadata and skill names`);
-  }
+  validateSkillPairDrift(installableSkill, frameworkSkill, installableText, frameworkText);
 }
 
 for (const file of listFiles('.codex/framework/templates').filter(file => file.endsWith('.md'))) validateTemplate(file);

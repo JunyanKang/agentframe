@@ -122,7 +122,7 @@ Findings must use this shape:
 
 ## Interaction With Other Skills
 - Coordinate with agentframe-tester for validation gaps.
-- Coordinate with guardian skills for specialized compatibility, API, config, data, plugin, reproducibility, or agentframe-architecture review.
+- Coordinate with guardian skills for specialized compatibility, API, config, data, plugin, reproducibility, or architecture review.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
 - Use documentation and testing skills when docs or validation must change.
 

@@ -43,7 +43,7 @@ Restart Codex after installing.
 Use the update script when AgentFrame skills are already installed locally. It backs up existing `agentframe-*` skills, replaces the full suite from GitHub, validates the result, and rolls back on failure.
 
 ```sh
-python3 scripts/update-agentframe-skills.py --ref v0.5.1
+python3 scripts/update-agentframe-skills.py --ref v0.5.2
 ```
 
 To update directly from the latest `main`:
@@ -59,6 +59,9 @@ Useful options:
 - `--keep-backups`: keep the backup directory after a successful update.
 
 Restart Codex after updating.
+
+## Canonical Skill Source
+`skills/agentframe-*` are the canonical installable skill definitions. `.codex/framework/skills/*` are framework-local reference copies for repositories that adopt the optional governance framework. Substantive skill edits must update both sides unless intentional drift is documented in `.codex/framework/SOURCE_OF_TRUTH.md` or the final maintenance report.
 
 Direct GitHub skill links:
 
@@ -134,7 +137,7 @@ npm run validate
 ```
 
 ## Version
-Current release: 0.5.1.
+Current release: 0.5.2.
 
 ## License
 MIT.

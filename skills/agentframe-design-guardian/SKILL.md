@@ -120,7 +120,7 @@ Use this architecture audit shape:
 - If a change would break API, data, configuration, compatibility, or architecture policy, require explicit approval and a migration path.
 
 ## Interaction With Other Skills
-- Coordinate with plugin_agentframe-architect for extension boundaries.
+- Coordinate with agentframe-plugin-architect for extension boundaries.
 - Coordinate with agentframe-api-guardian, agentframe-configuration-manager, agentframe-data-model-guardian, and agentframe-compatibility-manager when those surfaces drive design constraints.
 - Use related guardian skills when API, config, data, compatibility, plugin, reproducibility, or architecture surfaces are affected.
 - Use documentation and testing skills when docs or validation must change.
