@@ -16,6 +16,23 @@
 ### Migration Notes
 - None.
 
+## 0.5.3 - 2026-06-27
+### Added
+- Product-oriented README structure covering value proposition, capabilities, install/update flow, optional framework adoption, validation, and maintenance workflow.
+
+### Changed
+- README no longer lists every AgentFrame skill inline; detailed skill paths remain in `docs/ADOPTION.md`.
+- README now promotes the safe install/update script as the primary path for full-suite installation and updates.
+
+### Fixed
+- Public README now reads as a product entry point instead of an internal skill index.
+
+### Validation
+- `npm run validate`
+
+### Migration Notes
+- No migration required. Existing users can update local AgentFrame skills with `python3 scripts/update-agentframe-skills.py --ref v0.5.3`.
+
 ## 0.5.2 - 2026-06-27
 ### Added
 - Validator checks for valid `agentframe-*` skill references in `Handoff Rules` and `Interaction With Other Skills`.
